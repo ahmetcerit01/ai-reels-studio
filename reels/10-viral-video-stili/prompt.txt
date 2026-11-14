@@ -1,0 +1,10 @@
+9:16 kadrajda (1080x1920 tuval, pencereye sığacak şekilde ölçeklenmiş, dışı siyah) 6 saniyelik, döngüsel bir animasyon oynatan tek parça bir HTML dosyası oluştur. Her şeyi kodla çiz: görsel yok, harici dosya yok. 3D bir stil için three.js'i cdnjs.cloudflare.com'dan yükleyebilirsin; bunun dışında hiçbir dış kaynak yok.
+
+Sahne: Ya uçabilseydin? Bir kişi, yandan görünen bir şehrin üzerinde gökyüzünde uçuyor. Havalı olsun: süper kahraman pozu, kollar öne uzanmış, rüzgârda dalgalanan ceket ve atkı, arkasında parlayan bir iz. Hızlı ve çılgın olsun: kadrajda süzülsün, tırmanıp dalsın, kulelerin etrafında yatış yapsın; bulutlar, kuşlar ve şehir arkasından hızla aksın, uçuş hiç durmasın.
+
+Stil: [stilin]. Bu stile tamamen bağlı kal: palet, şekiller, çizgi, doku, ışık ve hareketin hissi tamamen ona uysun.
+
+Hareket: akıcı, requestAnimationFrame ile; hafif kamera kayması, en az üç katman paralaks, her an hareket eden bir şey ve her 6 saniyede kusursuz döngü. Ekranda yazı olmasın. Yalnızca HTML dosyasıyla yanıt ver.
+
+[stilin] yerine şunlardan birini yaz:
+Anime · Galaksi · 3D İzometrik · Sıvı Krom · Siberpunk Neon · Grafiti · 3D Hologram · Kristal Buz · Steampunk · Yağlı Boya
