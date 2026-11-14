@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ink: #ffffff;
+        --accent: #ffd34d;
+        --accent2: #7c5cff;
+        --cyan: #3ee7ff;
+        --bg: #07070d;
+        --display: "Archivo Black", "Montserrat", sans-serif;
+        --body: "Inter", sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); font-family: var(--body); color: var(--ink); }
+      .scene { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; }
+      .vwrap { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+      .vwrap video { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      .center { position: absolute; left: 54px; right: 54px; text-align: center; }
+
+      /* S1 hook */
+      #s1-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 45%, rgba(0,0,0,.2) 70%, rgba(0,0,0,.6) 100%); }
+      #s1-badge { top: 300px; font: 800 38px/1 var(--body); letter-spacing: .18em; }
+      #s1-badge span { display: inline-block; padding: 16px 30px; border-radius: 999px; background: #ff2d55; box-shadow: 0 10px 40px rgba(255,45,85,.5); }
+      #s1-l1, #s1-l2 { font-family: var(--display); text-transform: none; line-height: .95; text-shadow: 0 8px 0 rgba(0,0,0,.35), 0 0 60px rgba(0,0,0,.6); }
+      #s1-l1 { top: 420px; font-size: 116px; }
+      #s1-l2 { top: 550px; font-size: 150px; color: var(--accent); }
+      #s1-flash { position: absolute; inset: 0; background: #fff; }
+
+      /* S2 prompt */
+      #s2-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 20%, rgba(124,92,255,.45), rgba(0,0,0,0) 55%), radial-gradient(ellipse at 80% 85%, rgba(62,231,255,.25), rgba(0,0,0,0) 50%), #07070d; }
+      #s2-grid { position: absolute; left: -100px; top: -100px; width: 1280px; height: 2120px; background-image: linear-gradient(rgba(255,255,255,.05) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,.05) 2px, transparent 2px); background-size: 90px 90px; }
+      #s2-kicker { top: 330px; font: 700 34px/1 var(--body); letter-spacing: .3em; color: var(--cyan); }
+      #s2-title { top: 400px; font: 400 96px/1.02 var(--display); }
+      #s2-title em { font-style: normal; color: var(--accent); }
+      #s2-card { position: absolute; left: 80px; width: 920px; top: 760px; border-radius: 36px; padding: 44px 44px 120px; background: rgba(22,22,34,.92); border: 2px solid rgba(255,255,255,.12); box-shadow: 0 40px 120px rgba(0,0,0,.6), 0 0 0 1px rgba(124,92,255,.3), 0 0 80px rgba(124,92,255,.25); }
+      #s2-card-head { display: flex; align-items: center; gap: 18px; font: 700 32px/1 var(--body); color: #c9c6ff; margin-bottom: 30px; }
+      #s2-dot { width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, #d97757, #f3a27e); }
+      #s2-text { font: 500 46px/1.35 var(--body); color: #f2f2f7; min-height: 310px; }
+      #s2-cursor { display: inline-block; width: 4px; height: 50px; margin-left: 4px; vertical-align: -8px; background: var(--cyan); }
+      #s2-send { position: absolute; right: 36px; bottom: 30px; width: 96px; height: 96px; border-radius: 50%; background: linear-gradient(135deg, var(--accent2), var(--cyan)); display: flex; align-items: center; justify-content: center; }
+      #s2-send svg { width: 46px; height: 46px; }
+      #s2-ripple { position: absolute; right: 36px; bottom: 30px; width: 96px; height: 96px; border-radius: 50%; border: 6px solid var(--cyan); opacity: 0; }
+
+      /* S3 claude + hyperframes */
+      #s3-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 30%, rgba(217,119,87,.35), rgba(0,0,0,0) 55%), radial-gradient(ellipse at 50% 80%, rgba(124,92,255,.35), rgba(0,0,0,0) 55%), #07070d; }
+      #s3-claude, #s3-plus, #s3-hf { font-family: var(--display); }
+      #s3-claude { top: 300px; font-size: 150px; color: #f3a27e; }
+      #s3-plus { top: 470px; font-size: 120px; color: var(--ink); }
+      #s3-hf { top: 610px; font-size: 104px; background: linear-gradient(90deg, var(--accent2), var(--cyan)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      #s3-code { position: absolute; left: 90px; width: 900px; top: 860px; padding: 40px 44px; border-radius: 30px; background: rgba(12,12,20,.9); border: 2px solid rgba(255,255,255,.1); font: 500 32px/1.6 "JetBrains Mono", monospace; color: #cfd3ff; box-shadow: 0 30px 100px rgba(0,0,0,.6); }
+      #s3-code div { white-space: nowrap; }
+      .k { color: #ff7ab6; } .s { color: #a5ff9e; } .n { color: var(--accent); } .c { color: #8a8fb0; }
+      #s3-bar { position: absolute; left: 90px; width: 900px; top: 1290px; height: 26px; border-radius: 13px; background: rgba(255,255,255,.1); overflow: hidden; }
+      #s3-fill { width: 900px; height: 26px; border-radius: 13px; background: linear-gradient(90deg, var(--accent2), var(--cyan)); transform-origin: 0 50%; }
+      #s3-pct { position: absolute; left: 90px; width: 900px; top: 1340px; display: flex; justify-content: space-between; font: 700 36px/1 var(--body); color: #e6e6f0; }
+
+      /* S4 showcase */
+      #s4-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 72%, rgba(0,0,0,.55) 100%); }
+      #s4-chips { top: 1470px; display: flex; gap: 18px; justify-content: center; }
+      .chip { padding: 18px 28px; border-radius: 999px; font: 700 34px/1 var(--body); background: rgba(10,10,20,.7); border: 2px solid rgba(255,255,255,.25); }
+      #s4-top { top: 290px; font: 700 40px/1 var(--body); letter-spacing: .25em; color: rgba(255,255,255,.9); }
+      #s4-ready { top: 760px; }
+      #s4-ready-box { display: inline-flex; align-items: center; gap: 26px; padding: 30px 40px; border-radius: 34px; background: var(--accent); color: #111; font: 400 62px/1 var(--display); white-space: nowrap; box-shadow: 0 30px 90px rgba(0,0,0,.5); }
+      #s4-check { width: 70px; height: 70px; }
+
+      /* S5 end */
+      #s5-shade { position: absolute; inset: 0; background: rgba(4,4,10,.62); }
+      #s5-title { top: 500px; font: 400 128px/1.05 var(--display); color: var(--accent); text-shadow: 0 10px 50px rgba(0,0,0,.6); }
+      #s5-sub { top: 820px; font: 700 52px/1.3 var(--body); }
+      #s5-cta { top: 1060px; }
+      #s5-cta span { display: inline-block; padding: 30px 56px; border-radius: 999px; font: 800 46px/1 var(--body); background: linear-gradient(90deg, var(--accent2), var(--cyan)); box-shadow: 0 20px 70px rgba(124,92,255,.5); }
+      #s5-handle { top: 1240px; font: 600 38px/1 var(--body); color: rgba(255,255,255,.75); }
+
+      #wipe { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; background: linear-gradient(180deg, var(--accent2), var(--cyan)); transform-origin: 50% 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="23" data-width="1080" data-height="1920">
+
+      <!-- S1 HOOK 0 – 2.3 -->
+      <div id="s1" class="scene clip" data-start="0" data-duration="2.3" data-track-index="1" data-track-kind="graphics">
+        <div id="s1-shade"></div>
+        <div id="s1-badge" class="center"><span>%100 YAPAY ZEKÂ</span></div>
+        <div id="s1-l1" class="center">BU VİDEOYU</div>
+        <div id="s1-l2" class="center">AI YAPTI!</div>
+        <div id="s1-flash"></div>
+      </div>
+      <video id="v1" class="clip" src="assets/demo.mp4" muted playsinline data-start="0" data-duration="2.3" data-media-start="9" data-track-index="0" style="position:absolute;left:0;top:0;width:1080px;height:1920px;object-fit:cover;z-index:0"></video>
+
+      <!-- S2 PROMPT 2.3 – 6.1 -->
+      <div id="s2" class="scene clip" data-start="2.3" data-duration="3.8" data-track-index="1" data-track-kind="graphics">
+        <div id="s2-bg"></div>
+        <div id="s2-grid"></div>
+        <div id="s2-kicker" class="center">ADIM 1</div>
+        <div id="s2-title" class="center">Tek bir <em>prompt</em> yazdım</div>
+        <div id="s2-card">
+          <div id="s2-card-head"><div id="s2-dot"></div>Claude</div>
+          <div id="s2-text"><span id="s2-typed"></span><span id="s2-cursor"></span></div>
+          <div id="s2-ripple"></div>
+          <div id="s2-send"><svg viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-2.5-6.5z" fill="#fff" /></svg></div>
+        </div>
+      </div>
+
+      <!-- S3 CLAUDE + HYPERFRAMES 6.1 – 9.7 -->
+      <div id="s3" class="scene clip" data-start="6.1" data-duration="3.6" data-track-index="1" data-track-kind="graphics">
+        <div id="s3-bg"></div>
+        <div id="s3-claude" class="center">Claude</div>
+        <div id="s3-plus" class="center">+</div>
+        <div id="s3-hf" class="center">HyperFrames</div>
+        <div id="s3-code">
+          <div class="cl"><span class="c">&lt;!-- deniz-feneri.html --&gt;</span></div>
+          <div class="cl"><span class="k">tl</span>.to(<span class="s">"#beam"</span>, { rotate: <span class="n">360</span> })</div>
+          <div class="cl"><span class="k">tl</span>.to(<span class="s">"#waves"</span>, { x: <span class="n">-1080</span> })</div>
+          <div class="cl"><span class="k">tl</span>.to(<span class="s">"#camera"</span>, { scale: <span class="n">1.2</span> })</div>
+          <div class="cl"><span class="c">// 1080×1920 · 30 fps · MP4</span></div>
+        </div>
+        <div id="s3-bar"><div id="s3-fill"></div></div>
+        <div id="s3-pct"><span>Render ediliyor…</span><span id="s3-num">0%</span></div>
+      </div>
+
+      <!-- S4 SHOWCASE 9.7 – 20.2 -->
+      <video id="v2" class="clip" src="assets/demo.mp4" muted playsinline data-start="9.7" data-duration="10.5" data-media-start="0.8" data-track-index="0" style="position:absolute;left:0;top:0;width:1080px;height:1920px;object-fit:cover;z-index:0"></video>
+      <div id="s4" class="scene clip" data-start="9.7" data-duration="10.5" data-track-index="1" data-track-kind="graphics">
+        <div id="s4-shade"></div>
+        <div id="s4-top" class="center">TEK PROMPT · SIFIR ÇİZİM</div>
+        <div id="s4-ready" class="center"><div id="s4-ready-box"><svg id="s4-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#111" /><path id="s4-tick" d="M6.5 12.5l3.5 3.5 7.5-8" fill="none" stroke="#ffd34d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg>Animasyon hazır!</div></div>
+        <div id="s4-chips" class="center"><span class="chip" id="c1">1080×1920</span><span class="chip" id="c2">30 FPS</span><span class="chip" id="c3">HTML + GSAP</span></div>
+      </div>
+
+      <!-- S5 END 20.2 – 23 -->
+      <video id="v3" class="clip" src="assets/demo.mp4" muted playsinline data-start="20.2" data-duration="2.8" data-media-start="11.2" data-track-index="0" style="position:absolute;left:0;top:0;width:1080px;height:1920px;object-fit:cover;z-index:0"></video>
+      <div id="s5" class="scene clip" data-start="20.2" data-duration="2.8" data-track-index="1" data-track-kind="graphics">
+        <div id="s5-shade"></div>
+        <div id="s5-title" class="center">Animasyon<br />hazır!</div>
+        <div id="s5-sub" class="center">Claude + HyperFrames ile<br />tek prompt'tan MP4'e</div>
+        <div id="s5-cta" class="center"><span>Kaydet &amp; takip et</span></div>
+      </div>
+
+      <div id="wipeHost" class="clip" data-start="5.85" data-duration="0.55" data-track-index="3" style="position:absolute;left:0;top:0;width:1080px;height:1920px;z-index:50"><div id="wipe"></div></div>
+
+      <audio id="music" class="clip" src="assets/music.m4a" data-start="0" data-duration="23" data-volume="0.9" data-track-index="4"></audio>
+    </div>
+
+    <script>
+      // scenes sit above their videos
+      ["s1", "s2", "s3", "s4", "s5"].forEach((id) => (document.getElementById(id).style.zIndex = 10));
+
+      const tl = gsap.timeline({ paused: true });
+
+      // ---------- S1 HOOK ----------
+      tl.fromTo("#v1", { opacity: 1 }, { opacity: 1, duration: 0.01 }, 0);
+      tl.fromTo("#s1-flash", { opacity: 0.9 }, { opacity: 0, duration: 0.35, ease: "power2.out" }, 0);
+      tl.fromTo("#s1-badge", { y: -60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "back.out(2)" }, 0.05);
+      tl.fromTo("#s1-l1", { scale: 2.6, opacity: 0, filter: "blur(12px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.32, ease: "power4.out" }, 0.1);
+      tl.fromTo("#s1-l2", { scale: 3, opacity: 0, rotation: -6, filter: "blur(14px)" }, { scale: 1, opacity: 1, rotation: -3, filter: "blur(0px)", duration: 0.34, ease: "power4.out" }, 0.42);
+      // impact shake
+      tl.fromTo("#s1-l2", { x: -14 }, { x: 0, duration: 0.3, ease: "elastic.out(1.2, 0.3)" }, 0.76);
+      tl.to("#s1-l2", { scale: 1.06, duration: 1.2, ease: "sine.inOut" }, 0.9);
+      tl.to("#s1-l1", { scale: 1.04, duration: 1.2, ease: "sine.inOut" }, 0.9);
+      tl.to(["#s1-l1", "#s1-l2", "#s1-badge"], { y: -40, opacity: 0, duration: 0.2, ease: "power2.in", stagger: 0.03 }, 2.06);
+
+      // ---------- S2 PROMPT (2.3) ----------
+      const T2 = 2.3;
+      tl.fromTo("#s2-grid", { y: 0 }, { y: 90, duration: 3.8, ease: "none" }, T2);
+      tl.fromTo("#s2-kicker", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, T2);
+      tl.fromTo("#s2-title", { y: 80, opacity: 0, scale: 0.9 }, { y: 0, opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, T2 + 0.05);
+      tl.fromTo("#s2-card", { y: 200, opacity: 0, rotationX: 25, transformPerspective: 1200 }, { y: 0, opacity: 1, rotationX: 0, duration: 0.55, ease: "power3.out" }, T2 + 0.2);
+      const promptText = "Gece vakti okyanusta bir deniz feneri. Dönen ışık, hareketli dalgalar, parlayan ay, bulutlar ve sinematik kamera.";
+      const typed = document.getElementById("s2-typed");
+      const typer = { n: 0 };
+      tl.fromTo(typer, { n: 0 }, { n: promptText.length, duration: 1.7, ease: "none", onUpdate() { typed.textContent = promptText.slice(0, Math.round(typer.n)); } }, T2 + 0.6);
+      tl.fromTo("#s2-cursor", { opacity: 1 }, { opacity: 0.1, duration: 0.25, yoyo: true, repeat: 13, ease: "steps(1)" }, T2);
+      tl.fromTo("#s2-send", { scale: 1 }, { scale: 0.82, duration: 0.1, yoyo: true, repeat: 1, ease: "power2.inOut" }, T2 + 2.85);
+      tl.fromTo("#s2-ripple", { scale: 1, opacity: 0.9 }, { scale: 2.4, opacity: 0, duration: 0.5, ease: "power2.out" }, T2 + 2.95);
+      tl.to("#s2-card", { y: -40, scale: 0.96, duration: 0.5, ease: "power2.in" }, T2 + 3.1);
+
+      // wipe transition 5.85
+      tl.fromTo("#wipe", { scaleY: 0, transformOrigin: "50% 100%" }, { scaleY: 1, duration: 0.25, ease: "power3.in" }, 5.85);
+      tl.to("#wipe", { scaleY: 0, transformOrigin: "50% 0%", duration: 0.28, ease: "power3.out" }, 6.12);
+
+      // ---------- S3 CLAUDE + HF (6.1) ----------
+      const T3 = 6.1;
+      tl.fromTo("#s3-claude", { x: -700, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power4.out" }, T3 + 0.1);
+      tl.fromTo("#s3-plus", { scale: 0, rotation: -180 }, { scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2.2)" }, T3 + 0.35);
+      tl.fromTo("#s3-hf", { x: 700, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power4.out" }, T3 + 0.5);
+      tl.fromTo("#s3-code", { y: 120, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, T3 + 0.8);
+      tl.fromTo("#s3-code .cl", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.25, stagger: 0.16, ease: "power2.out" }, T3 + 1.0);
+      tl.fromTo(["#s3-bar", "#s3-pct"], { opacity: 0 }, { opacity: 1, duration: 0.2 }, T3 + 1.3);
+      const num = document.getElementById("s3-num");
+      const prog = { p: 0 };
+      tl.fromTo(prog, { p: 0 }, { p: 100, duration: 1.7, ease: "power1.inOut", onUpdate() { num.textContent = Math.round(prog.p) + "%"; } }, T3 + 1.4);
+      tl.fromTo("#s3-fill", { scaleX: 0 }, { scaleX: 1, duration: 1.7, ease: "power1.inOut" }, T3 + 1.4);
+      tl.to(["#s3-claude", "#s3-plus", "#s3-hf", "#s3-code", "#s3-bar", "#s3-pct"], { scale: 1.15, opacity: 0, duration: 0.3, ease: "power2.in", stagger: 0.02 }, T3 + 3.25);
+
+      // ---------- S4 SHOWCASE (9.7) ----------
+      const T4 = 9.7;
+      tl.fromTo("#v2", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, T4);
+      tl.fromTo("#s4-top", { y: -40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, T4 + 0.5);
+      tl.fromTo("#s4-chips .chip", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, stagger: 0.12, ease: "back.out(1.8)" }, T4 + 1.2);
+      tl.to(["#s4-top", "#s4-chips"], { opacity: 0, duration: 0.4 }, T4 + 5.8);
+      tl.fromTo("#s4-ready", { scale: 0.3, opacity: 0, y: 40 }, { scale: 1, opacity: 1, y: 0, duration: 0.5, ease: "back.out(2)" }, T4 + 6.6);
+      tl.fromTo("#s4-tick", { strokeDasharray: 20, strokeDashoffset: 20 }, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" }, T4 + 6.95);
+      tl.to("#s4-ready", { y: -20, duration: 2.6, ease: "sine.inOut" }, T4 + 7.2);
+      tl.to("#s4-ready", { opacity: 0, scale: 0.9, duration: 0.3, ease: "power2.in" }, T4 + 10.1);
+
+      // ---------- S5 END (20.2) ----------
+      const T5 = 20.2;
+      tl.fromTo("#s5-shade", { opacity: 0 }, { opacity: 1, duration: 0.4 }, T5);
+      tl.fromTo("#s5-title", { y: 60, opacity: 0, scale: 0.85 }, { y: 0, opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, T5 + 0.1);
+      tl.fromTo("#s5-sub", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, T5 + 0.35);
+      tl.fromTo("#s5-cta", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2.4)" }, T5 + 0.6);
+      tl.to("#s5-cta", { scale: 1.06, duration: 0.45, yoyo: true, repeat: 3, ease: "sine.inOut" }, T5 + 1.05);
+      tl.to("#s5-title", { y: 0, duration: 0.01 }, 22.9);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
