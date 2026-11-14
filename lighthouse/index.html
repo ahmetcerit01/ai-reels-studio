@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --sky-top: #02040d;
+        --sky-mid: #0a1a3a;
+        --sky-low: #1d3a66;
+        --moon: #f4f1e3;
+        --beam: 255, 236, 180;
+        --sea-deep: #020814;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        width: 1080px; height: 1920px; overflow: hidden; background: #02040d;
+      }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #02040d; }
+      .layer { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+
+      /* SKY */
+      #sky {
+        top: -600px; height: 2520px;
+        background: linear-gradient(180deg, var(--sky-top) 0%, #040a1f 30%, var(--sky-mid) 55%, var(--sky-low) 76%, #3a5a86 84%, #0a1a33 100%);
+      }
+      #stars { top: -600px; height: 2000px; }
+      .star { position: absolute; border-radius: 50%; background: #fff; box-shadow: 0 0 6px rgba(255,255,255,.9); }
+      #shoot {
+        position: absolute; left: 160px; top: 260px; width: 340px; height: 3px; border-radius: 3px;
+        background: linear-gradient(90deg, rgba(255,255,255,0), #fff);
+        filter: drop-shadow(0 0 6px #bfe0ff); opacity: 0;
+      }
+
+      /* MOON */
+      #moonWrap { }
+      #moonHalo {
+        position: absolute; left: 90px; top: 120px; width: 700px; height: 700px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(220,230,255,.42) 0%, rgba(160,190,255,.16) 30%, rgba(80,120,200,.05) 55%, rgba(0,0,0,0) 70%);
+      }
+      #moon {
+        position: absolute; left: 340px; top: 370px; width: 200px; height: 200px; border-radius: 50%;
+        background: radial-gradient(circle at 38% 36%, #fffef6 0%, var(--moon) 45%, #cfc9b2 80%, #a9a38d 100%);
+        box-shadow: 0 0 60px 18px rgba(230,236,255,.55), 0 0 160px 60px rgba(150,180,255,.22);
+        overflow: hidden;
+      }
+      .crater { position: absolute; border-radius: 50%; background: rgba(150,142,118,.35); box-shadow: inset 2px 2px 4px rgba(0,0,0,.15); }
+
+      /* CLOUDS */
+      .cloud { position: absolute; filter: blur(14px); }
+      .cloud i { position: absolute; border-radius: 50%; display: block; }
+
+      /* SEA + ISLAND */
+      #horizonGlow {
+        position: absolute; left: 0; top: 1060px; width: 1080px; height: 220px;
+        background: linear-gradient(180deg, rgba(120,150,210,0) 0%, rgba(140,170,230,.35) 50%, rgba(0,0,0,0) 100%);
+        filter: blur(10px);
+      }
+      #seaBase {
+        position: absolute; left: 0; top: 1160px; width: 1080px; height: 1400px;
+        background: linear-gradient(180deg, #13284a 0%, #0a1932 20%, #051022 50%, var(--sea-deep) 100%);
+      }
+      .wave { position: absolute; left: 0; width: 3240px; }
+      #reflection { position: absolute; left: 340px; top: 1170px; width: 200px; height: 760px; }
+      .glint { position: absolute; left: 50%; height: 4px; border-radius: 4px; background: rgba(240,244,255,.9); box-shadow: 0 0 10px rgba(220,230,255,.8); }
+
+      #island { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+      #lantern-glow {
+        position: absolute; left: 600px; top: 640px; width: 360px; height: 360px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(255,240,190,.95) 0%, rgba(255,210,120,.45) 18%, rgba(255,190,90,.12) 45%, rgba(0,0,0,0) 70%);
+        mix-blend-mode: screen;
+      }
+      .beam {
+        position: absolute; left: 780px; top: 640px; width: 1500px; height: 360px;
+        transform-origin: 0% 50%;
+        background: linear-gradient(90deg, rgba(var(--beam), .85) 0%, rgba(var(--beam), .35) 25%, rgba(var(--beam), .10) 65%, rgba(var(--beam), 0) 100%);
+        clip-path: polygon(0 49%, 100% 0, 100% 100%, 0 51%);
+        filter: blur(6px);
+        mix-blend-mode: screen;
+      }
+      #glare {
+        position: absolute; left: 280px; top: 320px; width: 1000px; height: 1000px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(255,250,225,1) 0%, rgba(255,236,170,.6) 10%, rgba(255,210,120,.18) 30%, rgba(0,0,0,0) 60%);
+        mix-blend-mode: screen; opacity: 0;
+      }
+      #flare { position: absolute; left: -200px; top: 812px; width: 1960px; height: 16px; border-radius: 50%;
+        background: radial-gradient(ellipse, rgba(255,250,230,.95) 0%, rgba(255,220,150,.35) 30%, rgba(0,0,0,0) 70%);
+        mix-blend-mode: screen; opacity: 0; }
+      .spray { position: absolute; border-radius: 50%; background: rgba(230,240,255,.9); box-shadow: 0 0 8px rgba(200,220,255,.8); opacity: 0; }
+      .bird { position: absolute; width: 40px; height: 14px; }
+      #fog1, #fog2 { position: absolute; left: -400px; width: 1880px; border-radius: 50%; filter: blur(30px); }
+      #fog1 { top: 1080px; height: 200px; background: radial-gradient(ellipse, rgba(170,190,230,.22), rgba(0,0,0,0) 70%); }
+      #fog2 { top: 1250px; height: 260px; background: radial-gradient(ellipse, rgba(150,170,220,.16), rgba(0,0,0,0) 70%); }
+
+      /* GRADE */
+      #vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 45%, rgba(0,0,0,.55) 80%, rgba(0,0,0,.85) 100%); pointer-events: none; }
+      #tint { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,40,110,.18), rgba(0,0,0,0) 40%, rgba(0,20,60,.25)); mix-blend-mode: soft-light; }
+      #grain { position: absolute; left: -100px; top: -100px; width: 1280px; height: 2120px; opacity: .10; mix-blend-mode: overlay; }
+      #fadeIn { position: absolute; inset: 0; background: #000; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="14" data-width="1080" data-height="1920">
+      <div id="world" class="layer" data-layout-ignore>
+        <div id="sky" class="layer"></div>
+        <div id="stars" class="layer"></div>
+        <div id="moonLayer" class="layer">
+          <div id="moonHalo"></div>
+          <div id="moon">
+            <span class="crater" style="left:40px;top:50px;width:38px;height:38px"></span>
+            <span class="crater" style="left:110px;top:40px;width:22px;height:22px"></span>
+            <span class="crater" style="left:120px;top:110px;width:46px;height:46px"></span>
+            <span class="crater" style="left:60px;top:130px;width:18px;height:18px"></span>
+            <span class="crater" style="left:85px;top:85px;width:14px;height:14px"></span>
+          </div>
+        </div>
+        <div id="shoot" class="clip" data-start="7.2" data-duration="1.4" data-track-index="2"></div>
+        <div id="cloudsBack" class="layer"></div>
+        <div id="seaLayer" class="layer">
+          <div id="horizonGlow"></div>
+          <div id="seaBase"></div>
+          <div id="reflection"></div>
+          <svg class="wave" id="w1" style="top:1150px" height="120" viewBox="0 0 3240 120"><path fill="#0e2346" stroke="rgba(170,195,255,.35)" stroke-width="2" /></svg>
+          <svg class="wave" id="w2" style="top:1210px" height="160" viewBox="0 0 3240 160"><path fill="#0a1b38" stroke="rgba(180,205,255,.4)" stroke-width="2.5" /></svg>
+          <div id="fog1"></div>
+        </div>
+        <div id="islandLayer" class="layer">
+          <svg id="island" viewBox="0 0 1080 1920">
+            <defs>
+              <linearGradient id="tower" x1="0" x2="1">
+                <stop offset="0" stop-color="#1b2338" /><stop offset=".35" stop-color="#cfd6e6" /><stop offset=".6" stop-color="#8f9ab2" /><stop offset="1" stop-color="#151b2c" />
+              </linearGradient>
+              <linearGradient id="towerRed" x1="0" x2="1">
+                <stop offset="0" stop-color="#2a0b10" /><stop offset=".35" stop-color="#b42a33" /><stop offset=".6" stop-color="#7d1820" /><stop offset="1" stop-color="#1f070b" />
+              </linearGradient>
+              <linearGradient id="rock" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#26324a" /><stop offset="1" stop-color="#05080f" />
+              </linearGradient>
+              <radialGradient id="lamp"><stop offset="0" stop-color="#fffbe8" /><stop offset=".5" stop-color="#ffd986" /><stop offset="1" stop-color="#e09a3a" /></radialGradient>
+              <clipPath id="towerClip"><path d="M735 1300 L825 1300 L808 860 L752 860 Z" /></clipPath>
+            </defs>
+            <!-- rocks -->
+            <path fill="url(#rock)" d="M520 1330 Q560 1270 620 1262 Q660 1230 720 1250 Q790 1220 850 1255 Q930 1250 980 1290 Q1040 1300 1080 1320 L1080 1420 L500 1420 Z" />
+            <path fill="#0a0f1c" d="M560 1340 Q640 1300 700 1320 Q780 1290 860 1318 Q960 1310 1080 1350 L1080 1440 L540 1440 Z" />
+            <path fill="rgba(160,185,240,.25)" d="M620 1262 Q660 1230 720 1250 L716 1256 Q662 1240 626 1266 Z" />
+            <!-- keeper house -->
+            <rect x="600" y="1196" width="110" height="70" fill="#1a2236" />
+            <path d="M592 1200 L655 1160 L718 1200 Z" fill="#2b1418" />
+            <rect id="win1" x="618" y="1218" width="18" height="24" fill="#ffcf73" />
+            <rect id="win2" x="672" y="1218" width="18" height="24" fill="#ffcf73" />
+            <!-- tower -->
+            <path d="M735 1300 L825 1300 L808 860 L752 860 Z" fill="url(#tower)" />
+            <g clip-path="url(#towerClip)">
+              <rect x="700" y="950" width="160" height="70" fill="url(#towerRed)" />
+              <rect x="700" y="1090" width="160" height="70" fill="url(#towerRed)" />
+              <rect x="700" y="1230" width="160" height="70" fill="url(#towerRed)" />
+            </g>
+            <rect x="770" y="1000" width="10" height="16" fill="#ffd27a" opacity=".85" />
+            <rect x="772" y="1140" width="10" height="16" fill="#ffd27a" opacity=".6" />
+            <!-- gallery -->
+            <rect x="736" y="848" width="88" height="14" fill="#11172a" />
+            <rect x="740" y="826" width="80" height="4" fill="#2b3550" />
+            <g stroke="#2b3550" stroke-width="2"><line x1="744" y1="828" x2="744" y2="848" /><line x1="760" y1="828" x2="760" y2="848" /><line x1="780" y1="828" x2="780" y2="848" /><line x1="800" y1="828" x2="800" y2="848" /><line x1="816" y1="828" x2="816" y2="848" /></g>
+            <!-- lantern room -->
+            <rect x="756" y="772" width="48" height="76" fill="#0d1222" />
+            <rect id="lampCore" x="760" y="780" width="40" height="60" fill="url(#lamp)" />
+            <g stroke="#0d1222" stroke-width="3"><line x1="772" y1="780" x2="772" y2="840" /><line x1="788" y1="780" x2="788" y2="840" /></g>
+            <path d="M748 774 Q780 730 812 774 Z" fill="#7d1820" />
+            <rect x="777" y="722" width="6" height="22" fill="#11172a" />
+          </svg>
+        </div>
+        <div id="lightLayer" class="layer">
+          <div id="lantern-glow"></div>
+          <div id="beamA" class="beam"></div>
+          <div id="beamB" class="beam"></div>
+          <div id="glare"></div>
+          <div id="flare"></div>
+        </div>
+        <div id="cloudsFront" class="layer"></div>
+        <div id="birds" class="layer"></div>
+        <div id="foreSea" class="layer">
+          <div id="sprayBox"></div>
+          <svg class="wave" id="w3" style="top:1330px" height="220" viewBox="0 0 3240 220"><path fill="#06122a" stroke="rgba(190,210,255,.45)" stroke-width="3" /></svg>
+          <svg class="wave" id="w4" style="top:1470px" height="300" viewBox="0 0 3240 300"><path fill="#030a1a" stroke="rgba(200,220,255,.5)" stroke-width="3" /></svg>
+          <svg class="wave" id="w5" style="top:1640px" height="400" viewBox="0 0 3240 400"><path fill="#01050e" stroke="rgba(200,220,255,.35)" stroke-width="3" /></svg>
+          <div id="fog2"></div>
+        </div>
+      </div>
+      <div id="tint"></div>
+      <div id="vignette"></div>
+      <svg id="grain" viewBox="0 0 1280 2120"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" /></filter><rect width="1280" height="2120" filter="url(#n)" /></svg>
+      <div id="fadeIn"></div>
+    </div>
+
+    <script>
+      const D = 14;
+      // seeded PRNG (deterministic)
+      let seed = 1337;
+      const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+
+      // wave paths: periodic with period 540 so a -1080 scroll loops seamlessly
+      function wavePath(w, h, amp, period, phase, base) {
+        let d = `M0 ${h}`;
+        for (let x = 0; x <= w; x += 12) {
+          const y = base + Math.sin((x / period) * Math.PI * 2 + phase) * amp + Math.sin((x / (period / 3)) * Math.PI * 2 + phase * 2) * amp * 0.28;
+          d += ` L${x} ${y.toFixed(1)}`;
+        }
+        return d + ` L${w} ${h} Z`;
+      }
+      const waves = [
+        ["w1", 120, 10, 540, 0.0, 30],
+        ["w2", 160, 16, 540, 1.3, 40],
+        ["w3", 220, 26, 540, 2.1, 50],
+        ["w4", 300, 38, 1080, 0.7, 60],
+        ["w5", 400, 52, 1080, 2.6, 70],
+      ];
+      waves.forEach(([id, h, a, p, ph, b]) => document.getElementById(id).querySelector("path").setAttribute("d", wavePath(3240, h, a, p, ph, b)));
+
+      // stars
+      const starBox = document.getElementById("stars");
+      const stars = [];
+      for (let i = 0; i < 170; i++) {
+        const s = document.createElement("div");
+        s.className = "star";
+        const size = rnd() < 0.08 ? 3 + rnd() * 2 : 1 + rnd() * 1.8;
+        s.style.cssText = `left:${(rnd() * 1080).toFixed(0)}px;top:${(rnd() * 1650).toFixed(0)}px;width:${size}px;height:${size}px;opacity:${(0.3 + rnd() * 0.7).toFixed(2)}`;
+        starBox.appendChild(s);
+        stars.push(s);
+      }
+
+      // clouds
+      function makeCloud(parent, x, y, w, h, color, alpha) {
+        const c = document.createElement("div");
+        c.className = "cloud";
+        c.style.cssText = `left:${x}px;top:${y}px;width:${w}px;height:${h}px`;
+        const n = 7;
+        for (let i = 0; i < n; i++) {
+          const b = document.createElement("i");
+          const bw = w * (0.3 + rnd() * 0.35), bh = h * (0.5 + rnd() * 0.5);
+          b.style.cssText = `left:${(i / (n - 1)) * (w - bw)}px;top:${h - bh - rnd() * h * 0.2}px;width:${bw}px;height:${bh}px;background:radial-gradient(ellipse at 50% 30%, rgba(${color},${alpha}) 0%, rgba(${color},${alpha * 0.6}) 45%, rgba(${color},0) 72%)`;
+          c.appendChild(b);
+        }
+        parent.appendChild(c);
+        return c;
+      }
+      const cb = document.getElementById("cloudsBack"), cf = document.getElementById("cloudsFront");
+      const clouds = [
+        [makeCloud(cb, -300, 180, 620, 160, "120,145,200", 0.35), 420],
+        [makeCloud(cb, 600, 640, 560, 140, "110,135,190", 0.4), -360],
+        [makeCloud(cb, -200, 880, 700, 170, "90,115,170", 0.45), 300],
+        [makeCloud(cf, -620, 420, 640, 180, "150,170,215", 0.5), 760], // passes over moon
+        [makeCloud(cf, 700, 60, 720, 200, "60,80,130", 0.6), -520],
+        [makeCloud(cf, 900, 980, 600, 150, "70,95,150", 0.5), -460],
+      ];
+
+      // moon reflection glints
+      const refl = document.getElementById("reflection");
+      const glints = [];
+      for (let i = 0; i < 26; i++) {
+        const g = document.createElement("div");
+        g.className = "glint";
+        const t = i / 25;
+        const w = 30 + rnd() * 110 * (1 - t * 0.3) + t * 80;
+        g.style.cssText = `top:${(t * t * 700 + rnd() * 10).toFixed(0)}px;width:${w.toFixed(0)}px;margin-left:${(-w / 2 + (rnd() - 0.5) * 60 * (0.3 + t)).toFixed(0)}px;opacity:${(0.8 - t * 0.5).toFixed(2)}`;
+        refl.appendChild(g);
+        glints.push(g);
+      }
+
+      // sea spray particles at the rocks
+      const sprayBox = document.getElementById("sprayBox");
+      const sprays = [];
+      for (let i = 0; i < 40; i++) {
+        const p = document.createElement("div");
+        p.className = "spray";
+        const s = 3 + rnd() * 7;
+        p.style.cssText = `left:${(560 + rnd() * 420).toFixed(0)}px;top:${(1330 + rnd() * 30).toFixed(0)}px;width:${s}px;height:${s}px`;
+        sprayBox.appendChild(p);
+        sprays.push({ el: p, dx: (rnd() - 0.5) * 220, dy: -(80 + rnd() * 200) });
+      }
+
+      // birds
+      const birdBox = document.getElementById("birds");
+      const birds = [];
+      for (let i = 0; i < 4; i++) {
+        const b = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        b.setAttribute("viewBox", "0 0 40 14");
+        b.setAttribute("class", "bird");
+        b.innerHTML = '<path d="M0 6 Q10 0 20 10 Q30 0 40 6" fill="none" stroke="#050913" stroke-width="3" stroke-linecap="round"/>';
+        b.style.left = `${-80 - i * 70}px`;
+        b.style.top = `${560 + i * 38 + (i % 2) * 20}px`;
+        birdBox.appendChild(b);
+        birds.push(b);
+      }
+
+      // ---------------- TIMELINE ----------------
+      const tl = gsap.timeline({ paused: true, defaults: { ease: "none" } });
+
+      // fade from black
+      tl.fromTo("#fadeIn", { opacity: 1 }, { opacity: 0, duration: 1.2, ease: "power2.out" }, 0);
+
+      // CAMERA: start looking up at the moon, tilt down to the lighthouse, then slow push-in (parallax per layer)
+      const cam = [
+        ["#sky", 260, 0, 1.0, 1.03],
+        ["#stars", 320, 0, 1.0, 1.04],
+        ["#moonLayer", 420, -40, 1.0, 1.06],
+        ["#cloudsBack", 520, -20, 1.0, 1.08],
+        ["#seaLayer", 760, 0, 1.0, 1.12],
+        ["#islandLayer", 1000, 0, 1.0, 1.16],
+        ["#lightLayer", 1000, 0, 1.0, 1.16],
+        ["#cloudsFront", 700, 0, 1.0, 1.2],
+        ["#birds", 900, 0, 1.0, 1.18],
+        ["#foreSea", 1150, 0, 1.0, 1.24],
+      ];
+      cam.forEach(([sel, y0, y1, s0, s1]) => {
+        tl.fromTo(sel, { y: y0, scale: s0, transformOrigin: "780px 810px" }, { y: y1, duration: 5.2, ease: "power2.inOut" }, 0);
+        tl.to(sel, { scale: s1, duration: D - 4.6, ease: "sine.inOut" }, 4.6);
+      });
+      // subtle handheld drift on the whole world
+      tl.fromTo("#world", { x: -14, rotation: -0.5 }, { x: 14, rotation: 0.4, duration: D, ease: "sine.inOut" }, 0);
+
+      // waves scroll + bob
+      [["#w1", 1080, 4], ["#w2", 1620, 5], ["#w3", 2160, 6], ["#w4", -1080, 6], ["#w5", -2160, 8]].forEach(([sel, dist, bobAmp], i) => {
+        tl.fromTo(sel, { x: dist > 0 ? -dist : 0 }, { x: dist > 0 ? 0 : dist, duration: D }, 0);
+        const per = 1.6 + i * 0.35;
+        tl.fromTo(sel, { y: -bobAmp }, { y: bobAmp, duration: per, ease: "sine.inOut", yoyo: true, repeat: Math.ceil(D / per) }, 0);
+      });
+
+      // stars twinkle
+      stars.forEach((s, i) => {
+        if (i % 3) return;
+        const per = 0.6 + rnd() * 1.4;
+        tl.fromTo(s, { opacity: 0.15 }, { opacity: 1, duration: per, ease: "sine.inOut", yoyo: true, repeat: Math.ceil(D / per) }, rnd() * 0.8);
+      });
+      // shooting star
+      tl.fromTo("#shoot", { x: 0, y: 0, rotation: 24, opacity: 0, scaleX: 0.2 }, { x: 520, y: 230, opacity: 1, scaleX: 1, duration: 0.6, ease: "power1.in" }, 7.2);
+      tl.to("#shoot", { x: 760, y: 340, opacity: 0, duration: 0.5, ease: "power1.out" }, 7.8);
+
+      // moon breathing halo
+      tl.fromTo("#moonHalo", { scale: 0.94, opacity: 0.85 }, { scale: 1.06, opacity: 1, duration: 3.5, ease: "sine.inOut", yoyo: true, repeat: 3 }, 0);
+      // moon dims when the front cloud crosses it (~5.5–8s)
+      tl.to("#moon", { opacity: 0.55, duration: 1.6, ease: "sine.inOut" }, 5.4);
+      tl.to("#moon", { opacity: 1, duration: 1.8, ease: "sine.inOut" }, 7.6);
+
+      // clouds drift
+      clouds.forEach(([c, dx]) => tl.fromTo(c, { x: 0 }, { x: dx, duration: D }, 0));
+      tl.fromTo("#fog1", { x: 0 }, { x: 260, duration: D }, 0);
+      tl.fromTo("#fog2", { x: 0 }, { x: -300, duration: D }, 0);
+
+      // reflection shimmer
+      glints.forEach((g, i) => {
+        const per = 0.35 + rnd() * 0.6;
+        tl.fromTo(g, { scaleX: 0.6, opacity: 0.2 }, { scaleX: 1.2, opacity: 0.95 - (i / 26) * 0.5, duration: per, ease: "sine.inOut", yoyo: true, repeat: Math.ceil(D / per) }, rnd() * 0.5);
+      });
+
+      // ROTATING LIGHTHOUSE BEAM — period 4.2 s, driven by one proxy so every frame is a pure function of time
+      const beamA = document.getElementById("beamA"), beamB = document.getElementById("beamB");
+      const glare = document.getElementById("glare"), flare = document.getElementById("flare"), lglow = document.getElementById("lantern-glow");
+      const proxy = { a: 0 };
+      tl.fromTo(proxy, { a: -Math.PI * 0.35 }, {
+        a: -Math.PI * 0.35 + (D / 4.2) * Math.PI * 2, duration: D,
+        onUpdate() {
+          const a = proxy.a, s = Math.sin(a), c = Math.cos(a);
+          gsap.set(beamA, { scaleX: s, scaleY: 0.9 + 0.25 * Math.abs(c), opacity: 0.35 + 0.65 * Math.max(0, c) + 0.25 });
+          gsap.set(beamB, { scaleX: -s, scaleY: 0.9 + 0.25 * Math.abs(c), opacity: 0.35 + 0.65 * Math.max(0, -c) + 0.25 });
+          const face = Math.pow(Math.max(0, c), 10) + Math.pow(Math.max(0, -c), 10) * 0.6;
+          gsap.set(glare, { opacity: face, scale: 0.7 + face * 0.5 });
+          gsap.set(flare, { opacity: face * 0.9, scaleX: 0.5 + face * 0.7 });
+          gsap.set(lglow, { scale: 0.85 + face * 0.6 });
+        },
+      }, 0);
+      // fade the beams in after the camera reveals the tower
+      tl.fromTo("#lightLayer", { opacity: 0 }, { opacity: 1, duration: 1.4, ease: "power2.out" }, 1.4);
+
+      // keeper house window flicker
+      tl.fromTo("#win2", { opacity: 1 }, { opacity: 0.35, duration: 0.12, yoyo: true, repeat: 3 }, 9.4);
+
+      // sea spray bursts when big waves hit rocks
+      [3.1, 7.4, 11.3].forEach((t0) => {
+        sprays.forEach((p, i) => {
+          const d = 0.9 + (i % 5) * 0.12;
+          tl.fromTo(p.el, { x: 0, y: 0, opacity: 0, scale: 0.4 }, { x: p.dx, y: p.dy, opacity: 0.9, scale: 1, duration: d * 0.45, ease: "power2.out" }, t0 + (i % 7) * 0.02);
+          tl.to(p.el, { y: p.dy * 0.5 + 60, opacity: 0, duration: d * 0.55, ease: "power1.in" }, t0 + d * 0.45 + (i % 7) * 0.02);
+        });
+      });
+
+      // birds cross the frame with flapping wings
+      birds.forEach((b, i) => {
+        tl.fromTo(b, { x: 0, y: 0 }, { x: 1400, y: -120 - i * 20, duration: 9, ease: "none" }, 2.5 + i * 0.25);
+        tl.fromTo(b, { scaleY: 1 }, { scaleY: -0.6, duration: 0.22, ease: "sine.inOut", yoyo: true, repeat: 41 }, 2.5 + i * 0.25);
+      });
+
+      // grain jitter (stepped)
+      tl.fromTo("#grain", { x: 0, y: 0 }, { x: 60, y: -40, duration: D, ease: `steps(${D * 15})` }, 0);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
