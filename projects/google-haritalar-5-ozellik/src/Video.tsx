@@ -44,6 +44,14 @@ const Shell: React.FC<{ scenes: Scene[] }> = ({ scenes }) => {
   );
 };
 
+// Kameradan panele geçerken sahne içeriği panelle birlikte aşağıdan gelir
+const RiseWithPanel: React.FC<{ on: boolean; children: React.ReactNode }> = ({ on, children }) => {
+  const f = useCurrentFrame();
+  if (!on) return <>{children}</>;
+  const v = prog(f, 0, 16);
+  return <AbsoluteFill style={{ transform: `translateY(${(1 - v) * 1300}px)` }}>{children}</AbsoluteFill>;
+};
+
 const SceneView: React.FC<{ scene: Scene; first?: boolean }> = ({ scene, first }) => {
   if (scene.kind === 'feature') return <FeatureScene scene={scene} first={first} />;
   if (scene.kind === 'timetravel') return <TimeTravelScene scene={scene} first={first} />;
@@ -58,7 +66,9 @@ export const Timeline: React.FC<{ scenes: Scene[]; standalone?: boolean }> = ({ 
       <Shell scenes={scenes} />
       {scenes.map((s, i) => (
         <Sequence key={s.id} from={starts[i]} durationInFrames={sceneFrames(s)} name={`${String(i).padStart(2, '0')} ${s.title}`}>
-          <SceneView scene={s} first={standalone || i === 0} />
+          <RiseWithPanel on={isPanel(s) && !!scenes[i - 1] && !isPanel(scenes[i - 1])}>
+            <SceneView scene={s} first={standalone || i === 0} />
+          </RiseWithPanel>
           {s.voFile && <Audio src={staticFile(s.voFile)} volume={TL.voVolume} />}
         </Sequence>
       ))}
