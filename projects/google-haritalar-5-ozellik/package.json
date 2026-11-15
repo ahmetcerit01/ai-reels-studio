@@ -1,0 +1,31 @@
+{
+  "name": "google-haritalar-5-ozellik",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Google Haritalar'ın 5 Gizli Özelliği — Türkçe Reels (Remotion)",
+  "scripts": {
+    "studio": "remotion studio",
+    "sfx": "python3 scripts/make-sfx.py",
+    "fit": "node scripts/fit-to-vo.mjs",
+    "render:full": "remotion render Full out/tam-onizleme.mp4",
+    "render:features": "node scripts/render-features.mjs",
+    "render:all": "npm run render:full && npm run render:features",
+    "stills": "node scripts/stills.mjs",
+    "merge": "bash scripts/merge.sh"
+  },
+  "dependencies": {
+    "@fontsource/instrument-serif": "^5.2.5",
+    "@fontsource/inter": "^5.2.5",
+    "@fontsource/inter-tight": "^5.2.5",
+    "@fontsource/jetbrains-mono": "^5.2.5",
+    "@remotion/cli": "4.0.543",
+    "@remotion/renderer": "4.0.543",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "remotion": "4.0.543"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.8",
+    "typescript": "5.8.3"
+  }
+}

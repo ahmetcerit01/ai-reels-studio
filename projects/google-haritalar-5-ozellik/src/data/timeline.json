@@ -1,0 +1,460 @@
+{
+  "_aciklama": "TEK ZAMANLAMA KAYNAĞI. Tüm süreler saniye cinsindendir ve sahnenin başına göredir. 'npm run fit' seslendirme dosyalarına göre süreleri ve altyazıları otomatik yeniden ayarlar. Dosya yolları public/ klasörüne göredir; null olan kayıtlar için yer tutucu gösterilir.",
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "sfxVolume": 0.55,
+  "voVolume": 1,
+  "scenes": [
+    {
+      "id": "giris",
+      "kind": "camera",
+      "title": "Giriş",
+      "duration": 4,
+      "cameraFile": null,
+      "voFile": null,
+      "vo": "Google Haritalar'ı her gün kullanıyorsun ama bu beş özelliği büyük ihtimalle hiç denemedin.",
+      "captions": [
+        {
+          "a": "Google Haritalar'ı",
+          "b": "her gün kullanıyorsun"
+        },
+        {
+          "a": "ama bu",
+          "b": "5 özelliği"
+        },
+        {
+          "a": "büyük ihtimalle",
+          "b": "hiç denemedin."
+        }
+      ]
+    },
+    {
+      "id": "park",
+      "kind": "feature",
+      "index": 1,
+      "title": "Park yerini kaydet",
+      "color": "#dcebff",
+      "accent": "#3b7ddd",
+      "duration": 5,
+      "recordingFile": null,
+      "recordingStart": 0,
+      "voFile": null,
+      "vo": "Arabanı park edince mavi noktaya dokun ve park yeri olarak kaydet. Dönüşte aramazsın.",
+      "captions": [
+        {
+          "a": "Arabanı",
+          "b": "park ettin mi?"
+        },
+        {
+          "a": "Mavi noktaya",
+          "b": "dokun"
+        },
+        {
+          "a": "Park yeri olarak",
+          "b": "kaydet."
+        }
+      ],
+      "steps": [
+        {
+          "at": 1.2,
+          "icon": "dot",
+          "text": "Mavi konum noktasına dokun"
+        },
+        {
+          "at": 2.4,
+          "icon": "parking",
+          "text": "“Park yeri olarak kaydet”i seç"
+        },
+        {
+          "at": 3.6,
+          "icon": "clock",
+          "text": "İstersen not, fotoğraf, süre ekle"
+        }
+      ],
+      "taps": [
+        {
+          "at": 1.3,
+          "x": 0.5,
+          "y": 0.52
+        },
+        {
+          "at": 2.5,
+          "x": 0.5,
+          "y": 0.82
+        }
+      ],
+      "zooms": [
+        {
+          "at": 0,
+          "s": 1,
+          "x": 0.5,
+          "y": 0.5
+        },
+        {
+          "at": 1.1,
+          "s": 1.55,
+          "x": 0.5,
+          "y": 0.55
+        },
+        {
+          "at": 2.3,
+          "s": 1.35,
+          "x": 0.5,
+          "y": 0.72
+        },
+        {
+          "at": 3.7,
+          "s": 1,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ]
+    },
+    {
+      "id": "mesafe",
+      "kind": "feature",
+      "index": 2,
+      "title": "Kuş uçuşu mesafe ölç",
+      "color": "#ffe4d6",
+      "accent": "#e2703a",
+      "duration": 5,
+      "recordingFile": null,
+      "recordingStart": 0,
+      "voFile": null,
+      "vo": "İki nokta arası kuş uçuşu mesafe mi lazım? Haritaya basılı tut, mesafeyi ölçe dokun ve kaydır.",
+      "captions": [
+        {
+          "a": "Kuş uçuşu",
+          "b": "mesafe mi lazım?"
+        },
+        {
+          "a": "Haritaya",
+          "b": "basılı tut"
+        },
+        {
+          "a": "“Mesafeyi ölç”e dokun,",
+          "b": "kaydır."
+        }
+      ],
+      "steps": [
+        {
+          "at": 1.2,
+          "icon": "pin",
+          "text": "Haritada bir noktaya basılı tut"
+        },
+        {
+          "at": 2.3,
+          "icon": "ruler",
+          "text": "Alttaki karttan “Mesafeyi ölç”"
+        },
+        {
+          "at": 3.4,
+          "icon": "plus",
+          "text": "Haritayı kaydır, “+” ile nokta ekle"
+        }
+      ],
+      "taps": [
+        {
+          "at": 1.25,
+          "x": 0.3,
+          "y": 0.36,
+          "hold": true
+        },
+        {
+          "at": 2.35,
+          "x": 0.5,
+          "y": 0.86
+        }
+      ],
+      "zooms": [
+        {
+          "at": 0,
+          "s": 1,
+          "x": 0.5,
+          "y": 0.5
+        },
+        {
+          "at": 1.1,
+          "s": 1.5,
+          "x": 0.35,
+          "y": 0.4
+        },
+        {
+          "at": 2.2,
+          "s": 1.3,
+          "x": 0.5,
+          "y": 0.75
+        },
+        {
+          "at": 3.3,
+          "s": 1.08,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ]
+    },
+    {
+      "id": "cevrimdisi",
+      "kind": "feature",
+      "index": 3,
+      "title": "Çevrimdışı harita indir",
+      "color": "#dcf3e3",
+      "accent": "#2f9e62",
+      "duration": 5,
+      "recordingFile": null,
+      "recordingStart": 0,
+      "voFile": null,
+      "vo": "İnternet çekmeyecek mi? Profilinden çevrimdışı haritalara gir, bölgeni seç ve indir.",
+      "captions": [
+        {
+          "a": "İnternet",
+          "b": "çekmeyecek mi?"
+        },
+        {
+          "a": "Çevrimdışı",
+          "b": "haritalar"
+        },
+        {
+          "a": "Bölgeni seç,",
+          "b": "indir."
+        }
+      ],
+      "steps": [
+        {
+          "at": 1.1,
+          "icon": "user",
+          "text": "Profil fotoğrafına dokun"
+        },
+        {
+          "at": 2.2,
+          "icon": "download",
+          "text": "“Çevrimdışı haritalar” → “Kendi haritanı seç”"
+        },
+        {
+          "at": 3.3,
+          "icon": "check",
+          "text": "Alanı çerçevele, “İndir”e dokun"
+        }
+      ],
+      "taps": [
+        {
+          "at": 1.2,
+          "x": 0.86,
+          "y": 0.08
+        },
+        {
+          "at": 3.4,
+          "x": 0.5,
+          "y": 0.9
+        }
+      ],
+      "zooms": [
+        {
+          "at": 0,
+          "s": 1,
+          "x": 0.5,
+          "y": 0.5
+        },
+        {
+          "at": 1,
+          "s": 1.6,
+          "x": 0.8,
+          "y": 0.18
+        },
+        {
+          "at": 2.1,
+          "s": 1.12,
+          "x": 0.5,
+          "y": 0.5
+        },
+        {
+          "at": 3.3,
+          "s": 1.35,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "at": 4.3,
+          "s": 1,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ]
+    },
+    {
+      "id": "paylas",
+      "kind": "feature",
+      "index": 4,
+      "title": "Yolculuğunu canlı paylaş",
+      "color": "#ebe3ff",
+      "accent": "#7c5ce0",
+      "duration": 5,
+      "recordingFile": null,
+      "recordingStart": 0,
+      "voFile": null,
+      "vo": "Navigasyon açıkken yolculuk ilerlemesini paylaşa dokun; nerede olduğunu ve varış saatini canlı görsünler.",
+      "captions": [
+        {
+          "a": "Navigasyon",
+          "b": "açıkken"
+        },
+        {
+          "a": "Yolculuk ilerlemesini",
+          "b": "paylaş."
+        },
+        {
+          "a": "Konumun ve varış saatin",
+          "b": "canlı görünsün."
+        }
+      ],
+      "steps": [
+        {
+          "at": 1,
+          "icon": "nav",
+          "text": "Navigasyonu başlat"
+        },
+        {
+          "at": 2.1,
+          "icon": "share",
+          "text": "“Yolculuk ilerlemesini paylaş”"
+        },
+        {
+          "at": 3.2,
+          "icon": "people",
+          "text": "Kişiyi seç: canlı konum ve varış saati gider"
+        }
+      ],
+      "taps": [
+        {
+          "at": 2.2,
+          "x": 0.5,
+          "y": 0.84
+        },
+        {
+          "at": 3.3,
+          "x": 0.3,
+          "y": 0.62
+        }
+      ],
+      "zooms": [
+        {
+          "at": 0,
+          "s": 1,
+          "x": 0.5,
+          "y": 0.5
+        },
+        {
+          "at": 2,
+          "s": 1.4,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "at": 3.1,
+          "s": 1.2,
+          "x": 0.4,
+          "y": 0.6
+        },
+        {
+          "at": 4.2,
+          "s": 1,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ]
+    },
+    {
+      "id": "zaman",
+      "kind": "timetravel",
+      "index": 5,
+      "title": "Zamanda yolculuk",
+      "color": "#fff1c9",
+      "accent": "#c98a12",
+      "duration": 7,
+      "recordingFile": null,
+      "recordingStart": 0,
+      "phoneUntil": 2.6,
+      "location": "Taksim Meydanı, İstanbul (doğrulanacak)",
+      "imageOld": null,
+      "imageNew": null,
+      "yearOld": "2014",
+      "yearNew": "2024",
+      "voFile": null,
+      "vo": "Ve en sevdiğim: Street View'de ekrana dokun, daha fazla tarihi seç. Aynı sokağın yıllar önceki hâlini gör.",
+      "captions": [
+        {
+          "a": "Ve en",
+          "b": "sevdiğim:"
+        },
+        {
+          "a": "Street View'de",
+          "b": "“Daha fazla tarih”"
+        },
+        {
+          "a": "Aynı sokak,",
+          "b": "yıllar önce."
+        }
+      ],
+      "steps": [
+        {
+          "at": 0.6,
+          "icon": "pegman",
+          "text": "Street View'e gir"
+        },
+        {
+          "at": 1.6,
+          "icon": "clock",
+          "text": "Ekrana dokun → “Daha fazla tarih”"
+        },
+        {
+          "at": 2.7,
+          "icon": "layers",
+          "text": "Yılı seç ve karşılaştır"
+        }
+      ],
+      "taps": [
+        {
+          "at": 0.9,
+          "x": 0.5,
+          "y": 0.5
+        },
+        {
+          "at": 1.7,
+          "x": 0.3,
+          "y": 0.18
+        }
+      ],
+      "zooms": [
+        {
+          "at": 0,
+          "s": 1,
+          "x": 0.5,
+          "y": 0.5
+        },
+        {
+          "at": 1.5,
+          "s": 1.5,
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "id": "kapanis",
+      "kind": "outro",
+      "title": "Kapanış",
+      "duration": 3,
+      "cameraFile": null,
+      "voFile": null,
+      "keyword": "HARİTA",
+      "vo": "Kaydet, yorumlara HARİTA yaz, listeyi DM'den göndereyim.",
+      "captions": [
+        {
+          "a": "Yorumlara",
+          "b": "HARİTA yaz"
+        }
+      ]
+    }
+  ]
+}

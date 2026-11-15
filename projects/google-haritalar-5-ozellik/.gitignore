@@ -1,0 +1,5 @@
+node_modules/
+out/qa/
+out/test.png
+out/render.log
+src/data/timeline.backup.json
