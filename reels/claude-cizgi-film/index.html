@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude ile Çizgi Film</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800;900&family=Instrument+Serif:ital@1&family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{ --ink:#1d1830; --sub:#6d6785; --fox:#e8743b; --fox2:#f39a5f; --hl:#e0703c; --card:#ffffff; }
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#000;overflow:hidden}
+body{display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;transform-origin:center center;flex:none;font-family:'Inter',system-ui,sans-serif;color:var(--ink)}
+#bg{position:absolute;inset:0}
+.abs{position:absolute}
+.card{position:absolute;background:var(--card);border-radius:28px;box-shadow:0 40px 80px rgba(60,40,110,.22),0 8px 20px rgba(60,40,110,.10);will-change:transform,opacity;opacity:0}
+/* kanca */
+#hook{position:absolute;left:0;right:0;top:118px;text-align:center}
+#eyebrow{display:flex;align-items:center;justify-content:center;gap:12px;color:var(--hl);font:800 26px/1 'Inter',sans-serif;letter-spacing:.2em}
+#eyebrow svg{width:28px;height:28px}
+.hl1{font:900 86px/1.04 'Inter Tight',sans-serif;letter-spacing:-.035em;color:var(--ink);margin-top:20px}
+.hl1 em{font:italic 400 98px/1 'Instrument Serif',serif;letter-spacing:-.01em;color:var(--hl)}
+.w{display:inline-block;opacity:0}
+/* oynatıcı */
+.player{width:820px;padding:0;overflow:hidden}
+.pbar{height:44px;display:flex;align-items:center;gap:10px;padding:0 18px;background:#f6f3fb;font:600 17px 'Inter',sans-serif;color:var(--sub)}
+.dot{width:12px;height:12px;border-radius:6px;background:#e4dff0}
+.rec{width:30px;height:22px;border-radius:6px;background:#ef4b4b;display:flex;align-items:center;justify-content:center}
+.rec i{width:0;height:0;border-left:9px solid #fff;border-top:6px solid transparent;border-bottom:6px solid transparent;margin-left:2px}
+.player canvas{display:block}
+.prog{position:absolute;left:18px;right:18px;bottom:16px;height:6px;border-radius:3px;background:rgba(255,255,255,.35)}
+.prog b{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:#ef4b4b}
+.tc{position:absolute;right:20px;bottom:34px;padding:6px 12px;border-radius:10px;background:var(--hl);color:#fff;font:700 24px 'JetBrains Mono',monospace}
+.chip{position:absolute;display:flex;align-items:center;gap:12px;padding:14px 24px 14px 16px;border-radius:40px;background:#fff;box-shadow:0 14px 34px rgba(60,40,110,.16);font:800 34px 'Inter Tight',sans-serif;letter-spacing:-.02em;white-space:nowrap;opacity:0}
+.chip small{font:600 24px 'Inter',sans-serif;color:var(--sub);letter-spacing:0}
+.chip .ic{width:46px;height:46px;border-radius:23px;display:flex;align-items:center;justify-content:center}
+.chip .ic svg{width:26px;height:26px}
+.tag{position:absolute;padding:8px 14px;border-radius:12px;background:#1d1830;color:#fff;font:700 20px 'Inter',sans-serif;display:flex;gap:8px;align-items:center;opacity:0}
+/* sohbet */
+.chat{width:820px;height:520px;padding:26px}
+.chat .hd{display:flex;align-items:center;gap:12px;font:800 24px 'Inter',sans-serif}
+.chat .body{position:absolute;left:26px;right:26px;bottom:26px;min-height:150px;border-radius:22px;border:2px solid #ece7f5;padding:22px 90px 22px 24px;font:500 29px/1.4 'Inter',sans-serif;color:var(--ink)}
+.send{position:absolute;right:16px;bottom:16px;width:56px;height:56px;border-radius:16px;background:var(--hl);display:flex;align-items:center;justify-content:center}
+.send svg{width:26px;height:26px}
+.caret{display:inline-block;width:3px;height:30px;background:var(--hl);vertical-align:-5px;margin-left:2px}
+/* plan */
+.script{width:400px;height:520px;padding:30px}
+.script h4{font:800 26px 'Inter Tight',sans-serif}
+.script .ln{height:12px;border-radius:6px;background:#ece7f5;margin-top:16px}
+.script .ln.c{background:#f6d6c4}
+.sheet{width:640px;height:330px;padding:20px}
+.sheet h4,.board h4{font:800 22px 'Inter Tight',sans-serif;display:flex;justify-content:space-between}
+.sheet h4 span,.board h4 span{font:600 18px 'Inter',sans-serif;color:var(--sub)}
+.board{width:640px;height:300px;padding:20px}
+.board .g{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.board img{width:100%;border-radius:10px;display:block;opacity:0}
+/* kod */
+.code{width:860px;height:430px;background:#1c1a29;padding:0;overflow:hidden}
+.code .pbar{background:#262338;color:#a59fc4}
+.code pre{padding:24px 28px;font:500 23px/1.6 'JetBrains Mono',monospace;color:#e6e1ff;white-space:pre-wrap}
+.k{color:#ff9d6c}.s{color:#9be59b}.cm{color:#7e78a0}.f{color:#8fc7ff}
+.mini{width:470px;padding:0;overflow:hidden}
+.mini .lab{position:absolute;left:14px;bottom:14px;padding:6px 12px;border-radius:10px;background:var(--hl);color:#fff;font:800 22px 'Inter',sans-serif}
+/* ses */
+.layer{width:620px;height:300px;border-radius:30px;padding:30px;color:#fff}
+.layer h5{font:800 34px 'Inter Tight',sans-serif}
+.layer p{font:600 22px 'Inter',sans-serif;opacity:.85;margin-top:6px}
+/* zaman çizelgesi */
+#tcpill{position:absolute;left:50%;top:400px;transform:translateX(-50%);display:flex;align-items:center;gap:16px;padding:16px 30px;border-radius:24px;background:#fff;box-shadow:0 14px 34px rgba(60,40,110,.16);font:700 56px 'JetBrains Mono',monospace;opacity:0}
+.strip{position:absolute;left:0;height:150px;display:flex;gap:14px;opacity:0}
+.strip img{height:150px;border-radius:14px;box-shadow:0 10px 24px rgba(60,40,110,.2)}
+#playhead{position:absolute;left:538px;top:500px;width:4px;height:520px;background:#ef4b4b;opacity:0}
+#playhead::before{content:'';position:absolute;left:-10px;top:-12px;width:24px;height:24px;border-radius:12px;background:#ef4b4b}
+/* düzenleme */
+.edit{width:860px;padding:0;overflow:hidden}
+.pbar2{position:absolute;width:860px;height:96px;border-radius:26px;background:#fff;box-shadow:0 14px 34px rgba(60,40,110,.16);display:flex;align-items:center;gap:16px;padding:0 22px;font:600 32px 'Inter',sans-serif;opacity:0}
+/* dışa aktar */
+.file{display:flex;align-items:center;gap:18px;padding:22px 30px 22px 22px;border-radius:24px;background:#fff;box-shadow:0 14px 34px rgba(60,40,110,.16);font:700 30px 'JetBrains Mono',monospace;opacity:0;position:absolute}
+.file .pl{width:54px;height:54px;border-radius:14px;background:var(--hl);display:flex;align-items:center;justify-content:center}
+.file .bar{position:absolute;left:96px;right:30px;bottom:14px;height:6px;border-radius:3px;background:#efe9f8}
+.file .bar b{position:absolute;left:0;top:0;bottom:0;background:var(--hl);border-radius:3px}
+.yt{width:860px;padding:26px;display:flex;gap:24px}
+.yt img{width:380px;border-radius:16px;display:block}
+.yt .t1{font:800 30px/1.2 'Inter Tight',sans-serif}
+.yt .t2{font:600 22px 'Inter',sans-serif;color:var(--sub);margin-top:10px}
+.yt .ln{height:12px;border-radius:6px;background:#ece7f5;margin-top:16px}
+/* CTA */
+.cta{width:820px;padding:56px 40px 48px;text-align:center}
+.cta h3{font:900 74px 'Inter Tight',sans-serif;letter-spacing:-.03em}
+.cta .pill{display:inline-flex;align-items:center;justify-content:center;min-width:560px;height:118px;margin-top:22px;border-radius:60px;background:var(--hl);color:#fff;font:900 70px 'Inter Tight',sans-serif;letter-spacing:.02em;box-shadow:0 18px 40px rgba(224,112,60,.35)}
+#ctaSub{margin-top:30px;font:italic 400 46px/1.15 'Instrument Serif',serif;color:var(--hl);opacity:0}
+/* altyazı */
+#cap{position:absolute;left:40px;right:40px;top:1258px;text-align:center;font:800 54px/1.25 'Inter Tight',sans-serif;letter-spacing:-.02em;color:var(--ink)}
+#cap .cw{display:inline-block;margin:0 .12em;opacity:0}
+#cap .h{background:var(--hl);color:#fff;padding:0 .22em;border-radius:12px;box-shadow:0 8px 20px rgba(224,112,60,.3)}
+.masc{position:absolute;width:86px;height:86px;opacity:0}
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="bg" width="1080" height="1920"></canvas>
+
+  <div id="hook">
+    <div id="eyebrow"><svg viewBox="0 0 24 24" fill="#e0703c"><path class="spark" d=""/></svg><span class="w">KİMSE</span> <span class="w">BUNDAN</span> <span class="w">BAHSETMİYOR:</span></div>
+    <div class="hl1"><span class="w">Claude</span> <span class="w">artık</span></div>
+    <div class="hl1"><em class="w">1 saatlik</em> <span class="w">çizgi</span> <span class="w">film</span></div>
+    <div class="hl1" style="font-size:64px;margin-top:10px"><span class="w">yapıyor.</span></div>
+  </div>
+
+  <!-- oynatıcı -->
+  <div class="card player" id="player">
+    <div class="pbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="rec"><i></i></span><span id="ptitle">Fındık ve Kayıp Ay Feneri · Bölüm 1</span></div>
+    <canvas id="pv" width="820" height="462"></canvas>
+    <div class="prog"><b id="pprog"></b></div>
+    <div class="tc" id="ptc">0:00:00</div>
+  </div>
+  <div class="tag" id="days" style="left:150px;top:300px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M8 3v4M16 3v4M4 10h16"/></svg>2 günde</div>
+  <div class="chip" id="st1" style="left:130px;top:870px"><span class="ic" style="background:#ffe7d9"><svg viewBox="0 0 24 24" fill="none" stroke="#e0703c" stroke-width="2.4"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg></span>60 dk <small>bölüm</small></div>
+  <div class="chip" id="st2" style="left:470px;top:870px"><span class="ic" style="background:#e6e0ff"><svg viewBox="0 0 24 24" fill="none" stroke="#7a62e6" stroke-width="2.4"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M8 6l2 4M14 6l2 4"/></svg></span>120 <small>sahne</small></div>
+  <div class="chip" id="st3" style="left:300px;top:990px"><span class="ic" style="background:#dff4e8"><svg viewBox="0 0 24 24" fill="none" stroke="#3aa36b" stroke-width="2.4"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M3 3l18 18"/></svg></span>0 <small>çizim (senden)</small></div>
+  <div class="tag" id="claudeBadge" style="left:760px;top:320px;background:#fff;color:#1d1830;box-shadow:0 10px 24px rgba(60,40,110,.2)"><svg width="24" height="24" viewBox="0 0 24 24" fill="#e0703c"><path class="spark" d=""/></svg>Claude çizdi</div>
+
+  <!-- sohbet -->
+  <div class="card chat" id="chat">
+    <div class="hd"><svg width="30" height="30" viewBox="0 0 24 24" fill="#e0703c"><path class="spark" d=""/></svg>Claude</div>
+    <div style="position:absolute;left:0;right:0;top:120px;text-align:center"><svg width="120" height="120" viewBox="0 0 24 24" fill="#e0703c" id="bigspark"><path class="spark" d=""/></svg></div>
+    <div class="body"><span id="typed"></span><span class="caret" id="caret"></span>
+      <div class="send"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div></div>
+  </div>
+
+  <!-- plan -->
+  <div class="card script" id="script"><h4>Senaryo · Bölüm 1</h4>
+    <div class="ln" style="width:70%"></div><div class="ln c" style="width:92%"></div><div class="ln" style="width:84%"></div><div class="ln" style="width:60%"></div>
+    <div class="ln c" style="width:88%;margin-top:30px"></div><div class="ln" style="width:76%"></div><div class="ln" style="width:94%"></div><div class="ln c" style="width:55%"></div>
+    <div class="ln" style="width:80%;margin-top:30px"></div><div class="ln" style="width:66%"></div><div class="ln c" style="width:90%"></div>
+  </div>
+  <div class="card sheet" id="sheet"><h4>Karakter · Fındık <span>5 poz</span></h4><canvas id="sheetc" width="600" height="250"></canvas></div>
+  <div class="card board" id="board"><h4>Storyboard <span>120 sahne</span></h4><div class="g" id="boardg"></div></div>
+
+  <!-- kod -->
+  <div class="card code" id="code"><div class="pbar"><span class="dot" style="background:#ff6b6b"></span><span class="dot" style="background:#ffd23f"></span><span class="dot" style="background:#5fd068"></span>&nbsp; sahne-03.js</div><pre id="codepre"></pre></div>
+  <div class="card mini" id="m1"><canvas id="m1c" width="470" height="265"></canvas><div class="lab">kâğıt dokusu</div></div>
+  <div class="card mini" id="m2"><canvas id="m2c" width="470" height="265"></canvas><div class="lab">kayan yıldızlar</div></div>
+
+  <!-- ses -->
+  <div class="card layer" id="l3" style="background:linear-gradient(135deg,#6f9cf0,#4a75d8)"><h5>Ortam sesi</h5><p>rüzgâr · dalga · cırcır böceği</p><canvas id="l3c" width="560" height="120" style="margin-top:20px"></canvas></div>
+  <div class="card layer" id="l2" style="background:linear-gradient(135deg,#6fd0a0,#3aa36b)"><h5>Müzik</h5><p>yumuşak ninni · piyano + çelesta</p><canvas id="l2c" width="560" height="120" style="margin-top:20px"></canvas></div>
+  <div class="card layer" id="l1" style="background:linear-gradient(135deg,#f39a5f,#e0703c)"><h5>Anlatıcı</h5><p>sakin, sıcak, masal sesi</p><canvas id="l1c" width="560" height="120" style="margin-top:20px"></canvas></div>
+
+  <!-- zaman çizelgesi -->
+  <div id="tcpill"><span style="width:26px;height:26px;border-radius:13px;background:#ef4b4b"></span><span id="tct">0:00:00</span></div>
+  <div class="strip" id="s1" style="top:560px"></div>
+  <div class="strip" id="s2" style="top:740px"></div>
+  <div id="playhead"></div>
+
+  <!-- düzenleme -->
+  <div class="card edit" id="edit"><canvas id="ec" width="860" height="484"></canvas></div>
+  <div class="pbar2" id="ebar"><svg width="34" height="34" viewBox="0 0 24 24" fill="#e0703c"><path class="spark" d=""/></svg><span id="etyped"></span><span class="caret" id="ecaret"></span>
+    <div class="send" style="position:absolute;right:20px;bottom:20px"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div></div>
+
+  <!-- dışa aktar -->
+  <div class="file" id="file"><span class="pl"><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>findik-bolum-1.mp4<span class="bar"><b id="fbar"></b></span></div>
+  <div class="card yt" id="yt"><img id="ytimg"><div><div class="t1">Fındık ve Kayıp Ay Feneri · Bölüm 1</div><div class="t2">Çocuklar için uyku masalı · 60:00</div><div class="ln" style="width:90%"></div><div class="ln" style="width:70%"></div><div class="ln" style="width:80%"></div></div></div>
+
+  <!-- CTA -->
+  <div class="card cta" id="cta"><h3>Yorumlara yaz</h3><div class="pill"><span id="ctatyped"></span></div><div id="ctaSub">tüm prompt setini DM'den göndereyim</div></div>
+
+  <div id="cap"></div>
+</div>
+
+<script>
+const TAU = Math.PI * 2;
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const ease = x => 1 - Math.pow(1 - clamp(x, 0, 1), 3);
+const easeIO = x => { x = clamp(x, 0, 1); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const back = x => { x = clamp(x, 0, 1); const c1 = 1.7, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const mix = (a, b, f) => a + (b - a) * f;
+function rng(seed){ return function(){ seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function hex(h){ h = h.replace('#', ''); return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)]; }
+function mixC(a, b, f){ const A = hex(a), B = hex(b); return `rgb(${A.map((v, i) => Math.round(mix(v, B[i], f))).join(',')})`; }
+function lin(c, y0, y1, stops){ const g = c.createLinearGradient(0, y0, 0, y1); stops.forEach((s, i) => g.addColorStop(i / (stops.length - 1), s)); return g; }
+
+(function(){ let d = ''; for (let i = 0; i < 12; i++){ const a = i / 12 * TAU - Math.PI / 2, a1 = a - .32, a2 = a + .32, R = i % 2 ? 9.8 : 11.8;
+  d += `M12 12 L${12 + Math.cos(a1) * 3.2} ${12 + Math.sin(a1) * 3.2} L${12 + Math.cos(a) * R} ${12 + Math.sin(a) * R} L${12 + Math.cos(a2) * 3.2} ${12 + Math.sin(a2) * 3.2}Z `; }
+  document.querySelectorAll('.spark').forEach(p => p.setAttribute('d', d)); })();
+
+/* =================== FINDIK (tek karakter tanımı — her yerde aynı) =================== */
+const FOX = { body: '#e8743b', shade: '#c95d29', cream: '#fff1dd', dark: '#4a2a1c', scarf: '#f2bd3e', scarf2: '#d99a1f', eye: '#2a1a14', lantern: '#f6c453' };
+function lanternAt(c, x, y, s, glow){
+  c.save(); c.translate(x, y); c.scale(s, s);
+  const g = c.createRadialGradient(0, 0, 2, 0, 0, 46); g.addColorStop(0, `rgba(255,214,120,${.75 * glow})`); g.addColorStop(1, 'rgba(255,214,120,0)'); c.fillStyle = g; c.beginPath(); c.arc(0, 0, 46, 0, TAU); c.fill();
+  c.fillStyle = '#7a4a22'; c.fillRect(-7, -14, 14, 3); c.fillRect(-6, 10, 12, 3);
+  c.fillStyle = '#ffe08a'; c.beginPath(); c.roundRect(-6, -11, 12, 21, 4); c.fill();
+  c.strokeStyle = '#7a4a22'; c.lineWidth = 1.6; c.beginPath(); c.moveTo(0, -11); c.lineTo(0, 10); c.stroke();
+  c.beginPath(); c.arc(0, -17, 4, Math.PI, 0); c.stroke();
+  c.restore();
+}
+// poz: 'front' | 'q' (3/4) | 'side' | 'back' | 'happy' | 'sleep' | 'sit'
+function drawFox(c, x, y, s, o = {}){
+  const pose = o.pose || 'front', t = o.t || 0, blink = (Math.sin(t * 1.7) > .985);
+  c.save(); c.translate(x, y); c.scale(s * (o.flip ? -1 : 1), s); c.lineJoin = 'round'; c.lineCap = 'round';
+  const F = (col, fn) => { c.fillStyle = col; c.beginPath(); fn(); c.fill(); };
+  const E = (cx, cy, rx, ry, r = 0) => c.ellipse(cx, cy, rx, ry, r, 0, TAU);
+  if (pose === 'side'){
+    const ph = t * 9, b = Math.abs(Math.sin(ph)) * 2;
+    F(FOX.body, () => E(-46, -44 - b, 36, 15, -0.45)); F(FOX.cream, () => E(-74, -60 - b, 13, 9, -0.45));
+    [[-20, 0], [-8, Math.PI], [14, Math.PI * .5], [24, Math.PI * 1.5]].forEach(([lx, p]) => { const sw = Math.sin(ph + p) * 7; F(FOX.dark, () => c.roundRect(lx - 4 + sw * .3, -24, 8, 24, 4)); });
+    F(FOX.body, () => E(0, -38 - b, 36, 22)); F(FOX.cream, () => E(6, -30 - b, 22, 12));
+    F(FOX.scarf, () => c.roundRect(14, -60 - b, 22, 30, 8)); F(FOX.scarf2, () => { c.moveTo(18, -40 - b); c.lineTo(4 - Math.sin(t * 6) * 4, -24 - b); c.lineTo(12, -22 - b); c.lineTo(26, -38 - b); });
+    const hy = -70 - b;
+    F(FOX.body, () => E(34, hy, 24, 20)); F(FOX.body, () => { c.moveTo(48, hy - 8); c.lineTo(72, hy + 4); c.lineTo(48, hy + 12); });
+    F(FOX.cream, () => { c.moveTo(40, hy + 2); c.lineTo(72, hy + 5); c.lineTo(46, hy + 16); c.lineTo(30, hy + 14); });
+    F(FOX.dark, () => E(71, hy + 4, 4, 3.4));
+    F(FOX.body, () => { c.moveTo(22, hy - 10); c.lineTo(26, hy - 42); c.lineTo(40, hy - 14); }); F(FOX.dark, () => { c.moveTo(24, hy - 32); c.lineTo(26, hy - 42); c.lineTo(30, hy - 32); });
+    F(FOX.cream, () => { c.moveTo(27, hy - 14); c.lineTo(27, hy - 32); c.lineTo(35, hy - 15); });
+    if (blink) { c.strokeStyle = FOX.eye; c.lineWidth = 2.4; c.beginPath(); c.moveTo(42, hy - 4); c.lineTo(50, hy - 4); c.stroke(); }
+    else { F(FOX.eye, () => E(46, hy - 4, 3.6, 5)); F('#fff', () => E(47.4, hy - 6, 1.3, 1.6)); }
+    if (o.lantern){ c.strokeStyle = FOX.dark; c.lineWidth = 3; c.beginPath(); c.moveTo(30, -42 - b); c.lineTo(52, -34 - b); c.stroke(); c.restore(); lanternAt(c, x + (o.flip ? -1 : 1) * 54 * s, y + (-24 - b) * s, s, o.glow ?? 1); return; }
+    c.restore(); return;
+  }
+  if (pose === 'sleep'){
+    F(FOX.body, () => E(0, -24, 52, 26)); F(FOX.body, () => E(40, -26, 34, 18, 0.3)); F(FOX.cream, () => E(62, -18, 14, 10, 0.3));
+    F(FOX.body, () => E(-30, -38, 26, 22)); F(FOX.cream, () => E(-38, -30, 18, 11));
+    F(FOX.body, () => { c.moveTo(-46, -50); c.lineTo(-58, -76); c.lineTo(-36, -58); }); F(FOX.dark, () => { c.moveTo(-54, -68); c.lineTo(-58, -76); c.lineTo(-50, -70); });
+    F(FOX.body, () => { c.moveTo(-22, -54); c.lineTo(-16, -80); c.lineTo(-10, -52); }); F(FOX.dark, () => { c.moveTo(-18, -72); c.lineTo(-16, -80); c.lineTo(-13, -71); });
+    c.strokeStyle = FOX.eye; c.lineWidth = 2.4; [[-40, -42], [-24, -42]].forEach(([ex, ey]) => { c.beginPath(); c.arc(ex, ey, 4.5, 0.15 * Math.PI, 0.85 * Math.PI); c.stroke(); });
+    F(FOX.dark, () => E(-48, -32, 3.4, 2.8)); F(FOX.scarf, () => c.roundRect(-14, -46, 12, 24, 5));
+    c.restore(); return;
+  }
+  const happy = pose === 'happy', back_ = pose === 'back', sit = pose === 'sit', q = pose === 'q' ? 7 : 0;
+  const bob = Math.sin(t * 3) * 1.5 + (happy ? -Math.abs(Math.sin(t * 6)) * 6 : 0);
+  c.translate(0, bob);
+  // kuyruk
+  const tw = Math.sin(t * 2.2) * 0.12;
+  if (!back_){ F(FOX.body, () => E(40, -46, 20, 40, 0.7 + tw)); F(FOX.cream, () => E(58, -76, 11, 13, 0.7 + tw)); }
+  // bacaklar
+  if (sit){ F(FOX.dark, () => E(-16, -6, 12, 7)); F(FOX.dark, () => E(16, -6, 12, 7)); }
+  else { F(FOX.dark, () => c.roundRect(-17, -18, 12, 18, 5)); F(FOX.dark, () => c.roundRect(5, -18, 12, 18, 5)); }
+  // gövde
+  F(FOX.body, () => E(0, -40, 27, 30)); if (!back_) F(FOX.cream, () => E(q * .4, -34, 16, 21));
+  // kollar
+  const ar = happy ? -1 : 0;
+  F(FOX.body, () => E(-25, -46 + ar * 18, 8, 13, 0.3 + ar * -1.2)); F(FOX.body, () => E(25, -46 + ar * 18, 8, 13, -0.3 + ar * 1.2));
+  F(FOX.dark, () => E(-28, -36 + ar * 30, 5.5, 5)); F(FOX.dark, () => E(28, -36 + ar * 30, 5.5, 5));
+  // atkı
+  F(FOX.scarf, () => c.roundRect(-24, -70, 48, 12, 6)); if (!back_) F(FOX.scarf2, () => { c.moveTo(6 + q, -62); c.lineTo(16 + q + Math.sin(t * 4) * 2, -40); c.lineTo(24 + q, -44); c.lineTo(14 + q, -64); });
+  // kafa
+  const hx = q * .6, hy = -94;
+  F(FOX.body, () => { c.moveTo(hx - 28, hy - 6); c.lineTo(hx - 34, hy - 44); c.lineTo(hx - 10, hy - 20); }); F(FOX.body, () => { c.moveTo(hx + 28, hy - 6); c.lineTo(hx + 34, hy - 44); c.lineTo(hx + 10, hy - 20); });
+  F(FOX.dark, () => { c.moveTo(hx - 31, hy - 32); c.lineTo(hx - 34, hy - 44); c.lineTo(hx - 24, hy - 32); }); F(FOX.dark, () => { c.moveTo(hx + 31, hy - 32); c.lineTo(hx + 34, hy - 44); c.lineTo(hx + 24, hy - 32); });
+  if (!back_){ F(FOX.cream, () => { c.moveTo(hx - 26, hy - 12); c.lineTo(hx - 29, hy - 34); c.lineTo(hx - 15, hy - 20); }); F(FOX.cream, () => { c.moveTo(hx + 26, hy - 12); c.lineTo(hx + 29, hy - 34); c.lineTo(hx + 15, hy - 20); }); }
+  F(FOX.body, () => E(hx, hy, 32, 26));
+  if (back_){ F(FOX.body, () => E(44, -50, 18, 36, 0.4)); F(FOX.cream, () => E(52, -80, 10, 12, 0.4)); c.restore(); return; }
+  F(FOX.cream, () => { c.moveTo(hx + q - 30, hy + 4); c.quadraticCurveTo(hx + q, hy + 30, hx + q + 30, hy + 4); c.quadraticCurveTo(hx + q, hy + 12, hx + q - 30, hy + 4); });
+  F(FOX.cream, () => E(hx + q, hy + 10, 15, 11));
+  const ex = 12;
+  if (happy || blink){ c.strokeStyle = FOX.eye; c.lineWidth = 3; [-ex, ex].forEach(d => { c.beginPath(); c.arc(hx + q + d, hy - 2, 5, Math.PI * 1.1, Math.PI * 1.9); c.stroke(); }); }
+  else [-ex, ex].forEach(d => { F(FOX.eye, () => E(hx + q + d, hy - 3, 4.6, 6.4)); F('#fff', () => E(hx + q + d + 1.6, hy - 5.6, 1.6, 2)); });
+  F(FOX.dark, () => E(hx + q, hy + 6, 5, 3.8));
+  c.strokeStyle = FOX.dark; c.lineWidth = 2; c.beginPath(); c.moveTo(hx + q - 5, hy + 12); c.quadraticCurveTo(hx + q, hy + (happy ? 18 : 15), hx + q + 5, hy + 12); c.stroke();
+  F('rgba(240,120,110,.35)', () => { E(hx + q - 20, hy + 8, 6, 4); });
+  F('rgba(240,120,110,.35)', () => { E(hx + q + 20, hy + 8, 6, 4); });
+  c.restore();
+  if (o.lantern) lanternAt(c, x + 30 * s, y + (-30 + bob) * s, s * .9, o.glow ?? 1);
+}
+
+/* =================== SAHNELER (tek stil: düz masal kitabı + kâğıt dokusu) =================== */
+const GRAIN = (() => { const g = document.createElement('canvas'); g.width = g.height = 220; const x = g.getContext('2d'); const r = rng(5); for (let i = 0; i < 9000; i++){ const v = r() * 255 | 0; x.fillStyle = `rgba(${v},${v * .9 | 0},${v * .8 | 0},.5)`; x.fillRect(r() * 220, r() * 220, 1.4, 1.4); } return g; })();
+function grain(c, w, h){ c.save(); c.globalAlpha = .07; c.globalCompositeOperation = 'multiply'; c.fillStyle = c.createPattern(GRAIN, 'repeat'); c.fillRect(0, 0, w, h); c.restore(); }
+function stars(c, w, h, t, n, seed, maxY){ const r = rng(seed); for (let i = 0; i < n; i++){ const x = r() * w, y = r() * maxY, s = r() * 1.6 + .5, p = r() * TAU; c.globalAlpha = .4 + .6 * Math.abs(Math.sin(t * 1.5 + p)); c.fillStyle = '#fff6dc'; c.beginPath(); c.arc(x, y, s, 0, TAU); c.fill(); } c.globalAlpha = 1; }
+function moon(c, x, y, r){ const g = c.createRadialGradient(x, y, r * .5, x, y, r * 3); g.addColorStop(0, 'rgba(255,240,200,.35)'); g.addColorStop(1, 'rgba(255,240,200,0)'); c.fillStyle = g; c.fillRect(x - r * 3, y - r * 3, r * 6, r * 6); c.fillStyle = '#fff3d0'; c.beginPath(); c.arc(x, y, r, 0, TAU); c.fill(); c.fillStyle = 'rgba(220,200,160,.4)'; c.beginPath(); c.arc(x - r * .3, y - r * .2, r * .18, 0, TAU); c.arc(x + r * .25, y + r * .3, r * .12, 0, TAU); c.fill(); }
+
+// 1 — Gece denizi
+function sceneSea(c, w, h, t){
+  c.save(); c.scale(w / 820, h / 462); const W = 820, H = 462;
+  c.fillStyle = lin(c, 0, H, ['#1b2150', '#2f3678', '#4b4f96']); c.fillRect(0, 0, W, H);
+  stars(c, W, H, t, 70, 3, 240); moon(c, 650, 92, 34);
+  c.fillStyle = '#20284f'; c.beginPath(); c.moveTo(60, 270); c.quadraticCurveTo(150, 205, 250, 270); c.fill();
+  c.fillStyle = '#ffd77a'; c.fillRect(146, 238, 9, 8);
+  const lx = 360 + Math.sin(t * .6) * 14, ly = 300 + Math.sin(t * 1.4) * 5;
+  // fener yansıması
+  for (let k = 0; k < 6; k++){ c.fillStyle = `rgba(255,214,120,${.22 - k * .03})`; c.fillRect(lx + 34 - 30 + Math.sin(t * 3 + k) * 6, ly + 30 + k * 14, 60 - k * 6, 4); }
+  ['#2a3370', '#26306a', '#1f2860', '#1a2255'].forEach((col, i) => { const y0 = 290 + i * 42; c.fillStyle = col; c.beginPath(); c.moveTo(0, H); for (let x = 0; x <= W; x += 12) c.lineTo(x, y0 + Math.sin(x * .02 + t * (1 + i * .3) + i) * 6); c.lineTo(W, H); c.fill();
+    c.strokeStyle = 'rgba(180,200,255,.25)'; c.lineWidth = 2; c.beginPath(); for (let x = 0; x <= W; x += 12) c.lineTo(x, y0 + Math.sin(x * .02 + t * (1 + i * .3) + i) * 6); c.stroke();
+    if (i === 0){ // tekne
+      c.save(); c.translate(lx, ly); c.rotate(Math.sin(t * 1.4) * .05);
+      drawFox(c, 6, 4, .62, { pose: 'side', t: 0, lantern: true });
+      c.fillStyle = '#8a4b2a'; c.beginPath(); c.moveTo(-70, 0); c.lineTo(70, 0); c.lineTo(52, 26); c.lineTo(-52, 26); c.fill(); c.fillStyle = '#a65d33'; c.fillRect(-64, 2, 128, 6);
+      c.strokeStyle = '#5a3418'; c.lineWidth = 4; c.beginPath(); c.moveTo(-26, 0); c.lineTo(-26, -96); c.stroke();
+      c.fillStyle = '#fff1dd'; c.beginPath(); c.moveTo(-22, -92); c.quadraticCurveTo(14, -60, -22, -8); c.fill();
+      c.restore();
+    } });
+  grain(c, W, H); c.restore();
+}
+// 2 — Bölüm kartı
+function sceneTitle(c, w, h, t){
+  c.save(); c.scale(w / 820, h / 462); const W = 820, H = 462;
+  c.fillStyle = '#a996f2'; c.fillRect(0, 0, W, H);
+  c.save(); c.translate(W / 2, H / 2 + 20); c.rotate(t * .25); c.fillStyle = '#bba9ff'; for (let k = 0; k < 16; k++){ c.rotate(TAU / 16); c.beginPath(); c.moveTo(0, 0); c.lineTo(900, -70); c.lineTo(900, 70); c.closePath(); c.fill(); } c.restore();
+  c.fillStyle = '#fff1dd'; c.beginPath(); c.arc(W / 2, H / 2 + 20, 120, 0, TAU); c.fill();
+  c.fillStyle = '#e0703c'; c.font = '900 170px "Inter Tight"'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('2', W / 2, H / 2 + 30);
+  c.fillStyle = '#4a3a8a'; c.font = '800 30px "Inter Tight"'; c.fillText('BÖLÜM', W / 2, 70);
+  drawFox(c, W / 2 + 150, H + 70, .9, { pose: 'happy', t });
+  grain(c, W, H); c.restore();
+}
+// 3 — Sonbahar ormanı (n: 0 gündüz → 1 gece)
+function sceneForest(c, w, h, t, n = 0){
+  c.save(); c.scale(w / 820, h / 462); const W = 820, H = 462;
+  c.fillStyle = lin(c, 0, H, [mixC('#ffd9a8', '#1c2150', n), mixC('#fff0d6', '#3a3572', n)]); c.fillRect(0, 0, W, H);
+  if (n > 0){ c.globalAlpha = n; stars(c, W, H, t, 40, 8, 160); moon(c, 120, 70, 26); c.globalAlpha = 1; }
+  if (n < 1){ c.save(); c.globalAlpha = (1 - n) * .35; c.fillStyle = '#fff6d8'; for (let k = 0; k < 4; k++){ c.beginPath(); c.moveTo(500 + k * 70, 0); c.lineTo(540 + k * 70, 0); c.lineTo(420 + k * 90, H); c.lineTo(360 + k * 90, H); c.fill(); } c.restore(); }
+  const layers = [[.55, '#e9a35a', '#2e2a5a'], [.8, '#d9812f', '#272350'], [1, '#c2601f', '#211d45']];
+  layers.forEach(([d, day, night], li) => { const r = rng(20 + li); const col = mixC(day, night, n);
+    for (let k = 0; k < 7; k++){ const x = k * 140 + r() * 60 - 40, th = 30 * d; c.fillStyle = mixC('#7a4a2a', '#2a2040', n); c.fillRect(x, 120 + li * 20, th * .5, H); c.fillStyle = col; c.beginPath(); c.arc(x + th * .25, 110 + li * 25 + r() * 30, 60 * d + r() * 20, 0, TAU); c.arc(x + th * .25 + 40 * d, 140 + li * 25, 46 * d, 0, TAU); c.fill(); } });
+  // ağaç ev
+  c.fillStyle = mixC('#8a5232', '#2c2142', n); c.beginPath(); c.roundRect(600, 120, 140, H, 30); c.fill();
+  c.fillStyle = mixC('#c2601f', '#3a2b5a', n); c.beginPath(); c.arc(610, 110, 70, 0, TAU); c.arc(690, 80, 84, 0, TAU); c.arc(760, 120, 66, 0, TAU); c.arc(680, 150, 60, 0, TAU); c.fill();
+  c.fillStyle = mixC('#d9812f', '#4a3a6a', n); c.beginPath(); c.arc(660, 60, 34, 0, TAU); c.arc(730, 96, 26, 0, TAU); c.fill();
+  c.fillStyle = mixC('#d4483a', '#5a2a2a', n); c.beginPath(); c.roundRect(640, 300, 60, 100, [30, 30, 4, 4]); c.fill();
+  c.fillStyle = n > .3 ? `rgba(255,214,120,${n})` : '#f6c453'; c.beginPath(); c.arc(670, 250, 20, 0, TAU); c.fill();
+  if (n > 0){ const g = c.createRadialGradient(670, 250, 10, 670, 250, 90); g.addColorStop(0, `rgba(255,214,120,${.5 * n})`); g.addColorStop(1, 'rgba(255,214,120,0)'); c.fillStyle = g; c.fillRect(580, 160, 180, 180); }
+  // patika
+  c.fillStyle = mixC('#e7b678', '#3b3366', n); c.beginPath(); c.moveTo(0, H); c.quadraticCurveTo(300, 360, 820, 400); c.lineTo(820, H); c.fill();
+  c.fillStyle = mixC('#c98a4a', '#2c2650', n); c.fillRect(0, 430, W, 40);
+  // yapraklar / ateşböcekleri
+  const r = rng(9); for (let k = 0; k < 18; k++){ const x = ((r() * W + t * 30) % W), y = ((r() * H + t * (30 + r() * 30)) % H);
+    if (n < .5){ c.save(); c.globalAlpha = 1 - n * 2; c.translate(x, y); c.rotate(t * 2 + k); c.fillStyle = ['#e8743b', '#f2bd3e', '#c2601f'][k % 3]; c.beginPath(); c.ellipse(0, 0, 6, 3, 0, 0, TAU); c.fill(); c.restore(); }
+    else { const a = (n - .5) * 2 * (.5 + .5 * Math.sin(t * 4 + k)); c.fillStyle = `rgba(255,236,140,${a})`; c.beginPath(); c.arc(x, 150 + (y % 260), 3, 0, TAU); c.fill(); c.fillStyle = `rgba(255,236,140,${a * .25})`; c.beginPath(); c.arc(x, 150 + (y % 260), 9, 0, TAU); c.fill(); } }
+  const fx = 180 + ((t * 40) % 260);
+  drawFox(c, fx, 412, .85, { pose: 'side', t, lantern: true, glow: .4 + n * .8 });
+  if (n > 0){ c.fillStyle = `rgba(20,20,60,${.12 * n})`; c.fillRect(0, 0, W, H); }
+  grain(c, W, H); c.restore();
+}
+// 4 — Yıldızlı tepe
+function sceneHill(c, w, h, t){
+  c.save(); c.scale(w / 820, h / 462); const W = 820, H = 462;
+  c.fillStyle = lin(c, 0, H, ['#1d1f55', '#4a4592', '#9a7fc8', '#f2a98a']); c.fillRect(0, 0, W, H);
+  c.save(); c.translate(410, 380); c.rotate(t * .06); const r = rng(14); for (let i = 0; i < 140; i++){ const a = r() * TAU, d = 60 + r() * 520, s = r() * 1.6 + .4; c.globalAlpha = .5 + .5 * Math.abs(Math.sin(t * 2 + i)); c.fillStyle = '#fff6dc'; c.beginPath(); c.arc(Math.cos(a) * d, Math.sin(a) * d, s, 0, TAU); c.fill(); } c.restore(); c.globalAlpha = 1;
+  const sp = (t * .7) % 1.6; if (sp < 1){ const x = 120 + sp * 420, y = 40 + sp * 120; const g = c.createLinearGradient(x - 90, y - 26, x, y); g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(1, 'rgba(255,255,255,.95)'); c.strokeStyle = g; c.lineWidth = 3; c.beginPath(); c.moveTo(x - 90, y - 26); c.lineTo(x, y); c.stroke(); }
+  c.fillStyle = '#2a2a5a'; c.beginPath(); c.moveTo(0, H); c.quadraticCurveTo(250, 290, 520, 360); c.quadraticCurveTo(700, 400, 820, 380); c.lineTo(820, H); c.fill();
+  c.fillStyle = '#1f2048'; c.beginPath(); c.moveTo(0, H); c.quadraticCurveTo(300, 340, 820, 430); c.lineTo(820, H); c.fill();
+  drawFox(c, 300, 350, .75, { pose: 'sit', t, lantern: true, glow: 1 });
+  grain(c, W, H); c.restore();
+}
+// 5 — Yuva (uyku)
+function sceneDen(c, w, h, t){
+  c.save(); c.scale(w / 820, h / 462); const W = 820, H = 462;
+  c.fillStyle = lin(c, 0, H, ['#f0d2ae', '#e2b98e']); c.fillRect(0, 0, W, H);
+  c.save(); c.beginPath(); c.arc(560, 150, 92, 0, TAU); c.clip(); c.fillStyle = lin(c, 58, 242, ['#1b2150', '#3a3e86']); c.fillRect(468, 58, 184, 184); stars(c, 1000, 400, t, 30, 31, 400); moon(c, 600, 120, 20); c.restore();
+  c.strokeStyle = '#8a5232'; c.lineWidth = 12; c.beginPath(); c.arc(560, 150, 92, 0, TAU); c.stroke(); c.lineWidth = 6; c.beginPath(); c.moveTo(468, 150); c.lineTo(652, 150); c.moveTo(560, 58); c.lineTo(560, 242); c.stroke();
+  c.fillStyle = '#8a5232'; c.fillRect(60, 60, 170, 14); c.fillRect(60, 140, 170, 14);
+  ['#e8743b', '#7a62e6', '#3aa36b', '#f2bd3e', '#d4483a', '#6f9cf0'].forEach((col, k) => { c.fillStyle = col; c.fillRect(70 + k * 26, 74 - 54 + (k % 2) * 6, 20, 54 - (k % 2) * 6); c.fillRect(74 + k * 26, 154 - 48, 20, 48); });
+  // lamba
+  const g = c.createRadialGradient(330, 210, 10, 330, 210, 200); g.addColorStop(0, 'rgba(255,214,120,.45)'); g.addColorStop(1, 'rgba(255,214,120,0)'); c.fillStyle = g; c.fillRect(130, 10, 400, 400);
+  lanternAt(c, 330, 230, 1.6, 1);
+  // yatak
+  c.fillStyle = '#8a5232'; c.beginPath(); c.roundRect(380, 300, 400, 140, 20); c.fill();
+  drawFox(c, 560, 336, 1, { pose: 'sleep', t });
+  c.fillStyle = '#6f8fd8'; c.beginPath(); c.roundRect(470, 316, 290, 70, 26); c.fill();
+  for (let k = 0; k < 6; k++){ c.fillStyle = ['#f2bd3e', '#e8743b', '#a996f2'][k % 3]; c.fillRect(480 + k * 46, 326, 36, 24); }
+  c.fillStyle = '#4a3a8a'; c.font = '800 30px "Inter Tight"'; [0, 1, 2].forEach(k => { const p = (t * .5 + k / 3) % 1; c.globalAlpha = Math.sin(p * Math.PI); c.fillText('z', 470 + p * 40 + k * 6, 300 - p * 90); }); c.globalAlpha = 1;
+  c.fillStyle = '#c99062'; c.fillRect(0, 430, W, 40);
+  grain(c, W, H); c.restore();
+}
+const SCENES = [sceneSea, sceneTitle, (c, w, h, t) => sceneForest(c, w, h, t, 0), sceneHill, sceneDen, (c, w, h, t) => sceneForest(c, w, h, t, 1)];
+function thumb(i, t, w = 320, h = 180){ const cv = document.createElement('canvas'); cv.width = w; cv.height = h; SCENES[i](cv.getContext('2d'), w, h, t); return cv.toDataURL('image/jpeg', .9); }
+
+/* =================== DOM KURULUM =================== */
+const $ = id => document.getElementById(id);
+const stage = $('stage');
+const bg = $('bg'), bctx = bg.getContext('2d');
+const pv = $('pv').getContext('2d');
+const words = [...document.querySelectorAll('#hook .w')];
+// storyboard + şeritler
+const THUMBS = [thumb(0, 1.2), thumb(1, .8), thumb(2, 1.4), thumb(3, 2.1), thumb(4, .6), thumb(5, 1.8), thumb(0, 3.1), thumb(3, 4.0), thumb(2, 3.2)];
+[0, 2, 3, 5, 4, 1].forEach(i => { const im = document.createElement('img'); im.src = THUMBS[i]; $('boardg').appendChild(im); });
+const bimgs = [...document.querySelectorAll('#boardg img')];
+const strips = [[$('s1'), [0, 1, 2, 3, 4, 5, 6, 7, 8, 0, 2, 3]], [$('s2'), [5, 4, 8, 7, 6, 3, 2, 1, 0, 5, 4, 8]]];
+strips.forEach(([el, ids]) => ids.forEach(i => { const im = document.createElement('img'); im.src = THUMBS[i]; im.style.width = '267px'; el.appendChild(im); }));
+$('ytimg').src = thumb(0, 2.2, 380, 214);
+// maskotlar (aynı Fındık, küçük kafa)
+const MASC = (() => { const cv = document.createElement('canvas'); cv.width = cv.height = 172; const x = cv.getContext('2d'); x.save(); x.beginPath(); x.arc(86, 86, 84, 0, TAU); x.fillStyle = '#fff'; x.fill(); x.clip(); drawFox(x, 86, 210, 1.25, { pose: 'front' }); x.restore(); return cv.toDataURL(); })();
+const MPOS = [[70, 1430], [924, 1400], [190, 1640], [800, 1620], [40, 300], [954, 280], [500, 1620]];
+const mascs = MPOS.map(([x, y]) => { const im = document.createElement('img'); im.src = MASC; im.className = 'masc'; im.style.left = x + 'px'; im.style.top = y + 'px'; stage.insertBefore(im, $('cap')); return im; });
+// karakter sayfası
+function drawSheet(t){ const c = $('sheetc').getContext('2d'); c.clearRect(0, 0, 600, 250); c.fillStyle = '#f7f3fc'; c.beginPath(); c.roundRect(0, 0, 600, 250, 18); c.fill();
+  const P = [['front', 'Ön'], ['q', '3/4'], ['side', 'Yan'], ['back', 'Arka'], ['happy', 'Mutlu']];
+  P.forEach(([p, l], k) => { const a = back((t - 15.3 - k * .14) / .4); if (a <= 0) return; const x = 60 + k * 120; c.save(); c.globalAlpha = clamp(a, 0, 1); c.translate(x, 200); c.scale(a, a); drawFox(c, p === 'side' ? -20 : 0, 0, p === 'side' ? .9 : 1, { pose: p, t }); c.restore();
+    c.fillStyle = '#6d6785'; c.font = '600 18px Inter'; c.textAlign = 'center'; c.globalAlpha = clamp(a, 0, 1); c.fillText(l, x, 236); c.globalAlpha = 1; }); }
+// kod
+const CODE = [['cm', '// sahne-03.js · Fındık ormanda'], ['k', 'const '], ['', 'findik = '], ['f', 'karakter'], ['', '('], ['s', '"Fındık"'], ['', ', { atki: '], ['s', '"hardal"'], ['', ' });\n'],
+  ['k', 'const '], ['', 'orman = '], ['f', 'sahne'], ['', '('], ['s', '"sonbahar"'], ['', ', { doku: '], ['s', '"kağıt"'], ['', ' });\n'],
+  ['', 'findik.'], ['f', 'yuru'], ['', '({ x: 820, sure: 4, fener: '], ['k', 'true'], ['', ' });\n'],
+  ['', 'gokyuzu.'], ['f', 'yildizlar'], ['', '(140).'], ['f', 'kaydir'], ['', '(0.2);\n'], ['f', 'render'], ['', '('], ['s', '"sahne-03.mp4"'], ['', ');']];
+CODE[0][1] += '\n';
+const CODE_LEN = CODE.reduce((a, s) => a + s[1].length, 0);
+function codeHTML(n){ let out = '', k = 0; for (const [cl, s] of CODE){ if (k >= n) break; const part = s.slice(0, n - k); out += cl ? `<span class="${cl}">${part}</span>` : part; k += s.length; } return out + '<span class="caret" style="height:24px;background:#ff9d6c"></span>'; }
+const IDEA = 'Fındık adında meraklı bir tilki, kayıp ay fenerini arıyor. Çocuklar için sakin, 1 saatlik bir bölüm yap.';
+
+/* =================== ZAMAN ÇİZELGESİ =================== */
+const TOTAL = 42;
+const CAPS = [
+  [4.9, 'Sadece [2 günde]'], [5.9, '[60 dakikalık] bir bölüm,'], [7.0, '[120 sahne],'], [8.0, 've tek bir [çizim] yapmadan.'], [9.2, 'Her kareyi [Claude] çizdi.'],
+  [11.1, 'Sen sadece'], [11.9, '[tek bir fikir] yazıyorsun.'],
+  [14.7, 'Claude [hikâyeyi] yazıyor,'], [15.9, '[karakteri] tasarlıyor'], [17.1, 've her sahneyi [planlıyor.]'],
+  [18.5, 'Sonra her sahneyi'], [19.6, '[kodla] çiziyor:'], [20.8, '[kâğıt dokusu,]'], [21.9, '[kayan yıldızlar.]'],
+  [23.5, 'Üstüne [sakin bir anlatıcı]'], [25.2, 've [ses] ekliyor.'],
+  [27.3, '[1 saatlik] bölüm mü?'], [28.7, 'Sahneleri tek tek'], [29.8, 'birbirine [bağlıyor.]'],
+  [31.5, '[Gece] mi olsun?'], [32.6, 'Sadece yaz:'], [33.6, '[“gece yap.”]'],
+  [35.7, 'Ve bölüm'], [36.6, '[YouTube’a] hazır.'], [37.8, '']
+];
+const capEl = $('cap'); let capIdx = -1, capSpans = [];
+function setCap(i){ capIdx = i; const txt = CAPS[i][1]; capEl.innerHTML = ''; capSpans = [];
+  txt.split(/(\[[^\]]+\])/).filter(Boolean).forEach(seg => { const hl = seg.startsWith('['); const body = hl ? seg.slice(1, -1) : seg;
+    if (hl){ const s = document.createElement('span'); s.className = 'cw h'; s.textContent = body; capEl.appendChild(s); capSpans.push(s); }
+    else body.split(' ').filter(Boolean).forEach(w => { const s = document.createElement('span'); s.className = 'cw'; s.textContent = w; capEl.appendChild(s); capSpans.push(s); }); }); }
+
+// görünürlük yardımcıları
+function show(el, t, a, b, o = {}){
+  const din = o.din ?? .45, dout = o.dout ?? .3;
+  const pin = back((t - a) / din), pout = easeIO((t - (b - dout)) / dout);
+  const vis = t >= a && t <= b;
+  el.style.opacity = vis ? clamp(Math.min(pin * 1.4, 1 - pout), 0, 1) : 0;
+  if (!vis) return 0;
+  const fy = o.fy ?? 120, fx = o.fx ?? 0, sc = o.sc ?? .85;
+  const flo = Math.sin(t * 1.3 + (o.ph || 0)) * (o.float ?? 6);
+  el.style.transform = `translate(${o.x ?? 0}px, ${(o.y ?? 0) + flo}px) translate(${(1 - pin) * fx}px, ${(1 - pin) * fy - pout * 60}px) perspective(1800px) rotateX(${o.rx ?? 0}deg) rotateY(${o.ry ?? 0}deg) rotateZ(${o.rz ?? 0}deg) scale(${mix(sc, 1, pin) * (1 - pout * .08)})`;
+  return pin;
+}
+function place(el, left, top){ el.style.left = left + 'px'; el.style.top = top + 'px'; }
+place($('player'), 130, 470); place($('chat'), 130, 560); place($('script'), 70, 380); place($('sheet'), 370, 330); place($('board'), 370, 700);
+place($('code'), 110, 330); place($('m1'), 70, 800); place($('m2'), 540, 860);
+place($('l1'), 230, 560); place($('l2'), 230, 470); place($('l3'), 230, 380);
+place($('edit'), 110, 420); place($('ebar'), 110, 950); place($('file'), 260, 520); place($('yt'), 110, 720); place($('cta'), 130, 640);
+
+function drawBG(t){
+  const c = bctx; const g = c.createLinearGradient(0, 0, 0, 1920); g.addColorStop(0, '#ece4ff'); g.addColorStop(.5, '#e4efff'); g.addColorStop(1, '#fff3e6'); c.fillStyle = g; c.fillRect(0, 0, 1080, 1920);
+  const rg = c.createRadialGradient(540, 820, 50, 540, 820, 760); rg.addColorStop(0, 'rgba(255,255,255,.7)'); rg.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = rg; c.fillRect(0, 0, 1080, 1920);
+  const r = rng(77);
+  for (let i = 0; i < 26; i++){ const x = r() * 1080, y = r() * 1920, k = i % 3, s = 6 + r() * 8, ph = r() * TAU, yy = y + Math.sin(t * .6 + ph) * 14;
+    if (k === 0){ c.fillStyle = ['#e0703c', '#a996f2', '#f2bd3e'][i % 3]; c.save(); c.translate(x, yy); c.rotate(t * .3 + ph); c.beginPath(); for (let j = 0; j < 10; j++){ const a = j / 10 * TAU, R = j % 2 ? s * .45 : s; c.lineTo(Math.cos(a) * R, Math.sin(a) * R); } c.fill(); c.restore(); }
+    else if (k === 1){ c.fillStyle = ['#8fa8ff', '#c4b3ff', '#ffb98f'][i % 3]; c.beginPath(); c.arc(x, yy, s * .5, 0, TAU); c.fill(); }
+    else { c.strokeStyle = 'rgba(160,150,200,.5)'; c.lineWidth = 2.5; c.beginPath(); c.arc(x, yy, s, Math.PI, 0); c.arc(x + s * 1.3, yy - s * .4, s * 1.2, Math.PI, 0); c.arc(x + s * 2.6, yy, s, Math.PI, 0); c.stroke(); } }
+}
+
+let lastCode = -1, lastIdea = -1, lastE = -1, lastCta = -1;
+function renderAt(t){
+  t = clamp(t, 0, TOTAL - 1e-3);
+  drawBG(t);
+  /* kanca: kelimeler */
+  const hookOut = easeIO((t - 4.5) / .4);
+  $('hook').style.opacity = 1 - hookOut; $('hook').style.transform = `translateY(${-40 * hookOut}px)`;
+  const wt = [0, .15, .3, .55, .75, 1.15, 1.45, 1.65, 2.05];
+  words.forEach((w, i) => { const a = ease((t - wt[i]) / .3); w.style.opacity = a; w.style.transform = `translateY(${(1 - a) * 24}px)`; w.style.filter = `blur(${(1 - a) * 6}px)`; });
+  /* oynatıcı (0–11) */
+  if (t < 11.1){
+    const toTop = easeIO((t - 4.6) / .6);
+    const pin = show($('player'), t, 0, 11.0, { x: 0, y: mix(160, -110, toTop), rx: mix(14, 8, toTop), ry: mix(-16, -10, toTop), rz: mix(-4, -2, toTop), fy: 200, din: .7 });
+    let si, st = t, prog;
+    if (t < 4.7){ si = [0, 1, 2, 3][clamp(Math.floor((t - .4) / 1.05), 0, 3)]; if (t < .4) si = 0; }
+    else si = t < 10.2 ? 0 : 4;
+    SCENES[si](pv, 820, 462, st);
+    let tc = '0:00:00';
+    if (t < 4.7){ const f = clamp((t - 2.6) / 1.6, 0, 1); const s = Math.floor(easeIO(f) * 3600); tc = `${Math.floor(s / 3600)}:${String(Math.floor(s / 60) % 60).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`; prog = f; }
+    else { const s = Math.floor((t - 4.7) * 7); tc = `0:0${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; prog = (t - 4.7) / 400; }
+    $('ptc').textContent = tc; $('ptc').style.background = t < 4.7 && t > 4.0 ? '#e0703c' : '#1d1830'; $('pprog').style.width = (prog * 100) + '%';
+  } else $('player').style.opacity = 0;
+  show($('days'), t, 5.0, 11.0, { fy: -30, sc: .6, rz: -6, float: 3 });
+  show($('st1'), t, 5.9, 11.0, { fy: 60, sc: .6, ph: 1 }); show($('st2'), t, 7.0, 11.0, { fy: 60, sc: .6, ph: 2 }); show($('st3'), t, 8.0, 11.0, { fy: 60, sc: .6, ph: 3 });
+  show($('claudeBadge'), t, 9.3, 11.0, { fy: -20, sc: .5, rz: 6, float: 4 });
+  /* sohbet (11–14.6) */
+  show($('chat'), t, 11.0, 14.6, { rx: 8, ry: 12, rz: 2, fy: 160 });
+  if (t > 11 && t < 14.7){ const n = Math.floor(clamp((t - 11.7) / 2.2, 0, 1) * IDEA.length); if (n !== lastIdea){ $('typed').textContent = IDEA.slice(0, n); lastIdea = n; }
+    $('caret').style.opacity = Math.floor(t * 3) % 2 ? 1 : .2; $('bigspark').style.transform = `rotate(${t * 40}deg) scale(${1 + Math.sin(t * 4) * .05})`; }
+  /* plan (14.6–18.4) */
+  show($('script'), t, 14.6, 18.4, { rx: 6, ry: 18, rz: -4, fx: -200, fy: 0 });
+  show($('sheet'), t, 15.2, 18.4, { rx: 6, ry: -14, rz: 3, fx: 200, fy: 0, ph: 2 }); if (t > 15.1 && t < 18.5) drawSheet(t);
+  show($('board'), t, 16.9, 18.4, { rx: 8, ry: -10, rz: -2, fy: 160, ph: 3 });
+  bimgs.forEach((im, k) => { const a = back((t - 17.1 - k * .1) / .3); im.style.opacity = clamp(a, 0, 1); im.style.transform = `scale(${.6 + .4 * clamp(a, 0, 1.1)})`; });
+  /* kod (18.4–23.4) */
+  show($('code'), t, 18.4, 23.4, { rx: 10, ry: 14, rz: -3, fy: 160 });
+  if (t > 18.4 && t < 23.5){ const n = Math.floor(clamp((t - 18.8) / 2.0, 0, 1) * CODE_LEN); if (n !== lastCode){ $('codepre').innerHTML = codeHTML(n); lastCode = n; } }
+  if (show($('m1'), t, 20.7, 23.4, { rx: 8, ry: 16, rz: -5, fy: 140, ph: 1 })) sceneForest($('m1c').getContext('2d'), 470, 265, t, 0);
+  if (show($('m2'), t, 21.8, 23.4, { rx: 8, ry: -16, rz: 4, fy: 140, ph: 2 })) sceneHill($('m2c').getContext('2d'), 470, 265, t);
+  /* ses (23.4–27.2) */
+  [['l3', 24.6, 2], ['l2', 24.1, 1], ['l1', 23.5, 0]].forEach(([id, a, k]) => {
+    if (!show($(id), t, a, 27.2, { rx: 52, ry: 0, rz: -18, fy: 200, float: 4, ph: k })) return;
+    const c = $(id + 'c').getContext('2d'); c.clearRect(0, 0, 560, 120); c.fillStyle = 'rgba(255,255,255,.9)';
+    if (k === 0) for (let i = 0; i < 56; i++){ const hh = 10 + Math.abs(Math.sin(i * .7 + t * 9) * Math.sin(i * .23 + t * 2)) * 100; c.beginPath(); c.roundRect(i * 10, 60 - hh / 2, 6, hh, 3); c.fill(); }
+    else if (k === 1){ c.font = '700 54px Inter'; ['♪', '♫', '♪', '♬', '♪', '♫'].forEach((s, i) => c.fillText(s, 20 + i * 92, 84 + Math.sin(t * 3 + i) * 12)); }
+    else { c.strokeStyle = 'rgba(255,255,255,.9)'; c.lineWidth = 4; for (let j = 0; j < 3; j++){ c.beginPath(); for (let x = 0; x <= 560; x += 8) c.lineTo(x, 30 + j * 30 + Math.sin(x * .03 + t * 3 + j) * 10); c.stroke(); } }
+  });
+  /* zaman çizelgesi (27.2–31.4) */
+  const tlA = clamp(Math.min((t - 27.2) / .35, (31.4 - t) / .3), 0, 1);
+  $('tcpill').style.opacity = tlA; $('playhead').style.opacity = tlA; strips.forEach(([el], k) => { el.style.opacity = tlA; el.style.transform = `translateX(${k ? -900 + (t - 27.2) * 220 : -((t - 27.2) * 260)}px)`; });
+  if (tlA > 0){ const f = clamp((t - 27.5) / 3.4, 0, 1); const s = Math.floor(f * f * 3600); $('tct').textContent = `${Math.floor(s / 3600)}:${String(Math.floor(s / 60) % 60).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`; $('tcpill').style.transform = `translateX(-50%) scale(${.9 + .1 * ease((t - 27.2) / .4)})`; }
+  /* düzenleme (31.4–35.6) */
+  if (show($('edit'), t, 31.4, 35.6, { rx: 6, ry: -8, rz: 1, fy: 160 })){ const n = easeIO((t - 33.8) / .9); sceneForest($('ec').getContext('2d'), 860, 484, t, n); }
+  show($('ebar'), t, 32.4, 35.6, { fy: 80, sc: .9, float: 2 });
+  if (t > 32.3 && t < 35.7){ const n = Math.floor(clamp((t - 32.8) / .7, 0, 1) * 8); if (n !== lastE){ $('etyped').textContent = 'gece yap'.slice(0, n); lastE = n; } $('ecaret').style.opacity = Math.floor(t * 3) % 2 ? 1 : .2; }
+  /* dışa aktar (35.6–37.8) */
+  show($('file'), t, 35.6, 37.8, { fy: 80, sc: .8, float: 3 }); $('fbar').style.width = (clamp((t - 35.8) / .9, 0, 1) * 100) + '%';
+  show($('yt'), t, 36.3, 37.8, { rx: 8, ry: -10, rz: -2, fy: 160 });
+  /* CTA (37.8–42) */
+  show($('cta'), t, 37.9, 42.2, { fy: 200, sc: .7, float: 4, dout: .01 });
+  if (t > 37.8){ const n = Math.floor(clamp((t - 38.4) / .8, 0, 1) * 9); if (n !== lastCta){ $('ctatyped').textContent = '“' + 'ÇİZGİFİLM'.slice(0, n) + (n === 9 ? '”' : ''); lastCta = n; } }
+  $('ctaSub').style.opacity = ease((t - 39.4) / .5);
+  mascs.forEach((m, k) => { const a = t > 37.9 ? back((t - 39.6 - k * .08) / .4) : (t > 5 && t < 37.6 && k < 4 ? clamp(Math.min((t - 5 - k * .5) / .4, (37.6 - t) / .3), 0, 1) * .9 : 0);
+    if (t > 37.9 && k < 6){ m.style.left = (180 + k * 130) + 'px'; m.style.top = '1260px'; } else { m.style.left = MPOS[k][0] + 'px'; m.style.top = MPOS[k][1] + 'px'; }
+    m.style.opacity = clamp(a, 0, 1); m.style.transform = `translateY(${Math.sin(t * 4 + k) * (t > 37.9 ? 10 : 6)}px) rotate(${Math.sin(t * 2 + k) * 8}deg) scale(${clamp(a, 0, 1.2)})`; });
+  /* altyazı */
+  let ci = -1; CAPS.forEach((cp, i) => { if (t >= cp[0]) ci = i; });
+  if (ci !== capIdx && ci >= 0) setCap(ci);
+  if (ci >= 0){ capSpans.forEach((s, k) => { const a = back((t - CAPS[ci][0] - k * .1) / .25); s.style.opacity = clamp(a * 1.5, 0, 1); s.style.transform = `translateY(${(1 - clamp(a, 0, 1)) * 20}px) scale(${.8 + .2 * a})`; }); }
+  else capEl.innerHTML = '';
+}
+window.renderAt = renderAt;
+window.FONTS_READY = Promise.all(['900 20px "Inter Tight"', '800 20px "Inter Tight"', 'italic 400 20px "Instrument Serif"', '500 20px Inter', '600 20px Inter', '800 20px Inter', '500 20px "JetBrains Mono"', '700 20px "JetBrains Mono"']
+  .map(f => document.fonts.load(f, 'AaÇĞİÖŞÜçğıöşü0'))).then(() => document.fonts.ready);
+function fit(){ const s = Math.min(innerWidth / 1080, innerHeight / 1920); stage.style.transform = `scale(${s})`; }
+addEventListener('resize', fit); fit();
+if (new URLSearchParams(location.search).has('capture')) stage.style.transform = 'none';
+else { let t0 = null; const loop = now => { if (t0 === null) t0 = now; renderAt(((now - t0) / 1000) % TOTAL); requestAnimationFrame(loop); }; window.FONTS_READY.then(() => requestAnimationFrame(loop)); }
+window.FONTS_READY.then(() => renderAt(0));
+</script>
+</body>
+</html>
