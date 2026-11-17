@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GTA VI Fiyat Analizi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800;900&family=Instrument+Serif:ital@1&family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{ --bg:#06070c; --ink:#f5efe9; --dim:rgba(245,239,233,.55); --copper:#e8875c; --copper2:#f2a679; }
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#000;overflow:hidden}
+body{display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:1080px;height:1920px;background:var(--bg);overflow:hidden;transform-origin:center center;flex:none;font-family:'Inter',system-ui,sans-serif;color:var(--ink)}
+canvas.full{position:absolute;inset:0}
+#mc{position:absolute;left:40px;top:440px}
+.head{position:absolute;left:0;right:0;top:206px;text-align:center;opacity:0}
+.eyebrow{display:flex;align-items:center;justify-content:center;gap:14px;color:var(--copper);font:700 30px/1 'Inter',sans-serif;letter-spacing:.24em}
+.eyebrow svg{width:30px;height:30px}
+.head h1{margin-top:26px;font:900 92px/1 'Inter Tight',sans-serif;letter-spacing:-.035em;color:var(--ink);white-space:nowrap}
+.head h1 em{font:italic 400 110px/1 'Instrument Serif',serif;letter-spacing:-.01em;background:linear-gradient(180deg,#f6b48b,#d7764b);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:8px}
+#cap{position:absolute;left:60px;right:60px;top:1236px;text-align:center}
+#cap .a{font:800 50px/1.12 'Inter Tight',sans-serif;letter-spacing:-.025em;color:#fff}
+#cap .b{font:italic 400 60px/1.1 'Instrument Serif',serif;color:var(--copper2);margin-top:2px}
+#cap span{display:inline-block;margin:0 .12em;opacity:0}
+#note{position:absolute;left:90px;right:90px;top:1174px;text-align:center;font:500 21px/1.3 'Inter',sans-serif;color:rgba(245,239,233,.55);opacity:0}
+#pill{position:absolute;left:50%;top:1424px;transform:translateX(-50%);height:92px;padding:0 26px 0 16px;display:flex;align-items:center;gap:16px;border-radius:60px;background:rgba(255,255,255,.045);border:2px solid rgba(255,255,255,.09);white-space:nowrap;font:800 36px/1 'Inter',sans-serif;letter-spacing:-.02em;box-shadow:0 10px 40px rgba(0,0,0,.4);opacity:0}
+.av{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#3a3d48,#22242c);display:flex;align-items:center;justify-content:center}
+#pill .c{color:var(--copper)} #pill .g{color:rgba(245,239,233,.55)}
+#pill .tw{display:inline-block;min-width:118px;text-align:center}
+#cursor{display:inline-block;width:4px;height:36px;background:#fff;margin:0 2px -6px;border-radius:2px}
+#cover{position:absolute;inset:0;display:none}
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="bg" class="full" width="1080" height="1920"></canvas>
+  <canvas id="mc" width="1000" height="740"></canvas>
+
+  <div class="head" id="h0"><div class="eyebrow"><svg viewBox="0 0 24 24" fill="#e8875c"><path class="spark" d=""/></svg>OYUN EKONOMİSİ</div></div>
+  <div class="head" id="h1"><div class="eyebrow"><svg viewBox="0 0 24 24" fill="#e8875c"><path class="spark" d=""/></svg>HESAP 1</div><h1>Saat başına <em>kaç lira?</em></h1></div>
+  <div class="head" id="h2"><div class="eyebrow"><svg viewBox="0 0 24 24" fill="#e8875c"><path class="spark" d=""/></svg>HESAP 2</div><h1>Günde 2 saat <em>oynarsan</em></h1></div>
+  <div class="head" id="h3"><div class="eyebrow"><svg viewBox="0 0 24 24" fill="#e8875c"><path class="spark" d=""/></svg>KARŞILAŞTIRMA 1</div><h1>40 gün <em>kahve</em></h1></div>
+  <div class="head" id="h4"><div class="eyebrow"><svg viewBox="0 0 24 24" fill="#e8875c"><path class="spark" d=""/></svg>KARŞILAŞTIRMA 2</div><h1>40 gün <em>hamburger</em></h1></div>
+  <div class="head" id="h5"><div class="eyebrow"><svg viewBox="0 0 24 24" fill="#e8875c"><path class="spark" d=""/></svg>SONUÇ</div><h1>Yan yana <em>koyalım</em></h1></div>
+  <div class="head" id="h6"><div class="eyebrow"><svg viewBox="0 0 24 24" fill="#e8875c"><path class="spark" d=""/></svg>SÖZ SENDE</div><h1>Sen <em>verir misin?</em></h1></div>
+
+  <div id="note"></div>
+  <div id="cap"></div>
+  <div id="pill">
+    <div class="av"><svg width="32" height="32" viewBox="0 0 24 24" fill="rgba(255,255,255,.7)"><circle cx="12" cy="9" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6z"/></svg></div>
+    <span style="color:#fff">Yorumlara</span><span class="tw"><span class="c" id="typed">EVET</span><span id="cursor"></span></span><span style="color:#fff">ya da</span><span class="g" id="other">HAYIR</span>
+  </div>
+  <canvas id="cover" class="full" width="1080" height="1920"></canvas>
+</div>
+
+<script>
+const TAU = Math.PI * 2, TOTAL = 43;
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const ease = x => 1 - Math.pow(1 - clamp(x, 0, 1), 3);
+const easeIO = x => { x = clamp(x, 0, 1); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const back = x => { x = clamp(x, 0, 1); const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+function rng(seed){ return function(){ seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const fmt = n => Math.round(n).toLocaleString('tr-TR');
+(function(){ let d = ''; for (let i = 0; i < 12; i++){ const a = i / 12 * TAU - Math.PI / 2, a1 = a - .32, a2 = a + .32, R = i % 2 ? 9.8 : 11.8;
+  d += `M12 12 L${12 + Math.cos(a1) * 3.2} ${12 + Math.sin(a1) * 3.2} L${12 + Math.cos(a) * R} ${12 + Math.sin(a) * R} L${12 + Math.cos(a2) * 3.2} ${12 + Math.sin(a2) * 3.2}Z `; }
+  document.querySelectorAll('.spark').forEach(p => p.setAttribute('d', d)); })();
+
+/* ============ BÖLÜMLER ============ */
+const SEC = [0, 3.0, 9.0, 15.0, 24.0, 31.0, 39.0, 43];
+const secAt = t => { let i = 0; for (let k = 0; k < 7; k++) if (t >= SEC[k]) i = k; return i; };
+
+/* ============ ALTYAZI (seslendirme metni ile birebir) ============ */
+const CAPS = [
+  [0.15, 'GTA 6’ya 4.000 TL vermek', 'saçmalık mı?'],
+  [1.85, 'Bir hesap', 'yapalım.'],
+  [3.1, 'Diyelim ki oyunu toplam', '80 saat oynadın.'],
+  [5.6, 'Bu, saat başına sadece', '50 lira demek.'],
+  [9.1, 'Her gün 2 saat', 'oynarsan,'],
+  [11.4, 'tam 40 gün boyunca', 'eğlenmiş oluyorsun.'],
+  [15.1, 'Peki 40 gün boyunca her gün', '200 liralık kahve içsen?'],
+  [19.6, 'Tam', '8.000 lira!'],
+  [24.1, 'Her gün 450 liralık', 'hamburger yesen?'],
+  [27.6, 'Tam', '18.000 lira!'],
+  [31.1, 'Tabii dışarı çıkmakla oyun oynamak', 'aynı şey değil.'],
+  [34.3, 'Ama bir oyunun fiyatını,', 'kaç saat eğlendirdiğiyle'],
+  [36.6, 'değerlendirmek', 'gerekmez mi?'],
+  [39.1, 'Peki sen, GTA 6’ya', '4.000 TL verir misin?']
+];
+const NOTES = [
+  [3.3, 9.0, '3.999 TL hesap kolaylığı için 4.000 TL’ye yuvarlandı. 80 saat bir varsayımdır (hikâye + yan içerik); oyun süresi kişiden kişiye değişir.'],
+  [9.3, 15.0, '2 saat × 40 gün = 80 saat'],
+  [15.3, 24.0, '*200 TL/kahve varsayımsal örnek fiyattır.'],
+  [24.3, 31.0, '*450 TL/hamburger varsayımsal örnek fiyattır.'],
+  [31.3, 39.0, 'Kahve ve hamburger fiyatları varsayımsal örnektir; GTA VI fiyatı PS5 Standart Sürüm, Türkiye.']
+];
+const capEl = document.getElementById('cap'); let capI = -1, capSp = [];
+function setCap(i){ capI = i; capEl.innerHTML = ''; capSp = []; const [, a, b] = CAPS[i];
+  [[a, 'a'], [b, 'b']].forEach(([txt, cls]) => { const d = document.createElement('div'); d.className = cls; txt.split(' ').forEach(w => { const s = document.createElement('span'); s.textContent = w; d.appendChild(s); capSp.push(s); }); capEl.appendChild(d); }); }
+
+/* ============ ARKA PLAN (bizim tema) ============ */
+const bg = document.getElementById('bg'), bx = bg.getContext('2d');
+const BGS = (() => { const r = rng(2024), a = []; for (let i = 0; i < 220; i++) a.push([r() * 1080, r() * 1920, r() * 1.8 + .3, r() * TAU, r()]); return a; })();
+function drawBG(t, glow){
+  bx.fillStyle = '#06070c'; bx.fillRect(0, 0, 1080, 1920);
+  let g = bx.createRadialGradient(540, 820, 0, 540, 820, 900); g.addColorStop(0, 'rgba(40,36,60,.55)'); g.addColorStop(1, 'rgba(6,7,12,0)'); bx.fillStyle = g; bx.fillRect(0, 0, 1080, 1920);
+  if (glow > 0){ g = bx.createRadialGradient(540, 800, 0, 540, 800, 620); g.addColorStop(0, `rgba(232,135,92,${.22 * glow})`); g.addColorStop(1, 'rgba(232,135,92,0)'); bx.fillStyle = g; bx.fillRect(0, 0, 1080, 1920); }
+  bx.strokeStyle = 'rgba(255,255,255,.035)'; bx.lineWidth = 2;
+  [380, 520, 680].forEach((r, i) => { bx.beginPath(); bx.arc(540, 960, r + Math.sin(t * .6 + i) * 6, 0, TAU); bx.stroke(); });
+  BGS.forEach(([x, y, r, ph, sp]) => { bx.globalAlpha = .15 + .6 * Math.abs(Math.sin(t * (.6 + sp) + ph)); bx.fillStyle = '#fff'; bx.beginPath(); bx.arc(x, (y - t * 6 * sp + 1920) % 1920, r, 0, TAU); bx.fill(); });
+  bx.globalAlpha = 1;
+}
+
+/* ============ ÇİZİM YARDIMCILARI ============ */
+const mc = document.getElementById('mc'), c = mc.getContext('2d'); const MW = 1000, MH = 740;
+function glass(x, y, w, h, r = 36){ c.save(); c.fillStyle = 'rgba(255,255,255,.045)'; c.strokeStyle = 'rgba(255,255,255,.10)'; c.lineWidth = 2; c.beginPath(); c.roundRect(x, y, w, h, r); c.fill(); c.stroke(); c.restore(); }
+function txt(s, x, y, font, col, align = 'center', base = 'alphabetic'){ c.font = font; c.fillStyle = col; c.textAlign = align; c.textBaseline = base; c.fillText(s, x, y); }
+function copperGrad(y0, y1){ const g = c.createLinearGradient(0, y0, 0, y1); g.addColorStop(0, '#f8c29c'); g.addColorStop(1, '#d7764b'); return g; }
+function slamText(s, x, y, size, t0, t, o = {}){
+  const p = back((t - t0) / .35); if (t < t0) return 0;
+  const sc = 1 + (1 - clamp(p, 0, 1.2)) * 1.4;
+  c.save(); c.translate(x, y); c.scale(sc, sc); c.globalAlpha = clamp((t - t0) / .12, 0, 1);
+  if (o.glow){ c.shadowColor = 'rgba(232,135,92,.75)'; c.shadowBlur = 40; }
+  c.font = `900 ${size}px "Inter Tight"`; c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.fillStyle = o.fill ?? copperGrad(-size / 2, size / 2); c.fillText(s, 0, 0); c.restore(); return p;
+}
+function chip(s, x, y, a, o = {}){ if (a <= 0) return; c.save(); c.globalAlpha = clamp(a, 0, 1); c.translate(x, y); c.scale(clamp(a, 0, 1.15), clamp(a, 0, 1.15));
+  c.font = o.font ?? '800 40px "Inter Tight"'; const w = c.measureText(s).width + 56, h = o.h ?? 78;
+  c.fillStyle = o.bg ?? 'rgba(255,255,255,.07)'; c.strokeStyle = o.stroke ?? 'rgba(255,255,255,.14)'; c.lineWidth = 2; c.beginPath(); c.roundRect(-w / 2, -h / 2, w, h, h / 2); c.fill(); c.stroke();
+  c.fillStyle = o.col ?? '#fff'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(s, 0, 2); c.restore(); }
+
+/* ---- kahve bardağı (özgün çizim) ---- */
+function cup(x, y, s, t, steam){
+  c.save(); c.translate(x, y); c.scale(s, s);
+  c.fillStyle = 'rgba(0,0,0,.35)'; c.beginPath(); c.ellipse(0, 46, 30, 6, 0, 0, TAU); c.fill();
+  const g = c.createLinearGradient(-26, 0, 26, 0); g.addColorStop(0, '#d9d2c8'); g.addColorStop(.35, '#ffffff'); g.addColorStop(1, '#c9c1b5');
+  c.fillStyle = g; c.beginPath(); c.moveTo(-24, -26); c.lineTo(24, -26); c.lineTo(18, 44); c.lineTo(-18, 44); c.closePath(); c.fill();
+  const sg = c.createLinearGradient(-24, 0, 24, 0); sg.addColorStop(0, '#9a5a35'); sg.addColorStop(.4, '#c8784a'); sg.addColorStop(1, '#8a4e2c');
+  c.fillStyle = sg; c.beginPath(); c.moveTo(-22.5, -6); c.lineTo(22.5, -6); c.lineTo(20.3, 22); c.lineTo(-20.3, 22); c.closePath(); c.fill();
+  c.fillStyle = '#2b2622'; c.beginPath(); c.roundRect(-28, -36, 56, 12, 5); c.fill(); c.fillStyle = '#3a342f'; c.beginPath(); c.roundRect(-22, -42, 44, 8, 4); c.fill();
+  if (steam){ c.strokeStyle = 'rgba(255,255,255,.35)'; c.lineWidth = 3; c.lineCap = 'round'; for (let k = 0; k < 2; k++){ c.beginPath(); for (let j = 0; j < 14; j++){ const yy = -48 - j * 3; c.lineTo(-6 + k * 12 + Math.sin(j * .6 - t * 5 + k) * 4, yy); } c.stroke(); } }
+  c.restore();
+}
+/* ---- hamburger (özgün çizim) ---- */
+function burger(x, y, s){
+  c.save(); c.translate(x, y); c.scale(s, s);
+  c.fillStyle = 'rgba(0,0,0,.35)'; c.beginPath(); c.ellipse(0, 30, 36, 6, 0, 0, TAU); c.fill();
+  const bun = (yy, h, top) => { const g = c.createLinearGradient(0, yy - h, 0, yy + h); g.addColorStop(0, '#f2b45e'); g.addColorStop(1, '#c97a2e'); c.fillStyle = g; c.beginPath(); if (top){ c.moveTo(-36, yy); c.quadraticCurveTo(-34, yy - 34, 0, yy - 36); c.quadraticCurveTo(34, yy - 34, 36, yy); c.closePath(); } else c.roundRect(-34, yy, 68, h, [4, 4, 12, 12]); c.fill(); };
+  bun(18, 12, false);
+  c.fillStyle = '#5a2e1a'; c.beginPath(); c.roundRect(-35, 6, 70, 13, 6); c.fill();
+  c.fillStyle = '#f6c443'; c.beginPath(); c.moveTo(-34, 4); c.lineTo(34, 4); c.lineTo(26, 12); c.lineTo(10, 6); c.lineTo(-6, 13); c.lineTo(-22, 6); c.closePath(); c.fill();
+  c.fillStyle = '#6dbb4a'; c.beginPath(); for (let k = 0; k <= 8; k++) c.lineTo(-36 + k * 9, k % 2 ? 4 : -2); c.lineTo(36, 4); c.lineTo(-36, 4); c.fill();
+  c.fillStyle = '#e04b3a'; c.beginPath(); c.roundRect(-30, -6, 60, 6, 3); c.fill();
+  bun(-4, 0, true);
+  c.fillStyle = '#fff3d6'; [[-16, -22], [-4, -28], [10, -24], [20, -16], [2, -16]].forEach(([a, b]) => { c.beginPath(); c.ellipse(a, b, 2.6, 1.5, .4, 0, TAU); c.fill(); });
+  c.restore();
+}
+function counter(label, val, x, y, size = 96){ txt(label, x, y - size * .75, '700 26px Inter', 'rgba(245,239,233,.55)'); c.save(); c.shadowColor = 'rgba(232,135,92,.45)'; c.shadowBlur = 24; txt(fmt(val) + ' TL', x, y + size * .32, `900 ${size}px "Inter Tight"`, copperGrad(y - size / 2, y + size / 2)); c.restore(); }
+
+/* ============ SAHNELER ============ */
+function sHook(t){
+  const lt = t;
+  // ışık hüzmeleri
+  c.save(); c.globalAlpha = .5; for (let k = 0; k < 7; k++){ const x = -200 + ((k * 230 + lt * 900) % 1500); const g = c.createLinearGradient(x, 0, x + 160, 0); g.addColorStop(0, 'rgba(232,135,92,0)'); g.addColorStop(.5, 'rgba(232,135,92,.18)'); g.addColorStop(1, 'rgba(232,135,92,0)'); c.fillStyle = g; c.save(); c.translate(x, 0); c.rotate(-.35); c.fillRect(0, -200, 120, 1300); c.restore(); } c.restore();
+  // dev başlık (düz yazı; resmî logo değil)
+  const shake = lt < .45 ? Math.sin(lt * 120) * (1 - lt / .45) * 10 : 0;
+  c.save(); c.translate(shake, 0);
+  slamText('GTA', 500, 190, 250, 0.0, lt, { fill: '#ffffff' });
+  slamText('VI', 500, 400, 260, 0.12, lt, { glow: true });
+  c.restore();
+  // fiyat etiketi
+  const a = back((lt - .65) / .4); if (a > 0){
+    c.save(); c.translate(540, 585); c.rotate(-.08 + (1 - clamp(a, 0, 1)) * .5 + Math.sin(lt * 3) * .02); c.scale(a, a);
+    c.strokeStyle = 'rgba(255,255,255,.5)'; c.lineWidth = 3; c.beginPath(); c.moveTo(-210, -10); c.quadraticCurveTo(-300, -120, -380, -90); c.stroke();
+    c.fillStyle = '#e8875c'; c.beginPath(); c.moveTo(-190, -64); c.lineTo(250, -64); c.quadraticCurveTo(270, -64, 270, -44); c.lineTo(270, 44); c.quadraticCurveTo(270, 64, 250, 64); c.lineTo(-190, 64); c.lineTo(-250, 0); c.closePath(); c.fill();
+    c.fillStyle = '#06070c'; c.beginPath(); c.arc(-200, 0, 12, 0, TAU); c.fill();
+    txt('3.999 TL', 40, 4, '900 92px "Inter Tight"', '#160d08', 'center', 'middle');
+    c.restore(); }
+  chip('PS5 · Standart · Türkiye', 300, 716, back((lt - 1.15) / .35), { font: '700 30px Inter', h: 62 });
+  chip('19 Kasım 2026', 730, 716, back((lt - 1.35) / .35), { font: '700 30px Inter', h: 62, col: '#f2a679' });
+}
+function sCalc(t){
+  const lt = t - 3.0;
+  glass(60, 20, 880, 700);
+  // ekran
+  c.save(); c.fillStyle = 'rgba(0,0,0,.45)'; c.beginPath(); c.roundRect(100, 60, 800, 250, 26); c.fill(); c.restore();
+  const keys = [[.5, '4'], [.75, '.'], [.9, '0'], [1.05, '0'], [1.2, '0'], [1.55, '÷'], [1.85, '8'], [2.05, '0'], [2.6, '=']];
+  let expr = ''; keys.forEach(([k, s]) => { if (lt >= k && s !== '=') expr += s; });
+  const exprShow = expr.replace('÷', ' ÷ ') + (lt >= 1.55 ? (lt >= 2.05 ? ' saat' : '') : (expr ? ' TL' : ''));
+  txt(exprShow || '0', 860, 150, '800 64px "JetBrains Mono"', 'rgba(245,239,233,.85)', 'right', 'middle');
+  if (lt >= 2.6){ const p = back((lt - 2.6) / .35); c.save(); c.translate(860, 250); c.scale(.6 + .4 * clamp(p, 0, 1.1), .6 + .4 * clamp(p, 0, 1.1)); c.shadowColor = 'rgba(232,135,92,.6)'; c.shadowBlur = 30; txt('= 50 TL/saat', 0, 0, '900 84px "Inter Tight"', copperGrad(-40, 40), 'right', 'middle'); c.restore(); }
+  // tuş takımı
+  const labels = [['7', '8', '9', '÷'], ['4', '5', '6', '×'], ['1', '2', '3', '−'], ['0', '.', '=', '+']];
+  const pressed = keys.filter(([k]) => lt >= k && lt < k + .18).map(k => k[1]);
+  labels.forEach((row, j) => row.forEach((s, i) => {
+    const x = 110 + i * 200, y = 340 + j * 92, on = pressed.includes(s), op = '÷×−+='.includes(s);
+    c.fillStyle = on ? '#e8875c' : op ? 'rgba(232,135,92,.16)' : 'rgba(255,255,255,.06)'; c.beginPath(); c.roundRect(x, y + (on ? 4 : 0), 180, 76, 20); c.fill();
+    txt(s, x + 90, y + 52 + (on ? 4 : 0), '800 40px "Inter Tight"', on ? '#160d08' : op ? '#f2a679' : '#fff');
+  }));
+}
+function sCal(t){
+  const lt = t - 9.0;
+  glass(60, 20, 880, 560);
+  txt('40 GÜNLÜK OYUN PLANI', 500, 80, '700 28px Inter', 'rgba(245,239,233,.6)');
+  const filled = Math.floor(clamp((lt - .6) / 3.2, 0, 1) * 40);
+  for (let d = 0; d < 42; d++){
+    const i = d % 7, j = Math.floor(d / 7), x = 110 + i * 116, y = 110 + j * 74;
+    const on = d < filled, just = d === filled - 1;
+    c.fillStyle = on ? (d >= 38 ? '#f2a679' : '#e8875c') : 'rgba(255,255,255,.05)'; c.beginPath(); c.roundRect(x, y, 100, 62, 14); c.fill();
+    if (d < 40) txt(String(d + 1), x + 16, y + 40, '800 26px "Inter Tight"', on ? '#160d08' : 'rgba(255,255,255,.35)', 'left');
+    if (on){ txt('2s', x + 86, y + 40, '700 20px Inter', 'rgba(22,13,8,.65)', 'right'); }
+    if (just){ c.strokeStyle = '#fff'; c.lineWidth = 3; c.beginPath(); c.roundRect(x - 3, y - 3, 106, 68, 16); c.stroke(); }
+  }
+  const p = slamText(filled >= 40 ? '40 GÜN' : `${filled} gün`, 500, 660, filled >= 40 ? 130 : 90, filled >= 40 ? 4.0 : -9, lt, { glow: filled >= 40 });
+}
+function grid40(t, t0, dur, draw, size){
+  const n = Math.floor(clamp((t - t0) / dur, 0, 1) * 40);
+  for (let k = 0; k < 40; k++){ const i = k % 8, j = Math.floor(k / 8), x = 120 + i * 108, y = 260 + j * 96;
+    const a = back((t - t0 - (k / 40) * dur) / .25); if (a <= 0) continue; draw(x, y, size * clamp(a, 0, 1.2), k); }
+  return n;
+}
+function sCoffee(t){
+  const lt = t - 15.0;
+  glass(60, 20, 880, 700);
+  const n = grid40(lt, .7, 3.6, (x, y, s, k) => cup(x, y, s, t, k % 7 === 0), .78);
+  if (lt < 4.6) counter(`${n} kahve`, n * 200, 500, 140);
+  else { txt('40 kahve', 500, 70, '700 26px Inter', 'rgba(245,239,233,.55)'); slamText('8.000 TL', 500, 150, 120, 4.6, lt, { glow: true }); }
+}
+function sBurger(t){
+  const lt = t - 24.0;
+  glass(60, 20, 880, 700);
+  const n = grid40(lt, .6, 3.0, (x, y, s) => burger(x, y + 6, s), .85);
+  if (lt < 3.6) counter(`${n} hamburger`, n * 450, 500, 140);
+  else { txt('40 hamburger', 500, 70, '700 26px Inter', 'rgba(245,239,233,.55)'); slamText('18.000 TL', 500, 150, 120, 3.6, lt, { glow: true }); }
+}
+function sCompare(t){
+  const lt = t - 31.0;
+  glass(60, 20, 880, 700);
+  const rows = [['GTA VI', 4000, '#e8875c', '80 saat ≈ 50 TL/saat', 'pad'], ['40 kahve', 8000, '#c7b8a8', 'örnek: 200 TL × 40', 'cup'], ['40 hamburger', 18000, '#8f8478', 'örnek: 450 TL × 40', 'burger']];
+  rows.forEach(([lab, v, col, sub, ic], k) => {
+    const y = 110 + k * 210, a = easeIO((lt - .4 - k * .5) / .9), w = 640 * (v / 18000) * a;
+    const iy = y + 40;
+    if (ic === 'cup') cup(140, iy - 4, .6, t, false); else if (ic === 'burger') burger(140, iy, .7); else { c.fillStyle = '#e8875c'; c.beginPath(); c.roundRect(104, iy - 30, 72, 50, 18); c.fill(); c.fillStyle = '#160d08'; c.beginPath(); c.arc(124, iy - 5, 6, 0, TAU); c.arc(156, iy - 5, 6, 0, TAU); c.fill(); }
+    txt(lab, 200, y + 18, '800 40px "Inter Tight"', '#fff', 'left');
+    txt(sub, 200, y + 52, '600 22px Inter', 'rgba(245,239,233,.5)', 'left');
+    c.fillStyle = 'rgba(255,255,255,.06)'; c.beginPath(); c.roundRect(200, y + 76, 680, 54, 16); c.fill();
+    if (w > 4){ c.fillStyle = col; c.beginPath(); c.roundRect(200, y + 76, Math.max(20, w), 54, 16); c.fill(); }
+    txt(fmt(v * a) + ' TL', 860, y + 18, '900 44px "Inter Tight"', k === 0 ? '#f2a679' : '#fff', 'right');
+  });
+  // katsayı rozetleri
+  [[1, '2×'], [2, '4,5×']].forEach(([k, s], i) => chip(s, 860, 110 + k * 210 + 103, back((lt - 2.4 - i * .3) / .35), { font: '900 36px "Inter Tight"', h: 60, bg: '#e8875c', stroke: 'transparent', col: '#160d08' }));
+}
+function sCTA(t){
+  const lt = t - 39.0;
+  const a = back((lt - .1) / .45); if (a > 0){ c.save(); c.translate(500, 360); c.rotate(Math.sin(lt * 2.4) * .08); c.scale(a, a); c.shadowColor = 'rgba(232,135,92,.6)'; c.shadowBlur = 60; txt('?', 0, 230, 'italic 400 600px "Instrument Serif"', copperGrad(-260, 260)); c.restore(); }
+  txt('GTA VI · 4.000 TL', 500, 80, '900 54px "Inter Tight"', `rgba(255,255,255,${ease((lt - .3) / .4)})`);
+  const bubbles = [['Evet, değer', 190, 250, -.1], ['Hayır, pahalı', 800, 300, .08], ['İndirimi beklerim', 230, 560, .06], ['Çıkar çıkmaz alırım', 770, 600, -.07]];
+  bubbles.forEach(([s, x, y, r], k) => { const b = back((lt - .7 - k * .35) / .35); if (b <= 0) return; c.save(); c.translate(x, y + Math.sin(lt * 3 + k) * 6); c.rotate(r); c.scale(b, b);
+    c.font = '800 34px "Inter Tight"'; const w = c.measureText(s).width + 50; c.fillStyle = '#fff'; c.beginPath(); c.roundRect(-w / 2, -38, w, 76, 26); c.fill(); c.beginPath(); c.moveTo(-w / 2 + 30, 34); c.lineTo(-w / 2 + 18, 58); c.lineTo(-w / 2 + 52, 36); c.fill();
+    txt(s, 0, 12, '800 34px "Inter Tight"', '#16151a'); c.restore(); });
+}
+const SCN = [sHook, sCalc, sCal, sCoffee, sBurger, sCompare, sCTA];
+
+/* ============ RENDER ============ */
+const heads = [0, 1, 2, 3, 4, 5, 6].map(i => document.getElementById('h' + i));
+const note = document.getElementById('note'), pill = document.getElementById('pill'), typed = document.getElementById('typed'), other = document.getElementById('other'), cursor = document.getElementById('cursor');
+let lastNote = '', lastTyped = '';
+function renderAt(t){
+  t = clamp(t, 0, TOTAL - 1e-3);
+  const si = secAt(t), lt = t - SEC[si], dur = SEC[si + 1] - SEC[si];
+  const glow = si === 0 ? Math.max(0, 1 - t / 1.5) : (Math.max(0, 1 - Math.abs(t - [0, 5.6, 13.0, 19.6, 27.6, 31, 39][si]) / .8) * .9);
+  drawBG(t, glow);
+  // başlıklar
+  heads.forEach((h, i) => { const vis = i === si; const a = vis ? Math.min(ease(lt / .35), 1 - ease((lt - (dur - .25)) / .25)) : 0; h.style.opacity = a; h.style.transform = `translateY(${(1 - ease(lt / .35)) * (vis ? -20 : 0)}px)`; });
+  // sahne: giriş itmesi + çıkış
+  c.clearRect(0, 0, MW, MH);
+  const inP = ease(lt / .35), outP = easeIO((lt - (dur - .22)) / .22);
+  c.save(); c.globalAlpha = si === 0 ? 1 - outP : Math.min(inP, 1 - outP); c.translate(MW / 2, MH / 2); const s = (si === 0 ? 1 : .9 + .1 * inP) * (1 + outP * .08); c.scale(s, s); c.translate(-MW / 2, -MH / 2 + (1 - inP) * (si === 0 ? 0 : 50));
+  SCN[si](t); c.restore();
+  // dipnot
+  const nn = NOTES.find(([a, b]) => t >= a && t < b); const ns = nn ? nn[2] : '';
+  if (ns !== lastNote){ note.textContent = ns; lastNote = ns; }
+  note.style.opacity = nn ? Math.min(ease((t - nn[0]) / .4), 1 - ease((t - (nn[1] - .25)) / .25)) * .9 : 0;
+  note.style.top = (si === 2 ? 1150 : 1174) + 'px';
+  // altyazı
+  let ci = -1; CAPS.forEach((cp, i) => { if (t >= cp[0]) ci = i; });
+  const capEnd = ci >= 0 ? (ci < CAPS.length - 1 ? CAPS[ci + 1][0] : TOTAL) : 0;
+  if (ci !== capI && ci >= 0) setCap(ci);
+  if (ci >= 0){ const out = ease((t - (capEnd - .14)) / .14); capSp.forEach((sp, k) => { const a = ease((t - CAPS[ci][0] - k * .07) / .22); sp.style.opacity = a * (1 - out); sp.style.transform = `translateY(${(1 - a) * 18}px)`; sp.style.filter = `blur(${(1 - a) * 5}px)`; }); }
+  // yorum pill'i
+  const pa = ease((t - 3.2) / .4); pill.style.opacity = pa;
+  const cyc = t % 3.2, word = Math.floor(t / 3.2) % 2 ? 'HAYIR' : 'EVET';
+  let n = cyc < .8 ? 0 : cyc < 1.5 ? Math.ceil((cyc - .8) / .7 * word.length) : word.length; if (t > 39) n = word.length;
+  const sw = word.slice(0, n); if (sw !== lastTyped){ typed.textContent = sw; other.textContent = word === 'EVET' ? 'HAYIR' : 'EVET'; lastTyped = sw; }
+  cursor.style.opacity = (Math.floor(t * 2.4) % 2 === 0 || (cyc > .8 && cyc < 1.5)) ? 1 : 0;
+  pill.style.transform = `translateX(-50%) scale(${1 + .03 * Math.max(0, 1 - Math.abs(cyc - 1.55) / .2) + (t > 39 ? .04 * Math.abs(Math.sin(t * 4)) : 0)})`;
+}
+
+/* ============ KAPAK ============ */
+function renderCover(){
+  document.getElementById('cover').style.display = 'block';
+  const cc = document.getElementById('cover').getContext('2d');
+  drawBG(1.2, 1); cc.drawImage(bg, 0, 0);
+  const T = (s, x, y, f, col, al = 'center') => { cc.font = f; cc.fillStyle = col; cc.textAlign = al; cc.textBaseline = 'alphabetic'; cc.fillText(s, x, y); };
+  const cg = (y0, y1) => { const g = cc.createLinearGradient(0, y0, 0, y1); g.addColorStop(0, '#f8c29c'); g.addColorStop(1, '#d7764b'); return g; };
+  T('OYUN EKONOMİSİ', 540, 300, '700 34px Inter', '#e8875c');
+  T('GTA VI', 540, 620, '900 250px "Inter Tight"', '#ffffff');
+  cc.save(); cc.translate(540, 860); cc.rotate(-.06); cc.fillStyle = '#e8875c'; cc.beginPath(); cc.roundRect(-380, -110, 760, 220, 40); cc.fill();
+  cc.font = '900 150px "Inter Tight"'; cc.fillStyle = '#160d08'; cc.textAlign = 'center'; cc.textBaseline = 'middle'; cc.fillText('4.000 TL', 0, 8); cc.restore();
+  cc.save(); cc.shadowColor = 'rgba(232,135,92,.6)'; cc.shadowBlur = 50; T('değer mi?', 540, 1150, 'italic 400 230px "Instrument Serif"', cg(980, 1160)); cc.restore();
+  T('Saat başına hesapladık: kahve ve hamburgerle karşılaştırma', 540, 1290, '600 32px Inter', 'rgba(245,239,233,.6)');
+}
+
+window.renderAt = renderAt; window.renderCover = renderCover;
+window.FONTS_READY = Promise.all(['900 20px "Inter Tight"', '800 20px "Inter Tight"', 'italic 400 20px "Instrument Serif"', '500 20px Inter', '600 20px Inter', '700 20px Inter', '800 20px Inter', '800 20px "JetBrains Mono"', '500 20px "JetBrains Mono"']
+  .map(f => document.fonts.load(f, 'AaÇĞİÖŞÜçğıöşü0123456789÷×−')).then(() => document.fonts.ready));
+const stage = document.getElementById('stage');
+function fit(){ const s = Math.min(innerWidth / 1080, innerHeight / 1920); stage.style.transform = `scale(${s})`; }
+addEventListener('resize', fit); fit();
+if (new URLSearchParams(location.search).has('capture')) stage.style.transform = 'none';
+else { let t0 = null; const loop = now => { if (t0 === null) t0 = now; renderAt(((now - t0) / 1000) % TOTAL); requestAnimationFrame(loop); }; window.FONTS_READY.then(() => requestAnimationFrame(loop)); }
+window.FONTS_READY.then(() => renderAt(0));
+</script>
+</body>
+</html>
