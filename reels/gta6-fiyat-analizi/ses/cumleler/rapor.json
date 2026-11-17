@@ -1,0 +1,114 @@
+[
+ {
+  "i": 0,
+  "metin": "Ge Te A altıya dört bin lira vermek saçmalık mı?",
+  "duyulan": "GT6 ya 4.000 lira vermek saçmalık mı?",
+  "metin_uyumu": 0.96,
+  "benzerlik": 0.881,
+  "F0": 128
+ },
+ {
+  "i": 1,
+  "metin": "Bir hesap yapalım.",
+  "duyulan": "Bir hesap yapalım.",
+  "metin_uyumu": 1.0,
+  "benzerlik": 0.822,
+  "F0": 161
+ },
+ {
+  "i": 2,
+  "metin": "Diyelim ki oyunu toplam seksen saat oynadın.",
+  "duyulan": "Diyelim ki oyunu toplam 80 saat oynadın.",
+  "metin_uyumu": 1.0,
+  "benzerlik": 0.903,
+  "F0": 163
+ },
+ {
+  "i": 3,
+  "metin": "Bu, saat başına sadece elli lira demek.",
+  "duyulan": "Bu saat başına sadece 50 lira demek.",
+  "metin_uyumu": 1.0,
+  "benzerlik": 0.891,
+  "F0": 147
+ },
+ {
+  "i": 4,
+  "metin": "Her gün iki saat oynarsan,",
+  "duyulan": "Her gün iki saat oynarsan...",
+  "metin_uyumu": 1.0,
+  "benzerlik": 0.896,
+  "F0": 141
+ },
+ {
+  "i": 5,
+  "metin": "tam kırk gün boyunca eğlenmiş oluyorsun.",
+  "duyulan": "Tam 40 gün boyunca eğlenmiş oluyorsun.",
+  "metin_uyumu": 1.0,
+  "benzerlik": 0.892,
+  "F0": 133
+ },
+ {
+  "i": 6,
+  "metin": "Peki kırk gün boyunca her gün, iki yüz liralık kahve içsen?",
+  "duyulan": "Peki, kırk gün boyunca her gün 200 liralık kahve içsen?",
+  "metin_uyumu": 1.0,
+  "benzerlik": 0.9,
+  "F0": 134
+ },
+ {
+  "i": 7,
+  "metin": "Tam sekiz bin lira!",
+  "duyulan": "Tam 8000 lira.",
+  "metin_uyumu": 1.0,
+  "benzerlik": 0.831,
+  "F0": 139
+ },
+ {
+  "i": 8,
+  "metin": "Her gün dört yüz elli liralık hamburger yesen?",
+  "duyulan": "Her gün 450 liralık hamburger yesen.",
+  "metin_uyumu": 1.0,
+  "benzerlik": 0.895,
+  "F0": 147
+ },
+ {
+  "i": 9,
+  "metin": "Tam on sekiz bin lira!",
+  "duyulan": "Tam 18.000 lira.",
+  "metin_uyumu": 1.0,
+  "benzerlik": 0.85,
+  "F0": 127
+ },
+ {
+  "i": 10,
+  "metin": "Tabii, dışarı çıkmakla oyun oynamak aynı şey değil.",
+  "duyulan": "Tabii dışarı çıkmakla oyun oynamak aynı şey değil.",
+  "metin_uyumu": 1.0,
+  "benzerlik": 0.913,
+  "F0": 141
+ },
+ {
+  "i": 11,
+  "metin": "Ama bir oyunun fiyatını, kaç saat eğlendirdiğiyle",
+  "duyulan": "Ama bir oyunun fiyatını kaç saat eğlendirdiğiyle.",
+  "metin_uyumu": 1.0,
+  "benzerlik": 0.908,
+  "F0": 145
+ },
+ {
+  "i": 12,
+  "metin": "değerlendirmek gerekmez mi?",
+  "duyulan": "değerlendirmek gerekmez mi?",
+  "metin_uyumu": 1.0,
+  "benzerlik": 0.864,
+  "F0": 136
+ },
+ {
+  "i": 13,
+  "metin": "Peki sen, Ge Te A altıya dört bin lira verir misin?",
+  "duyulan": "Peki sen GT6'ya 4.000 lira verir misin?",
+  "metin_uyumu": 0.97,
+  "benzerlik": 0.891,
+  "F0": 146
+ }
+]

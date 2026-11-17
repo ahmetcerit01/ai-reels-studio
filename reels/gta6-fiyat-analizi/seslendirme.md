@@ -34,15 +34,24 @@ bash vo_ekle.sh benim_sesim.wav            # → out/gta6_fiyat_analizi_vo.mp4
 
 Ayrı kanallar: `out/video_sessiz.mp4` (yalnızca görüntü) ve `out/sfx.wav` (yalnızca ses efektleri). Kurgu programında üçüncü kanal olarak kendi sesini ekleyebilirsin.
 
-## Klon sesle üretilen seslendirme (Chatterbox)
+## Klon sesle üretilen seslendirme (Chatterbox, 2. sürüm: seri akış)
 
-`out/gta6_fiyat_analizi_sesli.mp4` senin ses örneğinden klonlanan sesle hazırlandı:
-- **Model:** Chatterbox Multilingual (Resemble AI, MIT lisansı; ticari kullanıma açık), yerelde ve CPU üzerinde çalıştırıldı. Ücretli API kullanılmadı.
-- **Referans:** Senin kendi reels kaydının 10 saniyelik temiz bir bölümü (8,0–18,85 sn).
-- Her cümleden 2 deneme üretildi ve Whisper ile metne en çok uyan seçildi. "GTA" doğru okunsun diye metin "Ce Te A altı" şeklinde yazıldı.
-- `vo_yerlestir.py` cümleleri ekrandaki anlara yerleştirdi ve altyazıları sesin zamanlarına eşitledi. Giriş cümleleri 3 saniyeye sığsın diye %24 hızlandırıldı.
-- **Dosyalar:** `ses/cumleler/l00–l13.wav` (tek tek cümleler) · `out/vo.wav` (tam seslendirme kanalı) · `out/vo_plan.json` (cümlelerin yerleşimi).
-- **Not:** Chatterbox ürettiği sese duyulmayan bir filigran (Perth) ekler; bu, sesin yapay zekâyla üretildiğini işaretler.
+`out/gta6_fiyat_analizi_sesli.mp4` (28,95 sn) senin ses örneğinden klonlanan sesle hazırlandı:
+- **Model:** Chatterbox Multilingual (MIT lisansı), yerelde ve CPU üzerinde çalıştırıldı.
+- **Ayarlar:** Senin sesine en yakın ayar ölçülerek seçildi: referans 8,0–18,85 sn, ifade gücü 0.8, cfg 0.3. Konuşmacı benzerliği yaklaşık 0,89–0,90, perde ~150 Hz (sende 153 Hz).
+- **Okunuş:** "GTA" kelimesi "Ge Te A" diye okutuldu.
+- **Seçim:** Her cümleden 3 deneme üretildi; metin uyumu, benzerlik ve perdeye göre en iyisi seçildi.
+- **Akış:**
+  - Her cümle Whisper'ın kelime sınırlarından kesildi; modelin sonda bıraktığı mırıltı kuyrukları atıldı.
+  - Tempo %12 hızlandırıldı, cümle içi duraklamalar 0,04 sn'ye indirildi.
+  - Cümle aralarında 0,03 sn, bölüm aralarında 0,08 sn boşluk var.
+- **Video zamanlaması:** Video sese göre yeniden zamanlandı (`out/timing.json`). Bölüm süreleri ve sayı patlamaları cümlelere bağlı. Tek uzun sessizlik, sondaki 1,5 sn'lik soru ekranı.
+- **Dosyalar:**
+  - `ses/cumleler/` (ham cümleler) ve `ses/cumleler_kesik/` (kesilmiş cümleler)
+  - `out/vo.wav` (tam seslendirme kanalı)
+- **Not:** Chatterbox ürettiği sese duyulmayan bir filigran (Perth) ekler.
 
-**Başka bir cümleyi değiştirmek için:** Cümleyi yeniden üret, `ses/cumleler/lNN.wav` dosyasını değiştir, sonra şunları çalıştır:
-`python3 vo_yerlestir.py ses/cumleler && NODE_PATH=$(npm root -g) node render.js out/video_sessiz.mp4 && bash vo_ekle.sh out/vo.wav out/gta6_fiyat_analizi_sesli.mp4`
+**Yeniden üretim:**
+`python3 vo_yerlestir.py ses/cumleler_kesik && NODE_PATH=$(npm root -g) node render.js out/video_sessiz.mp4 && python3 sfx.py && bash vo_ekle.sh out/vo.wav out/gta6_fiyat_analizi_sesli.mp4`
+
+**Kendi kaydınla:** Metni tek seferde oku, dosyayı cümlelere böl (`l00.wav` … `l13.wav`, sıra yukarıdaki tabloyla aynı), sonra aynı komutları çalıştır. Video senin konuşma hızına göre kendini ayarlar.

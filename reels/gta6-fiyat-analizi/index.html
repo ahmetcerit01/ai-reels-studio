@@ -56,7 +56,7 @@ canvas.full{position:absolute;inset:0}
 </div>
 
 <script>
-/*TIMING*/const TIMING = {"SEC": [0, 3.0, 9.0, 15.0, 24.0, 31.0, 39.0, 43], "K": {"calcRes": 2.6, "calDone": 4.0, "coffeeSlam": 4.6, "burgerSlam": 3.6, "badges": 2.4}};/*/TIMING*/
+/*TIMING*/const TIMING = {"SEC": [0.0, 3.547, 7.969, 11.771, 15.797, 19.278, 25.281, 28.952], "K": {"calcRes": 3.176, "calDone": 1.947, "coffeeSlam": 3.147, "burgerSlam": 2.438, "badges": 2.202}};/*/TIMING*/
 const TAU = Math.PI * 2, TOTAL = TIMING.SEC[7], K = TIMING.K;
 window.TIMING = TIMING;
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
@@ -75,20 +75,20 @@ const secAt = t => { let i = 0; for (let k = 0; k < 7; k++) if (t >= SEC[k]) i =
 
 /* ============ ALTYAZI (seslendirme metni ile birebir) ============ */
 const CAPS = [
-  [0.15, 'GTA 6’ya 4.000 TL vermek', 'saçmalık mı?'],
-  [2.27, 'Bir hesap', 'yapalım.'],
-  [3.10, 'Diyelim ki oyunu toplam', '80 saat oynadın.'],
-  [5.35, 'Bu, saat başına sadece', '50 lira demek.'],
-  [9.10, 'Her gün 2 saat', 'oynarsan,'],
-  [11.62, 'tam 40 gün boyunca', 'eğlenmiş oluyorsun.'],
-  [15.10, 'Peki 40 gün boyunca her gün', '200 liralık kahve içsen?'],
-  [19.45, 'Tam', '8.000 lira!'],
-  [24.10, 'Her gün 450 liralık', 'hamburger yesen?'],
-  [27.45, 'Tam', '18.000 lira!'],
-  [31.10, 'Tabii dışarı çıkmakla oyun oynamak', 'aynı şey değil.'],
-  [34.30, 'Ama bir oyunun fiyatını,', 'kaç saat eğlendirdiğiyle'],
-  [36.81, 'değerlendirmek', 'gerekmez mi?'],
-  [39.10, 'Peki sen, GTA 6’ya', '4.000 TL verir misin?']
+  [0.08, 'GTA 6’ya 4.000 TL vermek', 'saçmalık mı?'],
+  [2.58, 'Bir hesap', 'yapalım.'],
+  [3.60, 'Diyelim ki oyunu toplam', '80 saat oynadın.'],
+  [5.82, 'Bu, saat başına sadece', '50 lira demek.'],
+  [8.02, 'Her gün 2 saat', 'oynarsan,'],
+  [9.70, 'tam 40 gün boyunca', 'eğlenmiş oluyorsun.'],
+  [11.82, 'Peki 40 gün boyunca her gün', '200 liralık kahve içsen?'],
+  [14.70, 'Tam', '8.000 lira!'],
+  [15.85, 'Her gün 450 liralık', 'hamburger yesen?'],
+  [18.01, 'Tam', '18.000 lira!'],
+  [19.33, 'Tabii dışarı çıkmakla oyun oynamak', 'aynı şey değil.'],
+  [21.68, 'Ama bir oyunun fiyatını,', 'kaç saat eğlendirdiğiyle'],
+  [23.88, 'değerlendirmek', 'gerekmez mi?'],
+  [25.33, 'Peki sen, GTA 6’ya', '4.000 TL verir misin?']
 ];
 const NOTES_REL = [
   [1, '3.999 TL hesap kolaylığı için 4.000 TL’ye yuvarlandı. 80 saat bir varsayımdır (hikâye + yan içerik); oyun süresi kişiden kişiye değişir.'],

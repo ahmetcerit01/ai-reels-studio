@@ -15,7 +15,7 @@ MIN_DUR = [2.2, 3.2, 3.0, 3.6, 3.2, 4.4, 3.0]   # görsellerin okunabilmesi içi
 CTA_HOLD = 1.5                                 # son cümleden sonra soru ekranında kalma süresi
 
 def load(i):
-    af = (f'silenceremove=start_periods=1:start_threshold=-45dB,areverse,silenceremove=start_periods=1:start_threshold=-45dB,areverse,'
+    af = (f'silenceremove=start_periods=1:start_threshold=-36dB:start_silence=0.03,areverse,silenceremove=start_periods=1:start_threshold=-34dB:start_silence=0.05,areverse,'
           f'silenceremove=stop_periods=-1:stop_duration=0.10:stop_threshold=-40dB:stop_silence=0.04,atempo={TEMPO:.3f}')
     out = subprocess.run(['ffmpeg', '-v', 'error', '-i', f'{SRC}/l{i:02d}.wav', '-af', af, '-ac', '1', '-ar', str(SR), '-f', 's16le', '-'], capture_output=True, check=True).stdout
     return np.frombuffer(out, np.int16).astype(np.float32) / 32768
