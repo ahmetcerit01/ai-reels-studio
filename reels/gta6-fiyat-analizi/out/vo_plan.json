@@ -1,0 +1,86 @@
+[
+ {
+  "cumle": 0,
+  "baslangic": 0.15,
+  "sure": 2.0,
+  "hiz": 1.24
+ },
+ {
+  "cumle": 1,
+  "baslangic": 2.27,
+  "sure": 0.73,
+  "hiz": 1.24
+ },
+ {
+  "cumle": 2,
+  "baslangic": 3.1,
+  "sure": 2.01,
+  "hiz": 1.0
+ },
+ {
+  "cumle": 3,
+  "baslangic": 5.35,
+  "sure": 2.21,
+  "hiz": 1.0
+ },
+ {
+  "cumle": 4,
+  "baslangic": 9.1,
+  "sure": 2.4,
+  "hiz": 1.0
+ },
+ {
+  "cumle": 5,
+  "baslangic": 11.62,
+  "sure": 1.99,
+  "hiz": 1.0
+ },
+ {
+  "cumle": 6,
+  "baslangic": 15.1,
+  "sure": 3.93,
+  "hiz": 1.0
+ },
+ {
+  "cumle": 7,
+  "baslangic": 19.45,
+  "sure": 0.95,
+  "hiz": 1.0
+ },
+ {
+  "cumle": 8,
+  "baslangic": 24.1,
+  "sure": 2.53,
+  "hiz": 1.0
+ },
+ {
+  "cumle": 9,
+  "baslangic": 27.45,
+  "sure": 1.21,
+  "hiz": 1.0
+ },
+ {
+  "cumle": 10,
+  "baslangic": 31.1,
+  "sure": 2.14,
+  "hiz": 1.0
+ },
+ {
+  "cumle": 11,
+  "baslangic": 34.3,
+  "sure": 2.39,
+  "hiz": 1.0
+ },
+ {
+  "cumle": 12,
+  "baslangic": 36.81,
+  "sure": 1.33,
+  "hiz": 1.0
+ },
+ {
+  "cumle": 13,
+  "baslangic": 39.1,
+  "sure": 2.36,
+  "hiz": 1.0
+ }
+]

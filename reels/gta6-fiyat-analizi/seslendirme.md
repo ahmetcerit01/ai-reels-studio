@@ -33,3 +33,16 @@ bash vo_ekle.sh benim_sesim.wav            # → out/gta6_fiyat_analizi_vo.mp4
 ```
 
 Ayrı kanallar: `out/video_sessiz.mp4` (yalnızca görüntü) ve `out/sfx.wav` (yalnızca ses efektleri). Kurgu programında üçüncü kanal olarak kendi sesini ekleyebilirsin.
+
+## Klon sesle üretilen seslendirme (Chatterbox)
+
+`out/gta6_fiyat_analizi_sesli.mp4` senin ses örneğinden klonlanan sesle hazırlandı:
+- **Model:** Chatterbox Multilingual (Resemble AI, MIT lisansı; ticari kullanıma açık), yerelde ve CPU üzerinde çalıştırıldı. Ücretli API kullanılmadı.
+- **Referans:** Senin kendi reels kaydının 10 saniyelik temiz bir bölümü (8,0–18,85 sn).
+- Her cümleden 2 deneme üretildi ve Whisper ile metne en çok uyan seçildi. "GTA" doğru okunsun diye metin "Ce Te A altı" şeklinde yazıldı.
+- `vo_yerlestir.py` cümleleri ekrandaki anlara yerleştirdi ve altyazıları sesin zamanlarına eşitledi. Giriş cümleleri 3 saniyeye sığsın diye %24 hızlandırıldı.
+- **Dosyalar:** `ses/cumleler/l00–l13.wav` (tek tek cümleler) · `out/vo.wav` (tam seslendirme kanalı) · `out/vo_plan.json` (cümlelerin yerleşimi).
+- **Not:** Chatterbox ürettiği sese duyulmayan bir filigran (Perth) ekler; bu, sesin yapay zekâyla üretildiğini işaretler.
+
+**Başka bir cümleyi değiştirmek için:** Cümleyi yeniden üret, `ses/cumleler/lNN.wav` dosyasını değiştir, sonra şunları çalıştır:
+`python3 vo_yerlestir.py ses/cumleler && NODE_PATH=$(npm root -g) node render.js out/video_sessiz.mp4 && bash vo_ekle.sh out/vo.wav out/gta6_fiyat_analizi_sesli.mp4`
