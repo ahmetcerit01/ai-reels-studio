@@ -1,22 +1,22 @@
 """Seslendirmeyi akıcı hale getirir ve VİDEOYU SESE GÖRE yeniden zamanlar.
 Kullanım: python3 vo_yerlestir.py <cümle_wav_klasörü>   (l00.wav … l13.wav; sırası seslendirme.srt ile aynı)
 Yaptıkları:
-- Her cümlenin başındaki/sonundaki sessizliği kırpar, cümle içi duraklamaları 0,08 sn'ye indirir, tempoyu %8 artırır.
-- Cümleleri arka arkaya dizer (cümle arası 0,06 sn, bölüm arası 0,14 sn) → boş bekleme yok.
+- Her cümlenin başındaki/sonundaki sessizliği kırpar, cümle içi duraklamaları 0,04 sn'ye indirir, tempoyu %12 artırır.
+- Cümleleri arka arkaya dizer (cümle arası 0,03 sn, bölüm arası 0,08 sn) → seri akış, boş bekleme yok.
 - Bölüm sürelerini (SEC), sayı patlama anlarını (K) ve altyazıları index.html'e yazar; out/timing.json üretir.
 - out/vo.wav (video süresi kadar) üretir.
 """
 import sys, os, re, json, wave, subprocess, numpy as np
 SR = 48000; SRC = sys.argv[1]
-TEMPO = float(os.environ.get('TEMPO', '1.08'))
-GAP_IN, GAP_SEC, LEAD, TAIL = 0.06, 0.14, 0.10, 0.12
+TEMPO = float(os.environ.get('TEMPO', '1.12'))
+GAP_IN, GAP_SEC, LEAD, TAIL = 0.03, 0.08, 0.05, 0.06
 SECTIONS = [[0, 1], [2, 3], [4, 5], [6, 7], [8, 9], [10, 11, 12], [13]]
-MIN_DUR = [2.4, 4.0, 3.6, 4.4, 4.0, 5.5, 3.6]   # görsellerin okunabilmesi için en kısa bölüm süreleri
-CTA_HOLD = 1.8                                 # son cümleden sonra soru ekranında kalma süresi
+MIN_DUR = [2.2, 3.2, 3.0, 3.6, 3.2, 4.4, 3.0]   # görsellerin okunabilmesi için en kısa bölüm süreleri
+CTA_HOLD = 1.5                                 # son cümleden sonra soru ekranında kalma süresi
 
 def load(i):
     af = (f'silenceremove=start_periods=1:start_threshold=-45dB,areverse,silenceremove=start_periods=1:start_threshold=-45dB,areverse,'
-          f'silenceremove=stop_periods=-1:stop_duration=0.16:stop_threshold=-42dB:stop_silence=0.08,atempo={TEMPO:.3f}')
+          f'silenceremove=stop_periods=-1:stop_duration=0.10:stop_threshold=-40dB:stop_silence=0.04,atempo={TEMPO:.3f}')
     out = subprocess.run(['ffmpeg', '-v', 'error', '-i', f'{SRC}/l{i:02d}.wav', '-af', af, '-ac', '1', '-ar', str(SR), '-f', 's16le', '-'], capture_output=True, check=True).stdout
     return np.frombuffer(out, np.int16).astype(np.float32) / 32768
 
