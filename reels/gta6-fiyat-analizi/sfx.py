@@ -1,7 +1,7 @@
 """Özgün ses efekti kanalı (telifsiz, tamamen kodla sentezlenir) → out/sfx.wav (43 sn, 48 kHz)
 Olay zamanları index.html'deki animasyonlarla eşleşir. Düzenlemek için EVENTS listesini değiştir."""
 import numpy as np, wave, os
-SR, DUR = 48000, 43.0
+SR = 48000
 rng = np.random.default_rng(3)
 t_ = lambda d: np.arange(int(SR * d)) / SR
 def lp(x, a):
@@ -32,21 +32,26 @@ def ching():
 def riser(d):
     t = t_(d); f = 180 + 700 * (t / d) ** 2
     return (np.sin(2 * np.pi * np.cumsum(f) / SR) * .35 + lp(rng.standard_normal(len(t)), .12) * .6) * (t / d) ** 2 * .7
+import json
+T = json.load(open('out/timing.json')) if os.path.exists('out/timing.json') else {'SEC': [0, 3, 9, 15, 24, 31, 39, 43], 'K': {'calcRes': 2.6, 'calDone': 4.0, 'coffeeSlam': 4.6, 'burgerSlam': 3.6, 'badges': 2.4}}
+SEC, K = T['SEC'], T['K']; DUR = SEC[-1]; kf = K['calcRes'] / 2.6
 EV = []
 add = lambda at, snd, g=1.0: EV.append((at, snd, g))
 add(0.0, impact(), 1.0); add(0.12, impact(), .6); add(0.65, pop(), .8); add(1.15, pop(), .5); add(1.35, pop(), .5)
-for s in [3.0, 9.0, 15.0, 24.0, 31.0, 39.0]: add(s - .2, whoosh(), .7)
-for k in [.5, .75, .9, 1.05, 1.2, 1.55, 1.85, 2.05, 2.6]: add(3.0 + k, key(), .8)
-add(5.6, impact(), .9)
-add(9.6, riser(3.4), .8); add(13.0, impact(), 1.0)
-for i in range(40): add(15.7 + i * 3.6 / 40, tick(2200 + (i % 4) * 120), .5)
-add(19.6, ching(), 1.0)
-for i in range(40): add(24.6 + i * 3.0 / 40, tick(1800 + (i % 4) * 120), .5)
-add(27.6, ching(), 1.0)
-for k in range(3): add(31.4 + k * .5, whoosh(.35), .45)
-add(33.4, pop(), .6); add(33.7, pop(), .6)
-add(39.1, impact(), .7); add(39.0, riser(.3), .2)
-for k in range(4): add(39.7 + k * .35, pop(), .7)
+for s in SEC[1:7]: add(s - .2, whoosh(), .7)
+for k in [.5, .75, .9, 1.05, 1.2, 1.55, 1.85, 2.05]: add(SEC[1] + k * kf, key(), .8)
+add(SEC[1] + K['calcRes'], impact(), .9)
+cd = SEC[2] + K['calDone']; add(max(SEC[2] + .1, cd - 2.4), riser(min(2.4, cd - SEC[2] - .1)), .8); add(cd, impact(), 1.0)
+cs = K['coffeeSlam']; d3 = max(1, cs - .75)
+for i in range(40): add(SEC[3] + .4 + i * d3 / 40, tick(2200 + (i % 4) * 120), .5)
+add(SEC[3] + cs, ching(), 1.0)
+bs = K['burgerSlam']; d4 = max(1, bs - .75)
+for i in range(40): add(SEC[4] + .4 + i * d4 / 40, tick(1800 + (i % 4) * 120), .5)
+add(SEC[4] + bs, ching(), 1.0)
+for k in range(3): add(SEC[5] + .4 + k * .5, whoosh(.35), .45)
+add(SEC[5] + K['badges'], pop(), .6); add(SEC[5] + K['badges'] + .3, pop(), .6)
+add(SEC[6] + .1, impact(), .7)
+for k in range(4): add(SEC[6] + .7 + k * .35, pop(), .7)
 mix = np.zeros(int(SR * DUR) + SR)
 for at, snd, g in EV:
     i = int(at * SR); mix[i:i + len(snd)] += snd[:len(mix) - i] * g
@@ -54,4 +59,4 @@ mix = mix[:int(SR * DUR)]; mix = mix / (np.max(np.abs(mix)) + 1e-9) * .89
 os.makedirs('out', exist_ok=True)
 with wave.open('out/sfx.wav', 'wb') as w:
     w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR); w.writeframes((mix * 32767).astype(np.int16).tobytes())
-print('out/sfx.wav hazır,', len(EV), 'olay')
+print('out/sfx.wav hazır,', len(EV), 'olay,', round(DUR, 2), 'sn')

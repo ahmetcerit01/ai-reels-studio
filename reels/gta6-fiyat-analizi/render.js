@@ -32,7 +32,7 @@ const stillsIdx = args.indexOf('--stills');
   require('fs').mkdirSync(path.dirname(out), { recursive: true });
   const ff = spawn('ffmpeg', ['-y', '-f', 'image2pipe', '-framerate', String(FPS), '-c:v', 'mjpeg', '-i', '-',
     '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'slow', '-crf', '17', '-movflags', '+faststart', out], { stdio: ['pipe', 'inherit', 'inherit'] });
-  const N = FPS * DURATION;
+  const N = Math.round(FPS * (await page.evaluate(() => (window.TIMING ? TIMING.SEC[7] : DURATION))));
   for (let i = 0; i < N; i++){
     await page.evaluate(t => window.renderAt(t), i / FPS);
     const buf = await page.screenshot({ type: 'jpeg', quality: 95 });
