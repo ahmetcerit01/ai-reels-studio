@@ -33,3 +33,19 @@ Kesin değerler `docs/seslendirme.srt` dosyasında.
 **Tek parça kayıt:** `bash scripts/sesi-ekle.sh seslendirme.wav` komutu `out/gta6_yeni_zelanda_reels_sesli.mp4` dosyasını üretir. Ses efektleri sen konuşurken otomatik kısılır ve karışım -14 LUFS'a ayarlanır.
 
 **Ayrı ses kanalı:** `out/ses_efektleri.wav` yalnızca ses efektlerini içerir; kurgu programında seslendirmeni bunun yanına ikinci kanal olarak koyabilirsin.
+
+## Senin klonlanan sesinle sürüm (`out/gta6_yeni_zelanda_reels_sesli.mp4`, 32,4 sn)
+
+- **Model:** Chatterbox Multilingual (MIT lisansı), yerelde çalıştırıldı. Referans: senin ses örneğin (8,0–18,85 sn), ifade gücü 0.8, cfg 0.3.
+- **Okunuş:** Metin okunuşuna göre yazıldı: "Ge Te A altı", "on saat", "Pleysteyşın".
+- **Seçim:** Her cümleden 3 deneme üretildi; metin uyumu, konuşmacı benzerliği ve perdeye göre en iyisi seçildi.
+- **Düzeltmeler:**
+  - 10. cümle, "oynayabildiler" doğru okunan denemeyle değiştirildi.
+  - Final sorusu iki parçada (4'er deneme) üretilip birleştirildi.
+- **İşleme:**
+  - Her cümle Whisper'ın kelime sınırlarından kesildi.
+  - %5 hızlandırma uygulandı. Hızlanınca bozulan cümlelerde (l01, l07, l12) hızlandırılmamış hal kullanıldı.
+  - Video sese göre yeniden zamanlandı (`npm run fit`). Seslendirme varken efektler 0.3 seviyesinde; karışım -14 LUFS.
+- **Dosyalar:** `public/vo/l01–l13.wav` (videoda kullanılan) · `ses/cumleler_ham/` (ham üretim) · `out/seslendirme_ve_efektler.wav` (karışık ses).
+- **Kontrol edilmesi gerekenler:** l12'deki "risk" ve l01'deki "Ge Te A altı" Whisper'a göre biraz yumuşak duyuluyor. Beğenmezsen sadece o cümleleri yeniden üretmek yeterli.
+- **Not:** Chatterbox ürettiği sese duyulmayan bir filigran (Perth) ekler.

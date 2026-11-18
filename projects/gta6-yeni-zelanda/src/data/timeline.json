@@ -5,7 +5,7 @@
   "lead": 0.1,
   "tail": 0.18,
   "ctaHold": 1.5,
-  "sfxVolume": 0.6,
+  "sfxVolume": 0.3,
   "voVolume": 1,
   "scenes": [
     {
@@ -51,8 +51,8 @@
       "vo": "GTA 6 Türkiye’de daha çıkmadı",
       "a": "GTA 6 Türkiye’de",
       "b": "daha çıkmadı",
-      "dur": 1.75,
-      "voFile": null
+      "dur": 1.72,
+      "voFile": "vo/l01.wav"
     },
     {
       "id": "l02",
@@ -60,8 +60,8 @@
       "vo": "ama Türk yayıncılar çoktan oynamaya başladı!",
       "a": "ama Türk yayıncılar",
       "b": "çoktan oynamaya başladı!",
-      "dur": 2.1,
-      "voFile": null
+      "dur": 1.99,
+      "voFile": "vo/l02.wav"
     },
     {
       "id": "l03",
@@ -69,8 +69,8 @@
       "vo": "Nasıl mı?",
       "a": "",
       "b": "Nasıl mı?",
-      "dur": 0.7,
-      "voFile": null
+      "dur": 0.62,
+      "voFile": "vo/l03.wav"
     },
     {
       "id": "l04",
@@ -79,7 +79,7 @@
       "a": "İşin sırrı",
       "b": "Yeni Zelanda!",
       "dur": 1.4,
-      "voFile": null
+      "voFile": "vo/l04.wav"
     },
     {
       "id": "l05",
@@ -87,8 +87,8 @@
       "vo": "Oyun orada Türkiye’den tam 10 saat önce açıldı.",
       "a": "Oyun orada Türkiye’den",
       "b": "tam 10 saat önce açıldı.",
-      "dur": 2.6,
-      "voFile": null
+      "dur": 2.48,
+      "voFile": "vo/l05.wav"
     },
     {
       "id": "l06",
@@ -96,8 +96,8 @@
       "vo": "Türk hesabının bölgesi değiştirilemiyor.",
       "a": "Türk hesabının bölgesi",
       "b": "değiştirilemiyor.",
-      "dur": 2.1,
-      "voFile": null
+      "dur": 1.94,
+      "voFile": "vo/l06.wav"
     },
     {
       "id": "l07",
@@ -105,8 +105,8 @@
       "vo": "Bu yüzden bazı oyuncular Yeni Zelanda bölgesinde",
       "a": "Bu yüzden bazı oyuncular",
       "b": "Yeni Zelanda bölgesinde",
-      "dur": 2.4,
-      "voFile": null
+      "dur": 2.84,
+      "voFile": "vo/l07.wav"
     },
     {
       "id": "l08",
@@ -114,8 +114,8 @@
       "vo": "yeni bir PlayStation hesabı açıp",
       "a": "yeni bir PlayStation",
       "b": "hesabı açıp",
-      "dur": 1.6,
-      "voFile": null
+      "dur": 1.8,
+      "voFile": "vo/l08.wav"
     },
     {
       "id": "l09",
@@ -123,8 +123,8 @@
       "vo": "GTA 6’yı oradan satın aldı.",
       "a": "GTA 6’yı oradan",
       "b": "satın aldı.",
-      "dur": 1.5,
-      "voFile": null
+      "dur": 2.1,
+      "voFile": "vo/l09.wav"
     },
     {
       "id": "l10",
@@ -132,8 +132,8 @@
       "vo": "Böylece oyun Türkiye’de açılmadan oynayabildiler!",
       "a": "Böylece oyun Türkiye’de",
       "b": "açılmadan oynayabildiler!",
-      "dur": 2.5,
-      "voFile": null
+      "dur": 2.56,
+      "voFile": "vo/l10.wav"
     },
     {
       "id": "l11",
@@ -141,8 +141,8 @@
       "vo": "Ama sadece PlayStation’ın saatini değiştirmek yetmiyor.",
       "a": "Ama sadece PlayStation’ın",
       "b": "saatini değiştirmek yetmiyor.",
-      "dur": 2.6,
-      "voFile": null
+      "dur": 2.73,
+      "voFile": "vo/l11.wav"
     },
     {
       "id": "l12",
@@ -150,8 +150,8 @@
       "vo": "Üstelik farklı bölgeden hesap açmak risk taşıyabiliyor.",
       "a": "Üstelik farklı bölgeden",
       "b": "hesap açmak risk taşıyabiliyor.",
-      "dur": 2.7,
-      "voFile": null
+      "dur": 2.92,
+      "voFile": "vo/l12.wav"
     },
     {
       "id": "l13",
@@ -159,8 +159,8 @@
       "vo": "Peki sen GTA 6’yı 10 saat erken oynamak için yeni hesap açar mıydın?",
       "a": "Peki sen GTA 6’yı 10 saat erken",
       "b": "oynamak için yeni hesap açar mıydın?",
-      "dur": 3.4,
-      "voFile": null
+      "dur": 4.1,
+      "voFile": "vo/l13.wav"
     }
   ]
 }
