@@ -1,63 +1,63 @@
 1
-00:00:00,050 --> 00:00:02,790
+00:00:00,050 --> 00:00:03,030
 Herkes şu an Claude ile animasyonlu reels yapıyor.
 
 2
-00:00:02,850 --> 00:00:04,730
+00:00:03,090 --> 00:00:04,970
 Ama kimse nasıl yapıldığını göstermiyor.
 
 3
-00:00:04,790 --> 00:00:07,100
+00:00:05,030 --> 00:00:07,340
 Bu reels’ler de tam olarak böyle yapıldı.
 
 4
-00:00:07,400 --> 00:00:09,780
+00:00:07,640 --> 00:00:10,100
 Birinci adım: Claude masaüstü uygulamasını indir.
 
 5
-00:00:09,840 --> 00:00:11,660
+00:00:10,160 --> 00:00:11,980
 Tarayıcıdaki sürüm değil, uygulama.
 
 6
-00:00:11,960 --> 00:00:15,380
+00:00:12,280 --> 00:00:15,100
 İkinci adım: bir klasör aç, adını AI Video Editörü koy.
 
 7
-00:00:15,440 --> 00:00:17,760
+00:00:15,160 --> 00:00:17,480
 Bütün dosyalar ve reels’ler burada duracak.
 
 8
-00:00:18,060 --> 00:00:21,880
+00:00:17,780 --> 00:00:21,540
 Üçüncü adım: yeni bir Claude Code sohbeti aç, Yerel’i seç ve o klasörü göster.
 
 9
-00:00:21,940 --> 00:00:24,060
+00:00:21,600 --> 00:00:24,240
 Artık Claude dosyalarını okuyup yazabiliyor.
 
 10
-00:00:24,360 --> 00:00:26,680
+00:00:24,540 --> 00:00:26,820
 Dördüncü adım: kurulumumu kontrol et yaz.
 
 11
-00:00:26,740 --> 00:00:29,160
-Eksik araç varsa Claude senin onayınla kendisi kurar.
+00:00:26,880 --> 00:00:29,940
+Eksik bir araç varsa, Claude senin onayınla kendisi kurar.
 
 12
-00:00:29,460 --> 00:00:31,660
+00:00:30,240 --> 00:00:32,690
 Beşinci adım, en eğlencelisi: tek bir satır yaz.
 
 13
-00:00:31,720 --> 00:00:34,590
-Mesela: yağmurda çay neden daha güzel, bunun reels’ini yap.
+00:00:32,750 --> 00:00:35,660
+Mesela: yağmurda çay neden daha güzel, bunun videosunu yap.
 
 14
-00:00:34,650 --> 00:00:37,740
+00:00:35,720 --> 00:00:38,810
 Senaryo, seslendirme, animasyon ve altyazı otomatik gelir.
 
 15
-00:00:38,040 --> 00:00:41,280
-Altıncı adım: beğenmediğin yeri söyle, Claude düzeltip render alsın.
+00:00:39,110 --> 00:00:42,760
+Altıncı adım: beğenmediğin yeri söyle, Claude düzeltip videoyu çıkarsın.
 
 16
-00:00:42,040 --> 00:00:44,550
+00:00:43,110 --> 00:00:45,830
 Kullandığım prompt ve ayarlar için yorumlara REELS yaz.

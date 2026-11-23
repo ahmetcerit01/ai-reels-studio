@@ -80,7 +80,7 @@
       "vo": "Herkes şu an Claude ile animasyonlu reels yapıyor.",
       "a": "Herkes şu an Claude ile",
       "b": "animasyonlu reels yapıyor.",
-      "dur": 2.74,
+      "dur": 2.98,
       "voFile": "vo/l01.wav"
     },
     {
@@ -107,7 +107,7 @@
       "vo": "Birinci adım: Claude masaüstü uygulamasını indir.",
       "a": "Birinci adım:",
       "b": "Claude masaüstü uygulamasını indir.",
-      "dur": 2.38,
+      "dur": 2.46,
       "voFile": "vo/l04.wav"
     },
     {
@@ -125,7 +125,7 @@
       "vo": "İkinci adım: bir klasör aç, adını AI Video Editörü koy.",
       "a": "İkinci adım: bir klasör aç,",
       "b": "adı “AI Video Editörü”.",
-      "dur": 3.42,
+      "dur": 2.82,
       "voFile": "vo/l06.wav"
     },
     {
@@ -143,7 +143,7 @@
       "vo": "Üçüncü adım: yeni bir Claude Code sohbeti aç, Yerel’i seç ve o klasörü göster.",
       "a": "Üçüncü adım: yeni sohbet aç,",
       "b": "“Yerel”i seç, klasörü göster.",
-      "dur": 3.82,
+      "dur": 3.76,
       "voFile": "vo/l08.wav"
     },
     {
@@ -152,7 +152,7 @@
       "vo": "Artık Claude dosyalarını okuyup yazabiliyor.",
       "a": "Artık Claude dosyalarını",
       "b": "okuyup yazabiliyor.",
-      "dur": 2.12,
+      "dur": 2.64,
       "voFile": "vo/l09.wav"
     },
     {
@@ -161,7 +161,7 @@
       "vo": "Dördüncü adım: kurulumumu kontrol et yaz.",
       "a": "Dördüncü adım:",
       "b": "“kurulumumu kontrol et” yaz.",
-      "dur": 2.32,
+      "dur": 2.28,
       "voFile": "vo/l10.wav"
     },
     {
@@ -170,7 +170,7 @@
       "vo": "Eksik bir araç varsa, Claude senin onayınla kendisi kurar.",
       "a": "Eksik araç varsa Claude",
       "b": "senin onayınla kendisi kurar.",
-      "dur": 2.42,
+      "dur": 3.06,
       "voFile": "vo/l11.wav"
     },
     {
@@ -179,7 +179,7 @@
       "vo": "Beşinci adım, en eğlencelisi: tek bir satır yaz.",
       "a": "Beşinci adım, en eğlencelisi:",
       "b": "tek bir satır yaz.",
-      "dur": 2.2,
+      "dur": 2.45,
       "voFile": "vo/l12.wav"
     },
     {
@@ -188,7 +188,7 @@
       "vo": "Mesela: yağmurda çay neden daha güzel, bunun videosunu yap.",
       "a": "Mesela:",
       "b": "“Yağmurda çay neden daha güzel?”",
-      "dur": 2.87,
+      "dur": 2.91,
       "voFile": "vo/l13.wav"
     },
     {
@@ -206,7 +206,7 @@
       "vo": "Altıncı adım: beğenmediğin yeri söyle, Claude düzeltip videoyu çıkarsın.",
       "a": "Altıncı adım: beğenmediğin yeri söyle,",
       "b": "Claude düzeltip videoyu çıkarsın.",
-      "dur": 3.24,
+      "dur": 3.65,
       "voFile": "vo/l15.wav"
     },
     {
@@ -215,7 +215,7 @@
       "vo": "Kullandığım prompt ve ayarlar için yorumlara REELS yaz.",
       "a": "Prompt ve ayarlar için",
       "b": "yorumlara “REELS” yaz.",
-      "dur": 2.51,
+      "dur": 2.72,
       "voFile": "vo/l16.wav"
     }
   ]
