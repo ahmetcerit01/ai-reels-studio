@@ -5,7 +5,7 @@
   "lead": 0.1,
   "tail": 0.2,
   "ctaHold": 1.6,
-  "sfxVolume": 0.6,
+  "sfxVolume": 0.3,
   "voVolume": 1,
   "scenes": [
     {
@@ -80,8 +80,8 @@
       "vo": "Herkes şu an Claude ile animasyonlu reels yapıyor.",
       "a": "Herkes şu an Claude ile",
       "b": "animasyonlu reels yapıyor.",
-      "dur": 2.6,
-      "voFile": null
+      "dur": 2.74,
+      "voFile": "vo/l01.wav"
     },
     {
       "id": "l02",
@@ -89,8 +89,8 @@
       "vo": "Ama kimse nasıl yapıldığını göstermiyor.",
       "a": "Ama kimse nasıl yapıldığını",
       "b": "göstermiyor.",
-      "dur": 2.1,
-      "voFile": null
+      "dur": 1.88,
+      "voFile": "vo/l02.wav"
     },
     {
       "id": "l03",
@@ -98,8 +98,8 @@
       "vo": "Bu reels’ler de tam olarak böyle yapıldı.",
       "a": "Bu reels’ler de",
       "b": "tam olarak böyle yapıldı.",
-      "dur": 2,
-      "voFile": null
+      "dur": 2.31,
+      "voFile": "vo/l03.wav"
     },
     {
       "id": "l04",
@@ -107,8 +107,8 @@
       "vo": "Birinci adım: Claude masaüstü uygulamasını indir.",
       "a": "Birinci adım:",
       "b": "Claude masaüstü uygulamasını indir.",
-      "dur": 2.5,
-      "voFile": null
+      "dur": 2.38,
+      "voFile": "vo/l04.wav"
     },
     {
       "id": "l05",
@@ -116,8 +116,8 @@
       "vo": "Tarayıcıdaki sürüm değil, uygulama.",
       "a": "Tarayıcıdaki sürüm değil,",
       "b": "masaüstü uygulaması.",
-      "dur": 1.8,
-      "voFile": null
+      "dur": 1.82,
+      "voFile": "vo/l05.wav"
     },
     {
       "id": "l06",
@@ -125,8 +125,8 @@
       "vo": "İkinci adım: bir klasör aç, adını AI Video Editörü koy.",
       "a": "İkinci adım: bir klasör aç,",
       "b": "adı “AI Video Editörü”.",
-      "dur": 2.8,
-      "voFile": null
+      "dur": 3.42,
+      "voFile": "vo/l06.wav"
     },
     {
       "id": "l07",
@@ -134,8 +134,8 @@
       "vo": "Bütün dosyalar ve reels’ler burada duracak.",
       "a": "Bütün dosyalar ve reels’ler",
       "b": "burada duracak.",
-      "dur": 2,
-      "voFile": null
+      "dur": 2.32,
+      "voFile": "vo/l07.wav"
     },
     {
       "id": "l08",
@@ -143,8 +143,8 @@
       "vo": "Üçüncü adım: yeni bir Claude Code sohbeti aç, Yerel’i seç ve o klasörü göster.",
       "a": "Üçüncü adım: yeni sohbet aç,",
       "b": "“Yerel”i seç, klasörü göster.",
-      "dur": 3.4,
-      "voFile": null
+      "dur": 3.82,
+      "voFile": "vo/l08.wav"
     },
     {
       "id": "l09",
@@ -152,8 +152,8 @@
       "vo": "Artık Claude dosyalarını okuyup yazabiliyor.",
       "a": "Artık Claude dosyalarını",
       "b": "okuyup yazabiliyor.",
-      "dur": 2,
-      "voFile": null
+      "dur": 2.12,
+      "voFile": "vo/l09.wav"
     },
     {
       "id": "l10",
@@ -161,17 +161,17 @@
       "vo": "Dördüncü adım: kurulumumu kontrol et yaz.",
       "a": "Dördüncü adım:",
       "b": "“kurulumumu kontrol et” yaz.",
-      "dur": 2.1,
-      "voFile": null
+      "dur": 2.32,
+      "voFile": "vo/l10.wav"
     },
     {
       "id": "l11",
       "scene": "s4",
-      "vo": "Eksik araç varsa Claude senin onayınla kendisi kurar.",
+      "vo": "Eksik bir araç varsa, Claude senin onayınla kendisi kurar.",
       "a": "Eksik araç varsa Claude",
       "b": "senin onayınla kendisi kurar.",
-      "dur": 2.5,
-      "voFile": null
+      "dur": 2.42,
+      "voFile": "vo/l11.wav"
     },
     {
       "id": "l12",
@@ -179,17 +179,17 @@
       "vo": "Beşinci adım, en eğlencelisi: tek bir satır yaz.",
       "a": "Beşinci adım, en eğlencelisi:",
       "b": "tek bir satır yaz.",
-      "dur": 2.4,
-      "voFile": null
+      "dur": 2.2,
+      "voFile": "vo/l12.wav"
     },
     {
       "id": "l13",
       "scene": "s5",
-      "vo": "Mesela: yağmurda çay neden daha güzel, bunun reels’ini yap.",
+      "vo": "Mesela: yağmurda çay neden daha güzel, bunun videosunu yap.",
       "a": "Mesela:",
       "b": "“Yağmurda çay neden daha güzel?”",
-      "dur": 2.8,
-      "voFile": null
+      "dur": 2.87,
+      "voFile": "vo/l13.wav"
     },
     {
       "id": "l14",
@@ -197,17 +197,17 @@
       "vo": "Senaryo, seslendirme, animasyon ve altyazı otomatik gelir.",
       "a": "Senaryo, seslendirme, animasyon,",
       "b": "altyazı: hepsi otomatik.",
-      "dur": 2.9,
-      "voFile": null
+      "dur": 3.09,
+      "voFile": "vo/l14.wav"
     },
     {
       "id": "l15",
       "scene": "s6",
-      "vo": "Altıncı adım: beğenmediğin yeri söyle, Claude düzeltip render alsın.",
+      "vo": "Altıncı adım: beğenmediğin yeri söyle, Claude düzeltip videoyu çıkarsın.",
       "a": "Altıncı adım: beğenmediğin yeri söyle,",
-      "b": "Claude düzeltip render alsın.",
-      "dur": 3.2,
-      "voFile": null
+      "b": "Claude düzeltip videoyu çıkarsın.",
+      "dur": 3.24,
+      "voFile": "vo/l15.wav"
     },
     {
       "id": "l16",
@@ -215,8 +215,8 @@
       "vo": "Kullandığım prompt ve ayarlar için yorumlara REELS yaz.",
       "a": "Prompt ve ayarlar için",
       "b": "yorumlara “REELS” yaz.",
-      "dur": 2.8,
-      "voFile": null
+      "dur": 2.51,
+      "voFile": "vo/l16.wav"
     }
   ]
 }
