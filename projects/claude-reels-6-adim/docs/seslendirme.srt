@@ -1,0 +1,63 @@
+1
+00:00:00,050 --> 00:00:02,650
+Herkes şu an Claude ile animasyonlu reels yapıyor.
+
+2
+00:00:02,710 --> 00:00:04,810
+Ama kimse nasıl yapıldığını göstermiyor.
+
+3
+00:00:04,870 --> 00:00:06,870
+Bu reels’ler de tam olarak böyle yapıldı.
+
+4
+00:00:07,170 --> 00:00:09,670
+Birinci adım: Claude masaüstü uygulamasını indir.
+
+5
+00:00:09,730 --> 00:00:11,530
+Tarayıcıdaki sürüm değil, uygulama.
+
+6
+00:00:11,830 --> 00:00:14,630
+İkinci adım: bir klasör aç, adını AI Video Editörü koy.
+
+7
+00:00:14,690 --> 00:00:16,690
+Bütün dosyalar ve reels’ler burada duracak.
+
+8
+00:00:16,990 --> 00:00:20,390
+Üçüncü adım: yeni bir Claude Code sohbeti aç, Yerel’i seç ve o klasörü göster.
+
+9
+00:00:20,450 --> 00:00:22,450
+Artık Claude dosyalarını okuyup yazabiliyor.
+
+10
+00:00:22,750 --> 00:00:24,850
+Dördüncü adım: kurulumumu kontrol et yaz.
+
+11
+00:00:24,910 --> 00:00:27,410
+Eksik araç varsa Claude senin onayınla kendisi kurar.
+
+12
+00:00:27,710 --> 00:00:30,110
+Beşinci adım, en eğlencelisi: tek bir satır yaz.
+
+13
+00:00:30,170 --> 00:00:32,970
+Mesela: yağmurda çay neden daha güzel, bunun reels’ini yap.
+
+14
+00:00:33,030 --> 00:00:35,930
+Senaryo, seslendirme, animasyon ve altyazı otomatik gelir.
+
+15
+00:00:36,230 --> 00:00:39,430
+Altıncı adım: beğenmediğin yeri söyle, Claude düzeltip render alsın.
+
+16
+00:00:40,230 --> 00:00:43,030
+Kullandığım prompt ve ayarlar için yorumlara REELS yaz.
