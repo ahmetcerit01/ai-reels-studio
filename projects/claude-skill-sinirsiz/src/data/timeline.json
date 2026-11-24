@@ -72,7 +72,7 @@
       "vo": "Tek bir Claude skill’iyle sınırsız animasyonlu video yapabileceğini biliyor muydun?",
       "a": "Tek bir Claude skill’iyle",
       "b": "sınırsız animasyonlu video?",
-      "dur": 3.82,
+      "dur": 4.24,
       "voFile": "vo/l01.wav"
     },
     {
@@ -90,7 +90,7 @@
       "vo": "Claude’a tek bir fikir veriyorsun, bütün videoyu kodla yazıyor.",
       "a": "Claude’a tek bir fikir veriyorsun,",
       "b": "bütün videoyu kodla yazıyor.",
-      "dur": 3.56,
+      "dur": 3.25,
       "voFile": "vo/l03.wav"
     },
     {
@@ -99,7 +99,7 @@
       "vo": "Video yapay zekâsı değil, kod.",
       "a": "Video yapay zekâsı değil,",
       "b": "kod.",
-      "dur": 1.98,
+      "dur": 1.65,
       "voFile": "vo/l04.wav"
     },
     {
@@ -144,7 +144,7 @@
       "vo": "veri anlatımı,",
       "a": "",
       "b": "veri anlatımı,",
-      "dur": 0.8,
+      "dur": 0.79,
       "voFile": "vo/l09.wav"
     },
     {
@@ -171,7 +171,7 @@
       "vo": "Peki şu an izlediğin bu video? Claude yaptı.",
       "a": "Peki şu an izlediğin bu video?",
       "b": "Claude yaptı.",
-      "dur": 2.5,
+      "dur": 2.31,
       "voFile": "vo/l12.wav"
     },
     {
@@ -189,7 +189,7 @@
       "vo": "On günde sekiz video çıkardık.",
       "a": "On günde",
       "b": "sekiz video çıkardık.",
-      "dur": 1.9,
+      "dur": 1.67,
       "voFile": "vo/l14.wav"
     },
     {

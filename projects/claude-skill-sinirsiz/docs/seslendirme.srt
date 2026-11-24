@@ -1,67 +1,67 @@
 1
-00:00:00,050 --> 00:00:03,870
-Tek bir Claude skill’iyle sınırsız animasyonlu reels yapabileceğini biliyor muydun?
+00:00:00,050 --> 00:00:04,290
+Tek bir Claude skill’iyle sınırsız animasyonlu video yapabileceğini biliyor muydun?
 
 2
-00:00:03,920 --> 00:00:05,430
+00:00:04,340 --> 00:00:05,850
 Nasıl çalıştığını göstereyim.
 
 3
-00:00:05,670 --> 00:00:09,230
-Claude’a tek bir fikir veriyorsun, bütün reels’i kodla yazıyor.
+00:00:06,090 --> 00:00:09,340
+Claude’a tek bir fikir veriyorsun, bütün videoyu kodla yazıyor.
 
 4
-00:00:09,280 --> 00:00:11,260
+00:00:09,390 --> 00:00:11,040
 Video yapay zekâsı değil, kod.
 
 5
-00:00:11,310 --> 00:00:13,090
+00:00:11,090 --> 00:00:12,870
 Yani harcanacak video kredisi yok.
 
 6
-00:00:13,330 --> 00:00:14,380
+00:00:13,110 --> 00:00:14,160
 İstediğin stil olur:
 
 7
-00:00:14,430 --> 00:00:15,810
+00:00:14,210 --> 00:00:15,590
 çocuklar için uyku masalı,
 
 8
-00:00:15,860 --> 00:00:16,800
+00:00:15,640 --> 00:00:16,580
 motion grafik,
 
 9
-00:00:16,850 --> 00:00:17,650
+00:00:16,630 --> 00:00:17,420
 veri anlatımı,
 
 10
-00:00:17,700 --> 00:00:19,900
+00:00:17,470 --> 00:00:19,670
 hatta gerçek bir hikâye anlatan kısa film.
 
 11
-00:00:19,950 --> 00:00:21,250
+00:00:19,720 --> 00:00:21,020
 Her seferinde aynı skill.
 
 12
-00:00:21,490 --> 00:00:23,990
-Peki şu an izlediğin bu reels? Claude yaptı.
+00:00:21,260 --> 00:00:23,570
+Peki şu an izlediğin bu video? Claude yaptı.
 
 13
-00:00:24,040 --> 00:00:26,470
+00:00:23,620 --> 00:00:26,050
 Her kelime, her animasyon, her ses efekti.
 
 14
-00:00:26,710 --> 00:00:28,610
-On günde sekiz reels çıkardık.
+00:00:26,290 --> 00:00:27,960
+On günde sekiz video çıkardık.
 
 15
-00:00:28,660 --> 00:00:30,520
+00:00:28,010 --> 00:00:29,870
 Hiçbiri kurgu programına girmedi.
 
 16
-00:00:30,760 --> 00:00:33,980
+00:00:30,290 --> 00:00:33,510
 Bütün sistemi tek bir rehbere koydum: her prompt, her adım.
 
 17
-00:00:34,220 --> 00:00:36,530
+00:00:33,750 --> 00:00:36,060
 Yorumlara sınırsız yaz, linki göndereyim.
