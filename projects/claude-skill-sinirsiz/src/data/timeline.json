@@ -1,0 +1,38 @@
+{
+  "_aciklama": "TEK ZAMANLAMA KAYNAĞI. Sahne süreleri cümle sürelerinden hesaplanır. Seslendirmeyi public/vo/l01.wav … l17.wav olarak koyup 'npm run fit' çalıştırınca dur ve voFile güncellenir.",
+  "fps": 30,
+  "gapLine": 0.05,
+  "lead": 0.08,
+  "tail": 0.16,
+  "ctaHold": 1.6,
+  "sfxVolume": 0.3,
+  "voVolume": 1,
+  "scenes": [
+    { "id": "hook", "eyebrow": "CLAUDE İLE", "title": "", "em": "", "min": 4.0, "step": 0 },
+    { "id": "kod", "eyebrow": "NASIL ÇALIŞIYOR", "title": "Sadece", "em": "kod", "min": 6.0, "step": 0 },
+    { "id": "stil", "eyebrow": "HER STİL", "title": "Aynı", "em": "skill", "min": 8.0, "step": 0 },
+    { "id": "bu", "eyebrow": "BU VİDEO", "title": "Claude", "em": "yaptı", "min": 4.2, "step": 0 },
+    { "id": "sayi", "eyebrow": "SONUÇ", "title": "10 günde", "em": "8 reels", "min": 4.0, "step": 0 },
+    { "id": "rehber", "eyebrow": "REHBER", "title": "Her şey", "em": "tek yerde", "min": 3.2, "step": 0 },
+    { "id": "final", "eyebrow": "SÖZ SENDE", "title": "Sıra", "em": "sende", "min": 3.2, "step": 0 }
+  ],
+  "lines": [
+    { "id": "l01", "scene": "hook", "vo": "Tek bir Claude skill’iyle sınırsız animasyonlu reels yapabileceğini biliyor muydun?", "a": "Tek bir Claude skill’iyle", "b": "sınırsız animasyonlu reels?", "dur": 3.6, "voFile": null },
+    { "id": "l02", "scene": "hook", "vo": "Nasıl çalıştığını göstereyim.", "a": "Nasıl çalıştığını", "b": "göstereyim.", "dur": 1.4, "voFile": null },
+    { "id": "l03", "scene": "kod", "vo": "Claude’a tek bir fikir veriyorsun, bütün reels’i kodla yazıyor.", "a": "Claude’a tek bir fikir veriyorsun,", "b": "bütün reels’i kodla yazıyor.", "dur": 3.2, "voFile": null },
+    { "id": "l04", "scene": "kod", "vo": "Video yapay zekâsı değil, kod.", "a": "Video yapay zekâsı değil,", "b": "kod.", "dur": 1.6, "voFile": null },
+    { "id": "l05", "scene": "kod", "vo": "Yani harcanacak video kredisi yok.", "a": "Yani harcanacak", "b": "video kredisi yok.", "dur": 1.7, "voFile": null },
+    { "id": "l06", "scene": "stil", "vo": "İstediğin stil olur:", "a": "İstediğin", "b": "stil olur:", "dur": 1.1, "voFile": null },
+    { "id": "l07", "scene": "stil", "vo": "çocuklar için uyku masalı,", "a": "çocuklar için", "b": "uyku masalı,", "dur": 1.3, "voFile": null },
+    { "id": "l08", "scene": "stil", "vo": "motion grafik,", "a": "", "b": "motion grafik,", "dur": 0.8, "voFile": null },
+    { "id": "l09", "scene": "stil", "vo": "veri anlatımı,", "a": "", "b": "veri anlatımı,", "dur": 0.9, "voFile": null },
+    { "id": "l10", "scene": "stil", "vo": "hatta gerçek bir hikâye anlatan kısa film.", "a": "hatta gerçek bir hikâye", "b": "anlatan kısa film.", "dur": 2.0, "voFile": null },
+    { "id": "l11", "scene": "stil", "vo": "Her seferinde aynı skill.", "a": "Her seferinde", "b": "aynı skill.", "dur": 1.3, "voFile": null },
+    { "id": "l12", "scene": "bu", "vo": "Peki şu an izlediğin bu reels? Claude yaptı.", "a": "Peki şu an izlediğin bu reels?", "b": "Claude yaptı.", "dur": 2.4, "voFile": null },
+    { "id": "l13", "scene": "bu", "vo": "Her kelime, her animasyon, her ses efekti.", "a": "Her kelime, her animasyon,", "b": "her ses efekti.", "dur": 2.3, "voFile": null },
+    { "id": "l14", "scene": "sayi", "vo": "On günde sekiz reels çıkardık.", "a": "On günde", "b": "sekiz reels çıkardık.", "dur": 1.7, "voFile": null },
+    { "id": "l15", "scene": "sayi", "vo": "Hiçbiri kurgu programına girmedi.", "a": "Hiçbiri", "b": "kurgu programına girmedi.", "dur": 1.7, "voFile": null },
+    { "id": "l16", "scene": "rehber", "vo": "Bütün sistemi tek bir rehbere koydum: her prompt, her adım.", "a": "Bütün sistemi tek bir rehbere koydum:", "b": "her prompt, her adım.", "dur": 3.0, "voFile": null },
+    { "id": "l17", "scene": "final", "vo": "Yorumlara sınırsız yaz, linki göndereyim.", "a": "Yorumlara “SINIRSIZ” yaz,", "b": "linki göndereyim.", "dur": 2.1, "voFile": null }
+  ]
+}
