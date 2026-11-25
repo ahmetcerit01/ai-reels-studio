@@ -1,0 +1,214 @@
+{
+  "_aciklama": "TEK ZAMANLAMA KAYNAĞI. public/vo/lXX.wav koyup 'npm run fit' çalıştır.",
+  "fps": 30,
+  "gapLine": 0.05,
+  "lead": 0.08,
+  "tail": 0.16,
+  "ctaHold": 1.6,
+  "sfxVolume": 0.3,
+  "voVolume": 1,
+  "scenes": [
+    {
+      "id": "hook",
+      "eyebrow": "BEDAVA VİDEO",
+      "title": "",
+      "em": "",
+      "min": 4,
+      "step": 0
+    },
+    {
+      "id": "s1",
+      "eyebrow": "ADIM 1 / 3",
+      "title": "Programları",
+      "em": "kur",
+      "min": 3.6,
+      "step": 1
+    },
+    {
+      "id": "s2",
+      "eyebrow": "ADIM 2 / 3",
+      "title": "Skill’i",
+      "em": "ekle",
+      "min": 5,
+      "step": 2
+    },
+    {
+      "id": "s3",
+      "eyebrow": "ADIM 3 / 3",
+      "title": "Tek",
+      "em": "cümle",
+      "min": 5,
+      "step": 3
+    },
+    {
+      "id": "sihir",
+      "eyebrow": "SİHİRLİ KISIM",
+      "title": "Tek",
+      "em": "komut",
+      "min": 4.5,
+      "step": 0
+    },
+    {
+      "id": "durust",
+      "eyebrow": "DÜRÜST OLALIM",
+      "title": "Pixar",
+      "em": "mı?",
+      "min": 3.4,
+      "step": 0
+    },
+    {
+      "id": "final",
+      "eyebrow": "SÖZ SENDE",
+      "title": "Sıra",
+      "em": "sende",
+      "min": 3.2,
+      "step": 0
+    }
+  ],
+  "lines": [
+    {
+      "id": "l01",
+      "scene": "hook",
+      "vo": "Yapay zekâ video araçlarına para ödemeyi bırak.",
+      "a": "Yapay zekâ video araçlarına",
+      "b": "para ödemeyi bırak.",
+      "dur": 2.6,
+      "voFile": null
+    },
+    {
+      "id": "l02",
+      "scene": "hook",
+      "vo": "Bu videoyu ücretsiz yapabilirsin.",
+      "a": "Bu videoyu",
+      "b": "ücretsiz yapabilirsin.",
+      "dur": 1.7,
+      "voFile": null
+    },
+    {
+      "id": "l03",
+      "scene": "hook",
+      "vo": "Çünkü bu sadece kod. Kodu da Claude yazıyor.",
+      "a": "Çünkü bu sadece kod.",
+      "b": "Kodu da Claude yazıyor.",
+      "dur": 2.6,
+      "voFile": null
+    },
+    {
+      "id": "l04",
+      "scene": "s1",
+      "vo": "Bir: Node.js ve FFmpeg kur. İkisi de ücretsiz.",
+      "a": "Bir: Node.js ve FFmpeg kur.",
+      "b": "İkisi de ücretsiz.",
+      "dur": 2.8,
+      "voFile": null
+    },
+    {
+      "id": "l05",
+      "scene": "s1",
+      "vo": "Kodu, kendi bilgisayarında videoya çeviriyorlar.",
+      "a": "Kodu, kendi bilgisayarında",
+      "b": "videoya çeviriyorlar.",
+      "dur": 2.4,
+      "voFile": null
+    },
+    {
+      "id": "l06",
+      "scene": "s2",
+      "vo": "İki: animasyon skill’ini Claude’a ekle.",
+      "a": "İki: animasyon skill’ini",
+      "b": "Claude’a ekle.",
+      "dur": 2.2,
+      "voFile": null
+    },
+    {
+      "id": "l07",
+      "scene": "s2",
+      "vo": "Ücretsiz plan yeterli.",
+      "a": "",
+      "b": "Ücretsiz plan yeterli.",
+      "dur": 1.2,
+      "voFile": null
+    },
+    {
+      "id": "l08",
+      "scene": "s2",
+      "vo": "Dosya oluşturma açık olsun, sonra skill’i yükle.",
+      "a": "Dosya oluşturma açık olsun,",
+      "b": "sonra skill’i yükle.",
+      "dur": 2.6,
+      "voFile": null
+    },
+    {
+      "id": "l09",
+      "scene": "s3",
+      "vo": "Üç: Claude’a konunu tek cümleyle yaz.",
+      "a": "Üç: Claude’a konunu",
+      "b": "tek cümleyle yaz.",
+      "dur": 2.2,
+      "voFile": null
+    },
+    {
+      "id": "l10",
+      "scene": "s3",
+      "vo": "Hikâyeyi, sahneleri, her hareketi yazıyor ve sana tek bir dosya veriyor.",
+      "a": "Hikâyeyi, sahneleri, her hareketi yazıyor",
+      "b": "ve sana tek bir dosya veriyor.",
+      "dur": 3.8,
+      "voFile": null
+    },
+    {
+      "id": "l11",
+      "scene": "sihir",
+      "vo": "Şimdi sihirli kısım:",
+      "a": "Şimdi",
+      "b": "sihirli kısım:",
+      "dur": 1.2,
+      "voFile": null
+    },
+    {
+      "id": "l12",
+      "scene": "sihir",
+      "vo": "Terminalde tek bir komut.",
+      "a": "Terminalde",
+      "b": "tek bir komut.",
+      "dur": 1.4,
+      "voFile": null
+    },
+    {
+      "id": "l13",
+      "scene": "sihir",
+      "vo": "Birkaç dakika sonra, o dosya bitmiş bir video.",
+      "a": "Birkaç dakika sonra,",
+      "b": "o dosya bitmiş bir video.",
+      "dur": 2.6,
+      "voFile": null
+    },
+    {
+      "id": "l14",
+      "scene": "durust",
+      "vo": "Pixar mı? Henüz değil.",
+      "a": "Pixar mı?",
+      "b": "Henüz değil.",
+      "dur": 1.6,
+      "voFile": null
+    },
+    {
+      "id": "l15",
+      "scene": "durust",
+      "vo": "Ama ücretsiz ve tamamen senin.",
+      "a": "Ama ücretsiz",
+      "b": "ve tamamen senin.",
+      "dur": 1.8,
+      "voFile": null
+    },
+    {
+      "id": "l16",
+      "scene": "final",
+      "vo": "Yorumlara animasyon yaz, skill’i ve rehberi göndereyim.",
+      "a": "Yorumlara “ANİMASYON” yaz,",
+      "b": "skill’i ve rehberi göndereyim.",
+      "dur": 3.0,
+      "voFile": null
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "ucretsiz-animasyon",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ücretsiz animasyon: 3 adım (Remotion)",
+  "scripts": {
+    "studio": "remotion studio",
+    "sfx": "python3 scripts/make-sfx.py",
+    "fit": "node scripts/fit-to-vo.mjs",
+    "render": "remotion render Reels out/ucretsiz_animasyon.mp4",
+    "cover": "remotion still Kapak out/ucretsiz_animasyon_cover.png",
+    "audio": "remotion render Reels out/ses_efektleri.wav --codec=wav",
+    "all": "npm run render && npm run cover && npm run audio"
+  },
+  "dependencies": {
+    "@fontsource/instrument-serif": "5.2.5",
+    "@fontsource/inter": "5.2.5",
+    "@fontsource/inter-tight": "5.2.5",
+    "@fontsource/jetbrains-mono": "5.2.5",
+    "@remotion/bundler": "4.0.543",
+    "@remotion/cli": "4.0.543",
+    "@remotion/renderer": "4.0.543",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "remotion": "4.0.543"
+  },
+  "devDependencies": { "@types/react": "19.1.8", "typescript": "5.8.3" }
+}
