@@ -163,8 +163,8 @@ export const S3: React.FC = () => {
           </div>}
         </div>}
       </Win>
-      <Sfx at={2} name="pop" vol={0.5} /><Sfx at={typeAt} name="tap" vol={0.6} /><Sfx at={typeEnd + 2} name="whoosh" vol={0.45} />
-      {items.map(([, at], i) => <Sfx key={i} at={at} name="tick" vol={0.6} />)}<Sfx at={fileAt} name="impact" vol={0.75} />
+      <Sfx at={2} name="pop" vol={0.5} /><Sfx at={typeAt} name="tap" vol={0.6} /><Sfx at={typeEnd - 8} name="whoosh" vol={0.2} />
+      {items.map(([, at], i) => <Sfx key={i} at={at + 6} name="tick" vol={0.3} />)}<Sfx at={fileAt} name="impact" vol={0.75} />
     </AbsoluteFill>
   );
 };

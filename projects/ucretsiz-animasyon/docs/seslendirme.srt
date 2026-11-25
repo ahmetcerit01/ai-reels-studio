@@ -1,0 +1,63 @@
+1
+00:00:00,050 --> 00:00:02,290
+Yapay zekâ video araçlarına para ödemeyi bırak.
+
+2
+00:00:02,340 --> 00:00:04,150
+Bu videoyu ücretsiz yapabilirsin.
+
+3
+00:00:04,200 --> 00:00:06,380
+Çünkü bu sadece kod. Kodu da Claude yazıyor.
+
+4
+00:00:06,620 --> 00:00:10,350
+Bir: Node.js ve FFmpeg kur. İkisi de ücretsiz.
+
+5
+00:00:10,400 --> 00:00:12,750
+Kodu, kendi bilgisayarında videoya çeviriyorlar.
+
+6
+00:00:12,990 --> 00:00:15,090
+İki: animasyon skill’ini Claude’a ekle.
+
+7
+00:00:15,140 --> 00:00:16,600
+Ücretsiz plan yeterli.
+
+8
+00:00:16,650 --> 00:00:20,050
+Ayarlardan dosya özelliğini aç, sonra skill dosyasını yükle.
+
+9
+00:00:20,290 --> 00:00:22,750
+Üç: Claude’a ne istediğini tek cümleyle yaz.
+
+10
+00:00:22,800 --> 00:00:26,320
+Hikâyeyi, sahneleri, her hareketi yazıyor ve sana tek bir dosya veriyor.
+
+11
+00:00:26,560 --> 00:00:27,850
+Şimdi sihirli kısım:
+
+12
+00:00:27,900 --> 00:00:29,410
+Terminalde tek bir komut.
+
+13
+00:00:29,460 --> 00:00:31,890
+Birkaç dakika sonra, o dosya bitmiş bir video.
+
+14
+00:00:32,130 --> 00:00:33,610
+Pixar mı? Henüz değil.
+
+15
+00:00:33,660 --> 00:00:35,270
+Ama ücretsiz ve tamamen senin.
+
+16
+00:00:35,530 --> 00:00:38,780
+Yorumlara animasyon yaz, skill’i ve rehberi göndereyim.

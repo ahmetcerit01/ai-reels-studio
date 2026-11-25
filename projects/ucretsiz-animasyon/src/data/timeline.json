@@ -72,8 +72,8 @@
       "vo": "Yapay zekâ video araçlarına para ödemeyi bırak.",
       "a": "Yapay zekâ video araçlarına",
       "b": "para ödemeyi bırak.",
-      "dur": 2.6,
-      "voFile": null
+      "dur": 2.24,
+      "voFile": "vo/l01.wav"
     },
     {
       "id": "l02",
@@ -81,8 +81,8 @@
       "vo": "Bu videoyu ücretsiz yapabilirsin.",
       "a": "Bu videoyu",
       "b": "ücretsiz yapabilirsin.",
-      "dur": 1.7,
-      "voFile": null
+      "dur": 1.81,
+      "voFile": "vo/l02.wav"
     },
     {
       "id": "l03",
@@ -90,8 +90,8 @@
       "vo": "Çünkü bu sadece kod. Kodu da Claude yazıyor.",
       "a": "Çünkü bu sadece kod.",
       "b": "Kodu da Claude yazıyor.",
-      "dur": 2.6,
-      "voFile": null
+      "dur": 2.18,
+      "voFile": "vo/l03.wav"
     },
     {
       "id": "l04",
@@ -99,8 +99,8 @@
       "vo": "Bir: Node.js ve FFmpeg kur. İkisi de ücretsiz.",
       "a": "Bir: Node.js ve FFmpeg kur.",
       "b": "İkisi de ücretsiz.",
-      "dur": 2.8,
-      "voFile": null
+      "dur": 3.73,
+      "voFile": "vo/l04.wav"
     },
     {
       "id": "l05",
@@ -108,8 +108,8 @@
       "vo": "Kodu, kendi bilgisayarında videoya çeviriyorlar.",
       "a": "Kodu, kendi bilgisayarında",
       "b": "videoya çeviriyorlar.",
-      "dur": 2.4,
-      "voFile": null
+      "dur": 2.35,
+      "voFile": "vo/l05.wav"
     },
     {
       "id": "l06",
@@ -117,8 +117,8 @@
       "vo": "İki: animasyon skill’ini Claude’a ekle.",
       "a": "İki: animasyon skill’ini",
       "b": "Claude’a ekle.",
-      "dur": 2.2,
-      "voFile": null
+      "dur": 2.1,
+      "voFile": "vo/l06.wav"
     },
     {
       "id": "l07",
@@ -126,26 +126,26 @@
       "vo": "Ücretsiz plan yeterli.",
       "a": "",
       "b": "Ücretsiz plan yeterli.",
-      "dur": 1.2,
-      "voFile": null
+      "dur": 1.46,
+      "voFile": "vo/l07.wav"
     },
     {
       "id": "l08",
       "scene": "s2",
-      "vo": "Dosya oluşturma açık olsun, sonra skill’i yükle.",
-      "a": "Dosya oluşturma açık olsun,",
-      "b": "sonra skill’i yükle.",
-      "dur": 2.6,
-      "voFile": null
+      "vo": "Ayarlardan dosya özelliğini aç, sonra skill dosyasını yükle.",
+      "a": "Ayarlardan dosya özelliğini aç,",
+      "b": "sonra skill dosyasını yükle.",
+      "dur": 3.4,
+      "voFile": "vo/l08.wav"
     },
     {
       "id": "l09",
       "scene": "s3",
-      "vo": "Üç: Claude’a konunu tek cümleyle yaz.",
-      "a": "Üç: Claude’a konunu",
+      "vo": "Üç: Claude’a ne istediğini tek cümleyle yaz.",
+      "a": "Üç: Claude’a ne istediğini",
       "b": "tek cümleyle yaz.",
-      "dur": 2.2,
-      "voFile": null
+      "dur": 2.46,
+      "voFile": "vo/l09.wav"
     },
     {
       "id": "l10",
@@ -153,8 +153,8 @@
       "vo": "Hikâyeyi, sahneleri, her hareketi yazıyor ve sana tek bir dosya veriyor.",
       "a": "Hikâyeyi, sahneleri, her hareketi yazıyor",
       "b": "ve sana tek bir dosya veriyor.",
-      "dur": 3.8,
-      "voFile": null
+      "dur": 3.52,
+      "voFile": "vo/l10.wav"
     },
     {
       "id": "l11",
@@ -162,8 +162,8 @@
       "vo": "Şimdi sihirli kısım:",
       "a": "Şimdi",
       "b": "sihirli kısım:",
-      "dur": 1.2,
-      "voFile": null
+      "dur": 1.29,
+      "voFile": "vo/l11.wav"
     },
     {
       "id": "l12",
@@ -171,8 +171,8 @@
       "vo": "Terminalde tek bir komut.",
       "a": "Terminalde",
       "b": "tek bir komut.",
-      "dur": 1.4,
-      "voFile": null
+      "dur": 1.51,
+      "voFile": "vo/l12.wav"
     },
     {
       "id": "l13",
@@ -180,8 +180,8 @@
       "vo": "Birkaç dakika sonra, o dosya bitmiş bir video.",
       "a": "Birkaç dakika sonra,",
       "b": "o dosya bitmiş bir video.",
-      "dur": 2.6,
-      "voFile": null
+      "dur": 2.43,
+      "voFile": "vo/l13.wav"
     },
     {
       "id": "l14",
@@ -189,8 +189,8 @@
       "vo": "Pixar mı? Henüz değil.",
       "a": "Pixar mı?",
       "b": "Henüz değil.",
-      "dur": 1.6,
-      "voFile": null
+      "dur": 1.48,
+      "voFile": "vo/l14.wav"
     },
     {
       "id": "l15",
@@ -198,8 +198,8 @@
       "vo": "Ama ücretsiz ve tamamen senin.",
       "a": "Ama ücretsiz",
       "b": "ve tamamen senin.",
-      "dur": 1.8,
-      "voFile": null
+      "dur": 1.61,
+      "voFile": "vo/l15.wav"
     },
     {
       "id": "l16",
@@ -207,8 +207,8 @@
       "vo": "Yorumlara animasyon yaz, skill’i ve rehberi göndereyim.",
       "a": "Yorumlara “ANİMASYON” yaz,",
       "b": "skill’i ve rehberi göndereyim.",
-      "dur": 3.0,
-      "voFile": null
+      "dur": 3.25,
+      "voFile": "vo/l16.wav"
     }
   ]
 }
